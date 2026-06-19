@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+
+  <title>Visualização | BPMN CBMDF</title>
+
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/diagram-js.css" />
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-js.css" />
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css" />
+  <link rel="stylesheet" href="./style.css" />
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Demonstração do Simulador BPMN CBMDF" />
+  <meta property="og:title" content="Visualização | BPMN CBMDF" />
+  <meta property="og:url" content="https://munizigor.github.io/bpmn-cbmdf" />
+  <meta property="og:description" content="Simulador de Token e Modelador de Processos BPMN para o CBMDF." />
+  <meta property="og:image" content="https://bpmn-io.github.io/bpmn-js-token-simulation/screenshot.png" />
+
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 290px;
+      background-color: #f8f9fa;
+      border-right: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: #bd1a1a; /* Vermelho Institucional CBMDF */
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      letter-spacing: 0.5px;
+    }
+
+    .process-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    /* Estilizando as tags 'a' para se comportarem como botões na lista */
+    .process-link {
+      display: block;
+      padding: 14px 20px;
+      border-bottom: 1px solid #e9ecef;
+      text-decoration: none;
+      font-size: 0.9em;
+      color: #495057;
+      transition: all 0.2s ease;
+    }
+
+    .process-link:hover {
+      background-color: #e8ecef;
+      color: #bd1a1a;
+      padding-left: 25px; /* Efeito sutil de deslocamento */
+    }
+
+    .main-content {
+      flex-grow: 1;
+      position: relative;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA LATERAL ESQUERDA -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      Repositório de Processos
+    </div>
+    <ul class="process-list" role="list">
+      <!-- Lista automática dos arquivos reais dentro de example/resources/ -->
+    </ul>
+  </div>
+
+  <!-- ÁREA DO MODELADOR/SIMULADOR -->
+  <div class="main-content">
+    <div class="canvas-parent">
+      <div class="canvas" id="canvas">
+        <div class="drop-message"><strong>Dica:</strong> Selecione um processo ao lado ou arraste um diagrama aqui</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- O script compilado gerado pelo Webpack -->
+  <script src="./dist/viewer.js"></script>
+
+  <script>
+    (function () {
+      const list = document.querySelector('.process-list');
+      if (!list) return;
+      list.innerHTML = '<li class="process-link">Carregando...</li>';
+
+      // Espera-se um arquivo ./resources/manifest.json contendo um array de nomes de arquivos, ex:
+      // ["Acionamento de Transbordo.bpmn", "OutroDiagrama.bpmn"]
+      fetch('./resources/_manifest.json')
+        .then(res => {
+          if (!res.ok) throw new Error('Manifest not found');
+          return res.json();
+        })
+        .then(files => {
+          list.innerHTML = '';
+          if (!files || !files.length) {
+            list.innerHTML = '<li class="process-link">Nenhum diagrama encontrado.</li>';
+            return;
+          }
+          files.forEach(f => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.className = 'process-link';
+            a.href = '?diagram=./resources/' + encodeURIComponent(f);
+            a.textContent = f.replace(/\.bpmn$/i, '');
+            li.appendChild(a);
+            list.appendChild(li);
+          });
+        })
+        .catch(() => {
+          // Fallback simples: reexibe o item estático se não houver manifest
+          list.innerHTML = '<li><a href="?diagram=./resources/Acionamento de Transbordo.bpmn" class="process-link">Acionamento de Transbordo</a></li>';
+        });
+    })();
+  </script>
+
+</body>
+</html>
