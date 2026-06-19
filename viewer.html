@@ -114,7 +114,7 @@
 
       // Espera-se um arquivo ./resources/manifest.json contendo um array de nomes de arquivos, ex:
       // ["Acionamento de Transbordo.bpmn", "OutroDiagrama.bpmn"]
-      fetch('./resources/_manifest.json')
+      fetch('./resources/manifest/manifest.json')
         .then(res => {
           if (!res.ok) throw new Error('Manifest not found');
           return res.json();
