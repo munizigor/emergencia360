@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+
+  <title>Emergência 360</title>
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Plataforma de modelagem e simulação de processos operacionais do CBMDF baseada em BPMN." />
+
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Emergência 360" />
+  <meta property="og:title" content="Emergência 360 — Simulador de Processos BPMN" />
+  <meta property="og:url" content="https://munizigor.github.io/bpmn-cbmdf" />
+  <meta property="og:description" content="Plataforma de modelagem e simulação de processos operacionais do CBMDF baseada em BPMN." />
+  <meta property="og:image" content="https://bpmn-io.github.io/bpmn-js-token-simulation/screenshot.png" />
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red:    #c0001a;
+      --red-dk: #8a0013;
+      --gold:   #f5a800;
+      --dark:   #1a1a1a;
+      --gray:   #4a4a4a;
+      --light:  #f4f4f4;
+      --white:  #ffffff;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--red);
+      color: var(--white);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      height: 64px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.35);
+      flex-shrink: 0;
+    }
+
+    header .logo-mark {
+      width: 40px;
+      height: 40px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--red-dk);
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    header .tagline {
+      margin-left: auto;
+      font-size: .78rem;
+      opacity: .85;
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--red-dk) 0%, var(--red) 60%, #d94020 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 2rem 3.5rem;
+      flex-shrink: 0;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--red-dk);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .25rem .75rem;
+      border-radius: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      opacity: .9;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Cards ── */
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 3rem 2rem;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      padding: 2.25rem 2rem;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s ease, box-shadow .2s ease;
+      border-top: 4px solid transparent;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.15);
+    }
+
+    .card.viewer {
+      border-top-color: var(--red);
+    }
+
+    .card.modeler {
+      border-top-color: var(--gold);
+    }
+
+    .card-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.75rem;
+    }
+
+    .card.viewer .card-icon {
+      background: #fdecea;
+      color: var(--red);
+    }
+
+    .card.modeler .card-icon {
+      background: #fff8e1;
+      color: #b07800;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+
+    .card p {
+      font-size: .9rem;
+      color: var(--gray);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card .btn {
+      margin-top: 1.5rem;
+      padding: .6rem 1.5rem;
+      border-radius: 6px;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background .15s ease;
+    }
+
+    .card.viewer .btn {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .card.viewer .btn:hover {
+      background: var(--red-dk);
+    }
+
+    .card.modeler .btn {
+      background: var(--gold);
+      color: var(--red-dk);
+    }
+
+    .card.modeler .btn:hover {
+      background: #d99300;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: .78rem;
+      color: #888;
+      border-top: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-mark">E3</div>
+    <h1>Emergência 360</h1>
+    <div class="tagline">CBMDF — Corpo de Bombeiros<br>Militar do Distrito Federal</div>
+  </header>
+
+  <section class="hero">
+    <div class="badge">Plataforma Operacional</div>
+    <h2>Modele e simule<br>processos de emergência</h2>
+    <p>Visualize fluxos operacionais em BPMN com simulação de tokens ou crie e edite diagramas de processos do CBMDF.</p>
+  </section>
+
+  <main class="cards">
+
+    <a class="card viewer" href="viewer.html">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </div>
+      <h3>Modo Visualização</h3>
+      <p>Carregue um diagrama BPMN e execute a simulação de tokens para acompanhar o fluxo de processos operacionais.</p>
+      <span class="btn">Abrir Visualizador</span>
+    </a>
+
+    <a class="card modeler" href="modeler.html">
+      <div class="card-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+      </div>
+      <h3>Modo Edição</h3>
+      <p>Crie e modifique diagramas BPMN com o editor completo. Salve e compartilhe os processos modelados.</p>
+      <span class="btn">Abrir Editor</span>
+    </a>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Emergência 360 &mdash; CBMDF. Desenvolvido sobre <a href="https://github.com/bpmn-io/bpmn-js" style="color:#888">bpmn-js</a>.
+  </footer>
+
+</body>
+</html>

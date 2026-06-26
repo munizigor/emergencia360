@@ -1,49 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
 
-  <title>Modeler | BPMN Token Simulation Demo</title>
+  <title>Visualização | BPMN CBMDF</title>
 
   <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/diagram-js.css" />
   <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-js.css" />
   <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
   <link rel="stylesheet" href="./dist/vendor/bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css" />
-  <link rel="stylesheet" href="./dist/vendor/bpmn-js-properties-panel/assets/properties-panel.css" />
   <link rel="stylesheet" href="./style.css" />
 
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="bpmn-js-token-simulation demo" />
-  <meta property="og:title" content="Modeler | BPMN Token Simulation Demo" />
-  <meta property="og:url" content="https://bpmn-io.github.io/bpmn-js-token-simulation/modeler.html" />
-  <meta property="og:description" content="Simulate your BPMN diagrams with bpmn-js-token-simulation. Understand and learn BPMN execution semantics one token at a time." />
+  <meta property="og:site_name" content="Demonstração do Simulador BPMN CBMDF" />
+  <meta property="og:title" content="Visualização | BPMN CBMDF" />
+  <meta property="og:url" content="https://munizigor.github.io/bpmn-cbmdf" />
+  <meta property="og:description" content="Simulador de Token e Modelador de Processos BPMN para o CBMDF." />
   <meta property="og:image" content="https://bpmn-io.github.io/bpmn-js-token-simulation/screenshot.png" />
+
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 290px;
+      background-color: #f8f9fa;
+      border-right: 1px solid #dee2e6;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: #bd1a1a; /* Vermelho Institucional CBMDF */
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      letter-spacing: 0.5px;
+    }
+
+    .process-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    /* Estilizando as tags 'a' para se comportarem como botões na lista */
+    .process-link {
+      display: block;
+      padding: 14px 20px;
+      border-bottom: 1px solid #e9ecef;
+      text-decoration: none;
+      font-size: 0.9em;
+      color: #495057;
+      transition: all 0.2s ease;
+    }
+
+    .process-link:hover {
+      background-color: #e8ecef;
+      color: #bd1a1a;
+      padding-left: 25px; /* Efeito sutil de deslocamento */
+    }
+
+    .main-content {
+      flex-grow: 1;
+      position: relative;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="canvas-parent">
-    <div class="canvas" id="canvas">
-      <div class="drop-message"><strong>Hint:</strong> Drop a diagram to open</div>
-
-      <div class="links top-links">
-        <a href="https://github.com/bpmn-io/bpmn-js-token-simulation" class="link" target="_blank" rel="noopener">View on GitHub</a>
-      </div>
+  <!-- BARRA LATERAL ESQUERDA -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      EMERGÊNCIA 360 | Integração CBMDF-SAMU
     </div>
+    <ul class="process-list" role="list">
+      <!-- Lista automática dos arquivos reais dentro de example/resources/ -->
+    </ul>
+  </div>
 
-    <div class="properties-panel" id="properties-panel">
-      <div class="properties-panel-resizer" id="properties-panel-resizer" title="Toggle properties panel" draggable="true">
-         <div class="properties-panel-resize-handle"></div>
+  <!-- ÁREA DO MODELADOR/SIMULADOR -->
+  <div class="main-content">
+    <div class="canvas-parent">
+      <div class="canvas" id="canvas">
+        <div class="drop-message"><strong>Dica:</strong> Selecione um processo ao lado ou arraste um diagrama aqui</div>
       </div>
     </div>
   </div>
 
-  <div class="links bottom-links">
-    <button class="link" id="download-button">Download Diagram</button>
-  </div>
-
+  <!-- O script compilado gerado pelo Webpack -->
   <script src="./dist/modeler.js"></script>
+
+  <script>
+  (function () {
+    const listContainer = document.querySelector('.process-list');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = '<div style="padding: 20px; color: #666;">Carregando index...</div>';
+
+    // Busca o arquivo Markdown de índice
+    fetch('./resources/manifest/index.md')
+      .then(res => {
+        if (!res.ok) throw new Error('Índice Markdown não encontrado');
+        return res.text();
+      })
+      .then(markdownText => {
+        listContainer.innerHTML = ''; // Limpa o container
+
+        // Divide o arquivo linha por linha
+        const linhas = markdownText.split('\n');
+
+        linhas.forEach(linha => {
+          const linhaTrim = linha.trim();
+
+          // 1. Se for um título de Seção (ex: ## Seção)
+          if (linhaTrim.startsWith('##')) {
+            const tituloSeacao = linhaTrim.replace(/^##\s+/, '');
+            const divTitulo = document.createElement('div');
+            divTitulo.className = 'sidebar-section-title';
+            divTitulo.textContent = tituloSeacao;
+            
+            // Estilização básica para o título da seção
+            divTitulo.style.padding = '15px 20px 5px 20px';
+            divTitulo.style.fontWeight = 'bold';
+            divTitulo.style.fontSize = '0.85em';
+            divTitulo.style.color = '#bd1a1a';
+            divTitulo.style.textTransform = 'uppercase';
+            divTitulo.style.letterSpacing = '0.5px';
+            
+            listContainer.appendChild(divTitulo);
+          } 
+          
+          // 2. Se for um item de lista com link Markdown (ex: - [Texto](link.bpmn))
+          else if (linhaTrim.startsWith('-') && linhaTrim.includes('[') && linhaTrim.includes('](')) {
+            // Expressão regular para capturar o [Texto] e o (Link)
+            const match = linhaTrim.match(/-\s+\[(.*?)\]\((.*?)\)/);
+            
+            if (match) {
+              const textoAmigavel = match[1];
+              const nomeArquivo = match[2];
+
+              const li = document.createElement('div'); // Container do item
+              const a = document.createElement('a');
+              
+              a.className = 'process-link';
+              a.href = '?diagram=./resources/' + encodeURIComponent(nomeArquivo);
+              a.textContent = textoAmigavel;
+              
+              // Mantém uma margem esquerda para dar o efeito de recuo/indentação da lista
+              a.style.paddingLeft = '30px'; 
+
+              li.appendChild(a);
+              listContainer.appendChild(li);
+            }
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        listContainer.innerHTML = '<div style="padding: 20px; color: red;">Erro ao carregar menu.</div>';
+      });
+  })();
+</script>
+
 </body>
 </html>

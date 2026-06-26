@@ -6,7 +6,7 @@ import fileDrop from 'file-drops';
 
 import fileOpen from 'file-open';
 
-import exampleXML from '../resources/Atendimento e Despacho.bpmn';
+import exampleXML from '../resources/bpmn/Atendimento e Despacho.bpmn';
 
 
 const url = new URL(window.location.href);

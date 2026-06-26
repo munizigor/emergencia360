@@ -1,56 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="utf-8">
 
-  <title>BPMN Token Simulation Demo</title>
+  <title>Mapeamento | Emergência 360 (CBMDF - SAMU)</title>
 
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/diagram-js.css" />
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-js.css" />
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" />
+  <link rel="stylesheet" href="./dist/vendor/bpmn-js-token-simulation/assets/css/bpmn-js-token-simulation.css" />
   <link rel="stylesheet" href="./style.css" />
 
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="resources/img/favicon.jpeg" />
 
-  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale" content="pt_BR" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="bpmn-js-token-simulation demo" />
-  <meta property="og:title" content="BPMN Token Simulation Demo" />
-  <meta property="og:url" content="https://bpmn-io.github.io/bpmn-js-token-simulation/index.html" />
-  <meta property="og:description" content="Simulate your BPMN diagrams with bpmn-js-token-simulation. Understand and learn BPMN execution semantics one token at a time." />
+  <meta property="og:site_name" content="Plataforma Emergência 360" />
+  <meta property="og:title" content="Mapeamento de Processos | Emergência 360" />
+  <meta property="og:url" content="https://munizigor.github.io/bpmn-cbmdf" />
+  <meta property="og:description" content="Simulador e visualizador de processos BPMN da integração entre o 193 (CBMDF) e o 192 (SAMU)." />
   <meta property="og:image" content="https://bpmn-io.github.io/bpmn-js-token-simulation/screenshot.png" />
 
   <style>
-    html,
     body {
-      height: 100%;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: Arial, sans-serif;
       overflow: hidden;
     }
 
-    body {
+    .sidebar {
+      width: 290px;
+      background-color: #f8f9fa;
+      border-right: 1px solid #dee2e6;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Arial', sans-serif;
+      box-sizing: border-box;
+      z-index: 10;
     }
 
-    body {
-      color: #555;
+    .sidebar-header {
+      padding: 0; /* Removido o padding estático para acomodar a imagem de forma fluida */
+      background-color: #bd1a1a; /* Vermelho Institucional */
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      letter-spacing: 0.5px;
+      display: flex;
+      flex-direction: column;
     }
 
-    .link {
-      display: inline-block;
-      margin: 10px;
+    /* Nova classe para estilizar e ajustar a imagem de cabeçalho da sidebar */
+    .sidebar-header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Div interna para o texto do cabeçalho abaixo ou sobreposto à imagem, se necessário */
+    .sidebar-header-title {
+      padding: 15px 20px;
+    }
+
+    .process-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .process-link {
+      display: block;
+      padding: 14px 20px;
+      border-bottom: 1px solid #e9ecef;
+      text-decoration: none;
+      font-size: 0.9em;
+      color: #495057;
+      transition: all 0.2s ease;
+    }
+
+    .process-link:hover {
+      background-color: #e8ecef;
+      color: #bd1a1a;
+      padding-left: 25px;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      position: relative;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
-  <h1>bpmn-js-token-simulation</h1>
 
-  <p>
-    A token simulation extension for <a href="https://github.com/bpmn-io/bpmn-js">bpmn-js</a>. Check out the project <a href="https://github.com/bpmn-io/bpmn-js-token-simulation">on GitHub</a>.
-  </p>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="resources/img/sidebar-header.jpeg" alt="Logo Emergência 360">
+      <div class="sidebar-header-title">
+        Processos Integrados CBMDF e SAMU <br>
+        <!-- <span style="font-size: 0.8em; font-weight: normal; opacity: 0.9;">Integração 193 (CBMDF) e 192 (SAMU)</span> -->
+      </div>
+    </div>
+    <ul class="process-list" role="list">
+      </ul>
+  </div>
 
-  <p style="margin-top: 3em">
-    <a class="link" href="viewer.html">Open Viewer</a> or <a class="link" href="modeler.html">Open Modeler</a>
-  </p>
+  <div class="main-content">
+    <div class="canvas-parent">
+      <div class="canvas" id="canvas">
+        <div class="drop-message"><strong>Dica:</strong> Selecione um fluxo integrado ao lado ou arraste um diagrama aqui</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./dist/viewer.js"></script>
+
+  <script>
+  (function () {
+    const listContainer = document.querySelector('.process-list');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = '<div style="padding: 20px; color: #666;">Carregando fluxos de integração...</div>';
+
+    // Busca o arquivo Markdown de índice
+    fetch('./resources/manifest/index.md')
+      .then(res => {
+        if (!res.ok) throw new Error('Índice de processos não encontrado');
+        return res.text();
+      })
+      .then(markdownText => {
+        listContainer.innerHTML = ''; 
+
+        // Divide o arquivo linha por linha
+        const linhas = markdownText.split('\n');
+
+        linhas.forEach(linha => {
+          const linhaTrim = inline_adjust = linha.trim();
+
+          // 1. Se for um título de Seção (ex: ## Seção)
+          if (linhaTrim.startsWith('##')) {
+            const tituloSeacao = linhaTrim.replace(/^##\s+/, '');
+            const divTitulo = document.createElement('div');
+            divTitulo.className = 'sidebar-section-title';
+            divTitulo.textContent = tituloSeacao;
+            
+            divTitulo.style.padding = '15px 20px 5px 20px';
+            divTitulo.style.fontWeight = 'bold';
+            divTitulo.style.fontSize = '0.85em';
+            divTitulo.style.color = '#bd1a1a';
+            divTitulo.style.textTransform = 'uppercase';
+            divTitulo.style.letterSpacing = '0.5px';
+            
+            listContainer.appendChild(divTitulo);
+          } 
+          
+          // 2. Se for um item de lista com link Markdown (ex: - [Texto](link.bpmn))
+          else if (linhaTrim.startsWith('-') && linhaTrim.includes('[') && linhaTrim.includes('](')) {
+            const match = linhaTrim.match(/-\s+\[(.*?)\]\((.*?)\)/);
+            
+            if (match) {
+              const textoAmigavel = match[1];
+              const nomeArquivo = match[2];
+
+              const li = document.createElement('div'); 
+              const a = document.createElement('a');
+              
+              a.className = 'process-link';
+              a.href = '?diagram=./resources/bpmn/' + encodeURIComponent(nomeArquivo);
+              a.textContent = textoAmigavel;
+              
+              a.style.paddingLeft = '30px'; 
+
+              li.appendChild(a);
+              listContainer.appendChild(li);
+            }
+          }
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        listContainer.innerHTML = '<div style="padding: 20px; color: red;">Erro ao carregar o menu de processos.</div>';
+      });
+  })();
+</script>
+
 </body>
 </html>
