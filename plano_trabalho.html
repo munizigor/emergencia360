@@ -1,385 +1,920 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emergência 360 — CBMDF - SAMU/DF</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emergência 360 — CBMDF - SAMU/DF</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
-    :root {
-      --gdf-green:    #2d7a2d;
-      --gdf-green-dk: #1a5c1a;
-      --gdf-green-lt: #e8f5e8;
-      --aph-red:      #c0392b;
-      --aph-red-lt:   #fdf0ef;
-      --aph-red-dk:   #96281b;
-      --fire-orange:  #e05c1a;
-      --fire-lt:      #fff4ee;
-      --ink:    #1a202c;
-      --slate:  #4a5568;
-      --cloud:  #718096;
-      --fog:    #f7f8fa;
-      --line:   #e5e7eb;
-      --white:  #ffffff;
-      --font: 'Inter', 'Arial', sans-serif;
-      --nav-h: 56px;
-    }
+      :root {
+        --gdf-green: #2d7a2d;
+        --gdf-green-dk: #1a5c1a;
+        --gdf-green-lt: #e8f5e8;
+        --aph-red: #c0392b;
+        --aph-red-lt: #fdf0ef;
+        --aph-red-dk: #96281b;
+        --fire-orange: #e05c1a;
+        --fire-lt: #fff4ee;
+        --ink: #1a202c;
+        --slate: #4a5568;
+        --cloud: #718096;
+        --fog: #f7f8fa;
+        --line: #e5e7eb;
+        --white: #ffffff;
+        --font: "Inter", "Arial", sans-serif;
+        --nav-h: 56px;
+      }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); font-size: 15px; line-height: 1.65; color: var(--ink); background: var(--white); }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.65;
+        color: var(--ink);
+        background: var(--white);
+      }
 
-    /* ── GDF UTIL BAR ── */
-    .gdf-util-bar {
-      background: var(--gdf-green-dk);
-      height: 34px;
-      display: flex; align-items: center;
-      padding: 0 32px;
-      justify-content: space-between;
-    }
-    .gdf-util-left { display: flex; align-items: center; gap: 0; }
-    .gdf-util-label {
-      font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,0.75);
-      letter-spacing: 0.02em; padding: 0 12px;
-      border-right: 1px solid rgba(255,255,255,0.2);
-    }
-    .gdf-util-label:first-child {
-      font-weight: 700; color: white; padding-left: 0;
-    }
-    .gdf-util-label:last-child { border-right: none; }
-    .gdf-util-right { display: flex; align-items: center; gap: 20px; }
-    .gdf-util-link { font-size: 11px; color: rgba(255,255,255,0.65); text-decoration: none; }
-    .gdf-util-link:hover { color: white; }
-    .gdf-shield { width: 20px; height: 20px; }
+      /* ── GDF UTIL BAR ── */
+      .gdf-util-bar {
+        background: var(--gdf-green-dk);
+        height: 34px;
+        display: flex;
+        align-items: center;
+        padding: 0 32px;
+        justify-content: space-between;
+      }
+      .gdf-util-left {
+        display: flex;
+        align-items: center;
+        gap: 0;
+      }
+      .gdf-util-label {
+        font-size: 11.5px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.75);
+        letter-spacing: 0.02em;
+        padding: 0 12px;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .gdf-util-label:first-child {
+        font-weight: 700;
+        color: white;
+        padding-left: 0;
+      }
+      .gdf-util-label:last-child {
+        border-right: none;
+      }
+      .gdf-util-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .gdf-util-link {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+      }
+      .gdf-util-link:hover {
+        color: white;
+      }
+      .gdf-shield {
+        width: 20px;
+        height: 20px;
+      }
 
-    /* ── MAIN NAV ── */
-    .main-nav {
-      background: var(--white);
-      border-bottom: 1px solid var(--line);
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    }
-    .nav-inner {
-      display: flex; align-items: center; flex-wrap: wrap;
-      min-height: var(--nav-h);
-      padding: 10px 32px;
-      gap: 12px;
-    }
-    .nav-brand { display: flex; align-items: center; margin-right: 16px; text-decoration: none; flex-shrink: 0; }
-
-    /* Project logo slot */
-    .logo-e360 {
-      height: 38px; min-width: 110px;
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-    .logo-e360 img {
-      height: 100%;
-      width: 100%;
-      object-fit: contain;
-      display: block;
-    }
-    .logo-e360-hint {
-      position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
-      font-size: 7px; background: var(--gdf-green); color: white;
-      padding: 1px 5px; border-radius: 2px; white-space: nowrap; letter-spacing: 0.05em;
-    }
-    .logo-e360-text { font-size: 12px; font-weight: 800; color: var(--gdf-green-dk); line-height: 1; }
-    .logo-e360-sub  { font-size: 7px; color: var(--gdf-green); letter-spacing: 0.06em; font-weight: 600; }
-
-    /* Partner logo slots */
-    .nav-partners { display: flex; align-items: center; gap: 10px; padding-left: 18px; border-left: 1px solid var(--line); margin-right: auto; }
-    .partner-logo {
-      height: 34px; padding: 0 8px;
-      border: 2px dashed var(--line);
-      border-radius: 4px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
-      position: relative;
-    }
-    .partner-logo.cbmdf { border-color: var(--fire-orange); background: var(--fire-lt); }
-    .partner-logo.samu  { border-color: var(--aph-red);    background: var(--aph-red-lt); }
-    .partner-hint {
-      position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
-      font-size: 7px; padding: 1px 5px; border-radius: 2px;
-      white-space: nowrap; letter-spacing: 0.05em; color: white;
-    }
-    .cbmdf .partner-hint { background: var(--fire-orange); }
-    .samu  .partner-hint { background: var(--aph-red); }
-    .partner-name { font-size: 10.5px; font-weight: 800; line-height: 1; }
-    .cbmdf .partner-name { color: var(--fire-orange); }
-    .samu  .partner-name { color: var(--aph-red); }
-    .partner-sub { font-size: 7.5px; font-weight: 500; letter-spacing: 0.04em; line-height: 1; }
-    .cbmdf .partner-sub { color: #a04010; }
-    .samu  .partner-sub { color: var(--aph-red-dk); }
-
-    /* Nav links */
-    .nav-links {
-      display: flex; align-items: center; flex-wrap: wrap;
-      gap: 4px; justify-content: flex-end; min-height: 36px;
-    }
-    .nav-link {
-      display: flex; align-items: center; min-height: 32px;
-      padding: 0 12px; font-size: 13px; font-weight: 500; color: var(--slate);
-      text-decoration: none; border-bottom: 3px solid transparent;
-      transition: color 0.15s, border-color 0.15s; white-space: nowrap;
-    }
-    .nav-link:hover { color: var(--aph-red); border-bottom-color: var(--aph-red-lt); }
-    .nav-link.active { color: var(--aph-red); border-bottom-color: var(--aph-red); font-weight: 600; }
-    .nav-link.cta {
-      margin-left: 8px;
-      background: var(--aph-red); color: white !important;
-      border-radius: 4px; height: 32px; padding: 0 14px;
-      border-bottom: none !important; font-weight: 600; font-size: 12.5px;
-      align-self: center;
-    }
-    .nav-link.cta:hover { background: var(--aph-red-dk); }
-
-    /* ── PAGE WRAP ── */
-    .page-wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-
-    /* ── HERO ── */
-    .hero {
-      background: #1a0505;
-      position: relative; overflow: hidden;
-    }
-    .hero::after {
-      content: "";
-      position: absolute; top: 0; left: 0; right: 0; height: 5px;
-      background: linear-gradient(90deg, var(--aph-red) 0 33.3%, var(--gdf-green) 33.3% 66.6%, var(--fire-orange) 66.6% 100%);
-    }
-    .hero::before {
-      content: "360";
-      position: absolute; right: -20px; bottom: -20px;
-      font-size: clamp(140px, 20vw, 280px); font-weight: 800;
-      color: rgba(255,255,255,0.03); line-height: 1; letter-spacing: -6px;
-      pointer-events: none; user-select: none;
-    }
-    .hero-inner { max-width: 1080px; margin: 0 auto; padding: 60px 32px 56px; position: relative; z-index: 1; }
-    .hero-logo {
-      display: block; height: 256px; width: auto;
-      margin-bottom: 24px;
-      filter: brightness(1.05) drop-shadow(0 2px 8px rgba(0,0,0,0.45));
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; margin-bottom: 18px;
-    }
-    .pulse-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--aph-red);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
-    .hero-eyebrow-text { color: rgba(255,255,255,0.65); }
-    .hero-title {
-      font-size: clamp(26px, 4.2vw, 46px); font-weight: 800; color: white;
-      line-height: 1.1; letter-spacing: -1px; max-width: 640px; margin-bottom: 16px;
-    }
-    .hero-title .red { color: var(--aph-red); }
-    .hero-sub {
-      font-size: 15px; color: rgba(255,255,255,0.58); max-width: 530px;
-      margin-bottom: 32px; line-height: 1.75;
-    }
-    .hero-sub strong { color: rgba(255,255,255,0.88); }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 44px; }
-    .tag {
-      font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 100px;
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.65);
-    }
-    .hero-kpis {
-      display: grid; grid-template-columns: repeat(3, auto);
-      gap: 0; width: fit-content;
-      border: 1px solid rgba(255,255,255,0.11); border-radius: 8px; overflow: hidden;
-    }
-    .kpi { padding: 18px 26px; border-right: 1px solid rgba(255,255,255,0.09); }
-    .kpi:last-child { border-right: none; }
-    .kpi-num { font-size: 32px; font-weight: 800; color: white; line-height: 1; margin-bottom: 4px; letter-spacing: -1px; }
-    .kpi-num .r { color: var(--aph-red); }
-    .kpi-num .g { color: #5dbf5d; }
-    .kpi-num sup { font-size: 16px; vertical-align: super; }
-    .kpi-label { font-size: 11px; color: rgba(255,255,255,0.48); line-height: 1.4; max-width: 120px; }
-
-    /* ── SECTION ── */
-    .section { padding: 54px 0; }
-    .section-alt { background: var(--fog); }
-    .section-header { margin-bottom: 34px; }
-    .eyebrow {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.10em;
-      text-transform: uppercase; color: var(--aph-red); margin-bottom: 8px;
-    }
-    .eyebrow-bar { display: block; width: 18px; height: 2px; background: var(--aph-red); flex-shrink: 0; }
-    .eyebrow.green { color: var(--gdf-green); }
-    .eyebrow.green .eyebrow-bar { background: var(--gdf-green); }
-    .section-title {
-      font-size: clamp(19px, 2.8vw, 25px); font-weight: 800; color: var(--aph-red-dk);
-      letter-spacing: -0.3px; line-height: 1.2;
-    }
-    .section-lead { margin-top: 9px; font-size: 14px; color: var(--slate); max-width: 600px; line-height: 1.75; }
-
-    /* ── RESULTS STRIP ── */
-    .results-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--line); }
-    .result-card { background: white; padding: 24px 22px 20px; position: relative; }
-    .result-card::before { content:""; position:absolute; top:0; left:0; right:0; height:4px; }
-    .result-card:nth-child(1)::before { background: var(--aph-red); }
-    .result-card:nth-child(2)::before { background: var(--gdf-green); }
-    .result-card:nth-child(3)::before { background: var(--fire-orange); }
-    .result-num { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cloud); margin-bottom: 8px; }
-    .result-title { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 7px; line-height: 1.3; }
-    .result-desc { font-size: 13px; color: var(--slate); line-height: 1.65; }
-
-    /* ── INSIGHT ── */
-    .insight-box {
-      background: var(--aph-red-lt); border: 1px solid #f5b7b1;
-      border-left: 4px solid var(--aph-red); border-radius: 0 6px 6px 0;
-      padding: 14px 18px; margin-bottom: 24px; font-size: 13.5px; color: #5c1a14; line-height: 1.65;
-    }
-    .insight-box strong { color: var(--aph-red); }
-
-    /* ── TABLES ── */
-    .table-wrap { overflow-x: auto; margin-bottom: 26px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    thead tr { background: var(--aph-red-dk); }
-    th { color: white; font-weight: 600; font-size: 11px; letter-spacing: 0.04em; text-align: left; padding: 10px 13px; }
-    td { padding: 10px 13px; border-bottom: 1px solid var(--line); color: #2d3748; vertical-align: top; line-height: 1.6; }
-    tbody tr:last-child td { border-bottom: none; }
-    tbody tr:hover { background: var(--aph-red-lt); }
-
-    /* ── PHASES ── */
-    .phases { display: flex; flex-direction: column; }
-    .phase { display: grid; grid-template-columns: 42px 1fr; }
-    .phase-spine { display: flex; flex-direction: column; align-items: center; padding-top: 2px; }
-    .phase-dot {
-      width: 28px; height: 28px; border-radius: 50%;
-      color: white; display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; flex-shrink: 0; z-index: 1;
-    }
-    .phase:nth-child(1) .phase-dot { background: var(--aph-red); }
-    .phase:nth-child(2) .phase-dot { background: #c0501a; }
-    .phase:nth-child(3) .phase-dot { background: #8b1a1a; }
-    .phase:nth-child(4) .phase-dot { background: #a52828; }
-    .phase:nth-child(5) .phase-dot { background: #6b1010; }
-    .phase-line { flex:1; width:2px; background: var(--line); margin: 4px 0; }
-    .phase:last-child .phase-line { display: none; }
-    .phase-body { padding: 0 0 34px 18px; }
-    .phase-period { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cloud); margin-bottom: 2px; }
-    .phase-name { font-size: 16px; font-weight: 800; color: var(--aph-red-dk); margin-bottom: 10px; }
-    .phase-items { list-style: none; padding: 0; margin: 0 0 12px; border-top: 1px solid var(--line); }
-    .phase-items li { font-size: 13px; color: var(--slate); padding: 6px 0 6px 16px; position: relative; border-bottom: 1px solid var(--line); }
-    .phase-items li::before { content:"›"; position:absolute; left:2px; color: var(--aph-red); font-weight:700; font-size:15px; line-height:1.25; }
-    .phase-deliverable {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--aph-red-lt); border: 1px solid #f5b7b1;
-      border-radius: 4px; padding: 4px 11px; font-size: 12px; font-weight: 600; color: var(--aph-red-dk);
-    }
-
-    /* ── TIMELINE ── */
-    .tl-wrap { overflow-x: auto; }
-    .tl-table { min-width: 660px; }
-    .tl-table th { font-size: 10px; text-align: center; padding: 8px 3px; }
-    .tl-table td { text-align: center; padding: 7px 2px; }
-    td.tl-name { text-align: left; font-size: 12px; font-weight: 500; padding-left: 13px; white-space: nowrap; }
-    .tl-bar { display: inline-block; width: 24px; height: 13px; border-radius: 3px; }
-    .tl-full  { background: var(--aph-red); }
-    .tl-start { background: var(--fire-orange); opacity:.8; }
-    .tl-gov   { background: var(--aph-red); opacity:.8; }
-
-    /* ── RISK BADGES ── */
-    .badge {
-      display: inline-block; font-size: 10px; font-weight: 700;
-      border-radius: 4px; padding: 2px 7px; text-transform: uppercase;
-      letter-spacing: 0.04em; white-space: nowrap;
-    }
-    .badge-alta    { background: #fdecea; color: #c0392b; border: 1px solid #f5b7b1; }
-    .badge-media   { background: #fff8ec; color: #d35400; border: 1px solid #f8d07a; }
-    .badge-critico { background: #c0392b; color: white; }
-    .badge-alto    { background: #fdecea; color: #c0392b; border: 1px solid #f5b7b1; }
-    .badge-medio   { background: #fff8ec; color: #d35400; border: 1px solid #f8d07a; }
-
-    /* ── GOV CARDS ── */
-    .gov-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
-    .gov-card {
-      background: white; border: 1px solid var(--line);
-      border-top: 3px solid var(--aph-red); border-radius: 0 0 6px 6px;
-      padding: 20px 20px 16px;
-    }
-    .gov-icon { font-size: 20px; margin-bottom: 9px; }
-    .gov-title { font-size: 14px; font-weight: 700; color: var(--aph-red-dk); margin-bottom: 7px; }
-    .gov-text { font-size: 13px; color: var(--slate); line-height: 1.65; }
-
-    /* ── SUB-HEADING ── */
-    .sub-h { font-size: 14.5px; font-weight: 700; color: var(--aph-red-dk); margin: 24px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
-
-    /* ── FOOTER ── */
-    .footer {
-      background: #180505; color: rgba(255,255,255,0.48);
-      padding: 28px 32px;
-      display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;
-      font-size: 11.5px; line-height: 1.8;
-    }
-    .footer strong { color: rgba(255,255,255,0.82); }
-    .footer-seal { display: flex; align-items: center; gap: 7px; justify-content: flex-end; margin-bottom: 4px; }
-    .seal-dot { width: 6px; height: 6px; border-radius: 50%; }
-
-    @media (max-width: 700px) {
-      .hero-inner, .page-wrap { padding-left: 16px; padding-right: 16px; }
-      .hero-kpis { grid-template-columns: 1fr 1fr; }
-      .results-strip { grid-template-columns: 1fr; }
-      .gov-grid { grid-template-columns: 1fr; }
+      /* ── MAIN NAV ── */
+      .main-nav {
+        background: var(--white);
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+      }
       .nav-inner {
-        padding: 10px 12px;
-        justify-content: center;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        min-height: var(--nav-h);
+        padding: 10px 32px;
+        gap: 12px;
       }
       .nav-brand {
-        margin-right: 0;
-        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        margin-right: 16px;
+        text-decoration: none;
+        flex-shrink: 0;
       }
-      .nav-links {
-        width: 100%;
+
+      /* Project logo slot */
+      .logo-e360 {
+        height: 38px;
+        min-width: 110px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
         justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .logo-e360 img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      .logo-e360-hint {
+        position: absolute;
+        top: -9px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 7px;
+        background: var(--gdf-green);
+        color: white;
+        padding: 1px 5px;
+        border-radius: 2px;
+        white-space: nowrap;
+        letter-spacing: 0.05em;
+      }
+      .logo-e360-text {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--gdf-green-dk);
+        line-height: 1;
+      }
+      .logo-e360-sub {
+        font-size: 7px;
+        color: var(--gdf-green);
+        letter-spacing: 0.06em;
+        font-weight: 600;
+      }
+
+      /* Partner logo slots */
+      .nav-partners {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-left: 18px;
+        border-left: 1px solid var(--line);
+        margin-right: auto;
+      }
+      .partner-logo {
+        height: 34px;
+        padding: 0 8px;
+        border: 2px dashed var(--line);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        position: relative;
+      }
+      .partner-logo.cbmdf {
+        border-color: var(--fire-orange);
+        background: var(--fire-lt);
+      }
+      .partner-logo.samu {
+        border-color: var(--aph-red);
+        background: var(--aph-red-lt);
+      }
+      .partner-hint {
+        position: absolute;
+        top: -9px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 7px;
+        padding: 1px 5px;
+        border-radius: 2px;
+        white-space: nowrap;
+        letter-spacing: 0.05em;
+        color: white;
+      }
+      .cbmdf .partner-hint {
+        background: var(--fire-orange);
+      }
+      .samu .partner-hint {
+        background: var(--aph-red);
+      }
+      .partner-name {
+        font-size: 10.5px;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .cbmdf .partner-name {
+        color: var(--fire-orange);
+      }
+      .samu .partner-name {
+        color: var(--aph-red);
+      }
+      .partner-sub {
+        font-size: 7.5px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        line-height: 1;
+      }
+      .cbmdf .partner-sub {
+        color: #a04010;
+      }
+      .samu .partner-sub {
+        color: var(--aph-red-dk);
+      }
+
+      /* Nav links */
+      .nav-links {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: flex-end;
+        min-height: 36px;
+      }
+      .nav-link {
+        display: flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--slate);
+        text-decoration: none;
+        border-bottom: 3px solid transparent;
+        transition:
+          color 0.15s,
+          border-color 0.15s;
+        white-space: nowrap;
+      }
+      .nav-link:hover {
+        color: var(--aph-red);
+        border-bottom-color: var(--aph-red-lt);
+      }
+      .nav-link.active {
+        color: var(--aph-red);
+        border-bottom-color: var(--aph-red);
+        font-weight: 600;
       }
       .nav-link.cta {
-        width: 100%;
-        justify-content: center;
-        margin-top: 4px;
+        margin-left: 8px;
+        background: var(--aph-red);
+        color: white !important;
+        border-radius: 4px;
+        height: 32px;
+        padding: 0 14px;
+        border-bottom: none !important;
+        font-weight: 600;
+        font-size: 12.5px;
+        align-self: center;
       }
-      .gdf-util-bar { padding: 0 12px; }
-      .footer { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
+      .nav-link.cta:hover {
+        background: var(--aph-red-dk);
+      }
 
-<!-- GDF UTILITY BAR -->
-<div class="gdf-util-bar">
-  <div class="gdf-util-left">
-    <img src="https://www.df.gov.br/wp-conteudo/themes/templategdf/img/logogdf_1.svg" alt="GDF" class="gdf-shield">
-    <span class="gdf-util-label">Governo do Distrito Federal</span>
-    <span class="gdf-util-label">Secretaria de Segurança Pública</span>
-    <span class="gdf-util-label">Secretaria de Saúde</span>
-  </div>
-</div>
+      /* ── PAGE WRAP ── */
+      .page-wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
 
-<!-- MAIN NAV -->
-<nav class="main-nav">
-  <div class="nav-inner">
+      /* ── HERO ── */
+      .hero {
+        background: #1a0505;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(
+          90deg,
+          var(--aph-red) 0 33.3%,
+          var(--gdf-green) 33.3% 66.6%,
+          var(--fire-orange) 66.6% 100%
+        );
+      }
+      .hero::before {
+        content: "360";
+        position: absolute;
+        right: -20px;
+        bottom: -20px;
+        font-size: clamp(140px, 20vw, 280px);
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.03);
+        line-height: 1;
+        letter-spacing: -6px;
+        pointer-events: none;
+        user-select: none;
+      }
+      .hero-inner {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 60px 32px 56px;
+        position: relative;
+        z-index: 1;
+      }
+      .hero-logo {
+        display: block;
+        height: 256px;
+        width: auto;
+        margin-bottom: 24px;
+        filter: brightness(1.05) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+      }
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .pulse-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--aph-red);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.3);
+        }
+      }
+      .hero-eyebrow-text {
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .hero-title {
+        font-size: clamp(26px, 4.2vw, 46px);
+        font-weight: 800;
+        color: white;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        max-width: 640px;
+        margin-bottom: 16px;
+      }
+      .hero-title .red {
+        color: var(--aph-red);
+      }
+      .hero-sub {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.58);
+        max-width: 530px;
+        margin-bottom: 32px;
+        line-height: 1.75;
+      }
+      .hero-sub strong {
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 44px;
+      }
+      .tag {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 4px 11px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .hero-kpis {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 0;
+        width: fit-content;
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .kpi {
+        padding: 18px 26px;
+        border-right: 1px solid rgba(255, 255, 255, 0.09);
+      }
+      .kpi:last-child {
+        border-right: none;
+      }
+      .kpi-num {
+        font-size: 32px;
+        font-weight: 800;
+        color: white;
+        line-height: 1;
+        margin-bottom: 4px;
+        letter-spacing: -1px;
+      }
+      .kpi-num .r {
+        color: var(--aph-red);
+      }
+      .kpi-num .g {
+        color: #5dbf5d;
+      }
+      .kpi-num sup {
+        font-size: 16px;
+        vertical-align: super;
+      }
+      .kpi-label {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.48);
+        line-height: 1.4;
+        max-width: 120px;
+      }
 
-    <!-- Emergência 360 logo slot -->
-    <a href="/" class="nav-brand">
-      <div class="logo-e360">
-        <img src="resources/img/sidebar-header.jpeg" alt="Logo Emergência 360">
-        <!-- <span class="logo-e360-hint">logo do projeto</span>
+      /* ── SECTION ── */
+      .section {
+        padding: 54px 0;
+      }
+      .section-alt {
+        background: var(--fog);
+      }
+      .section-header {
+        margin-bottom: 34px;
+      }
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--aph-red);
+        margin-bottom: 8px;
+      }
+      .eyebrow-bar {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--aph-red);
+        flex-shrink: 0;
+      }
+      .eyebrow.green {
+        color: var(--gdf-green);
+      }
+      .eyebrow.green .eyebrow-bar {
+        background: var(--gdf-green);
+      }
+      .section-title {
+        font-size: clamp(19px, 2.8vw, 25px);
+        font-weight: 800;
+        color: var(--aph-red-dk);
+        letter-spacing: -0.3px;
+        line-height: 1.2;
+      }
+      .section-lead {
+        margin-top: 9px;
+        font-size: 14px;
+        color: var(--slate);
+        max-width: 600px;
+        line-height: 1.75;
+      }
+
+      /* ── RESULTS STRIP ── */
+      .results-strip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        background: var(--line);
+      }
+      .result-card {
+        background: white;
+        padding: 24px 22px 20px;
+        position: relative;
+      }
+      .result-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+      }
+      .result-card:nth-child(1)::before {
+        background: var(--aph-red);
+      }
+      .result-card:nth-child(2)::before {
+        background: var(--gdf-green);
+      }
+      .result-card:nth-child(3)::before {
+        background: var(--fire-orange);
+      }
+      .result-num {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cloud);
+        margin-bottom: 8px;
+      }
+      .result-title {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 7px;
+        line-height: 1.3;
+      }
+      .result-desc {
+        font-size: 13px;
+        color: var(--slate);
+        line-height: 1.65;
+      }
+
+      /* ── INSIGHT ── */
+      .insight-box {
+        background: var(--aph-red-lt);
+        border: 1px solid #f5b7b1;
+        border-left: 4px solid var(--aph-red);
+        border-radius: 0 6px 6px 0;
+        padding: 14px 18px;
+        margin-bottom: 24px;
+        font-size: 13.5px;
+        color: #5c1a14;
+        line-height: 1.65;
+      }
+      .insight-box strong {
+        color: var(--aph-red);
+      }
+
+      /* ── TABLES ── */
+      .table-wrap {
+        overflow-x: auto;
+        margin-bottom: 26px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      thead tr {
+        background: var(--aph-red-dk);
+      }
+      th {
+        color: white;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-align: left;
+        padding: 10px 13px;
+      }
+      td {
+        padding: 10px 13px;
+        border-bottom: 1px solid var(--line);
+        color: #2d3748;
+        vertical-align: top;
+        line-height: 1.6;
+      }
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: var(--aph-red-lt);
+      }
+
+      /* ── PHASES ── */
+      .phases {
+        display: flex;
+        flex-direction: column;
+      }
+      .phase {
+        display: grid;
+        grid-template-columns: 42px 1fr;
+      }
+      .phase-spine {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2px;
+      }
+      .phase-dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 800;
+        flex-shrink: 0;
+        z-index: 1;
+      }
+      .phase:nth-child(1) .phase-dot {
+        background: var(--aph-red);
+      }
+      .phase:nth-child(2) .phase-dot {
+        background: #c0501a;
+      }
+      .phase:nth-child(3) .phase-dot {
+        background: #8b1a1a;
+      }
+      .phase:nth-child(4) .phase-dot {
+        background: #a52828;
+      }
+      .phase:nth-child(5) .phase-dot {
+        background: #6b1010;
+      }
+      .phase-line {
+        flex: 1;
+        width: 2px;
+        background: var(--line);
+        margin: 4px 0;
+      }
+      .phase:last-child .phase-line {
+        display: none;
+      }
+      .phase-body {
+        padding: 0 0 34px 18px;
+      }
+      .phase-period {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--cloud);
+        margin-bottom: 2px;
+      }
+      .phase-name {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--aph-red-dk);
+        margin-bottom: 10px;
+      }
+      .phase-items {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 12px;
+        border-top: 1px solid var(--line);
+      }
+      .phase-items li {
+        font-size: 13px;
+        color: var(--slate);
+        padding: 6px 0 6px 16px;
+        position: relative;
+        border-bottom: 1px solid var(--line);
+      }
+      .phase-items li::before {
+        content: "›";
+        position: absolute;
+        left: 2px;
+        color: var(--aph-red);
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 1.25;
+      }
+      .phase-deliverable {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--aph-red-lt);
+        border: 1px solid #f5b7b1;
+        border-radius: 4px;
+        padding: 4px 11px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--aph-red-dk);
+      }
+
+      /* ── TIMELINE ── */
+      .tl-wrap {
+        overflow-x: auto;
+      }
+      .tl-table {
+        min-width: 660px;
+      }
+      .tl-table th {
+        font-size: 10px;
+        text-align: center;
+        padding: 8px 3px;
+      }
+      .tl-table td {
+        text-align: center;
+        padding: 7px 2px;
+      }
+      td.tl-name {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 500;
+        padding-left: 13px;
+        white-space: nowrap;
+      }
+      .tl-bar {
+        display: inline-block;
+        width: 24px;
+        height: 13px;
+        border-radius: 3px;
+      }
+      .tl-full {
+        background: var(--aph-red);
+      }
+      .tl-start {
+        background: var(--fire-orange);
+        opacity: 0.8;
+      }
+      .tl-gov {
+        background: var(--aph-red);
+        opacity: 0.8;
+      }
+
+      /* ── RISK BADGES ── */
+      .badge {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        border-radius: 4px;
+        padding: 2px 7px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+      }
+      .badge-alta {
+        background: #fdecea;
+        color: #c0392b;
+        border: 1px solid #f5b7b1;
+      }
+      .badge-media {
+        background: #fff8ec;
+        color: #d35400;
+        border: 1px solid #f8d07a;
+      }
+      .badge-critico {
+        background: #c0392b;
+        color: white;
+      }
+      .badge-alto {
+        background: #fdecea;
+        color: #c0392b;
+        border: 1px solid #f5b7b1;
+      }
+      .badge-medio {
+        background: #fff8ec;
+        color: #d35400;
+        border: 1px solid #f8d07a;
+      }
+
+      /* ── GOV CARDS ── */
+      .gov-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .gov-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--aph-red);
+        border-radius: 0 0 6px 6px;
+        padding: 20px 20px 16px;
+      }
+      .gov-icon {
+        font-size: 20px;
+        margin-bottom: 9px;
+      }
+      .gov-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--aph-red-dk);
+        margin-bottom: 7px;
+      }
+      .gov-text {
+        font-size: 13px;
+        color: var(--slate);
+        line-height: 1.65;
+      }
+
+      /* ── SUB-HEADING ── */
+      .sub-h {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--aph-red-dk);
+        margin: 24px 0 12px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        background: #180505;
+        color: rgba(255, 255, 255, 0.48);
+        padding: 28px 32px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 20px;
+        align-items: center;
+        font-size: 11.5px;
+        line-height: 1.8;
+      }
+      .footer strong {
+        color: rgba(255, 255, 255, 0.82);
+      }
+      .footer-seal {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        justify-content: flex-end;
+        margin-bottom: 4px;
+      }
+      .seal-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      @media (max-width: 700px) {
+        .hero-inner,
+        .page-wrap {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+        .hero-kpis {
+          grid-template-columns: 1fr 1fr;
+        }
+        .results-strip {
+          grid-template-columns: 1fr;
+        }
+        .gov-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-inner {
+          padding: 10px 12px;
+          justify-content: center;
+        }
+        .nav-brand {
+          margin-right: 0;
+          margin-bottom: 4px;
+        }
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+        }
+        .nav-link.cta {
+          width: 100%;
+          justify-content: center;
+          margin-top: 4px;
+        }
+        .gdf-util-bar {
+          padding: 0 12px;
+        }
+        .footer {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- GDF UTILITY BAR -->
+    <div class="gdf-util-bar">
+      <div class="gdf-util-left">
+        <!-- <img
+          src="https://www.df.gov.br/wp-conteudo/themes/templategdf/img/logogdf_1.svg"
+          alt="GDF"
+          class="gdf-shield"
+        /> -->
+        <span class="gdf-util-label">Governo do Distrito Federal</span>
+        <span class="gdf-util-label">Secretaria de Segurança Pública</span>
+        <span class="gdf-util-label">Secretaria de Saúde</span>
+      </div>
+    </div>
+
+    <!-- MAIN NAV -->
+    <nav class="main-nav">
+      <div class="nav-inner">
+        <!-- Emergência 360 logo slot -->
+        <a href="/" class="nav-brand">
+          <div class="logo-e360">
+            <!-- <img
+              src="resources/img/sidebar-header.jpeg"
+              alt="Logo Emergência 360"
+            /> -->
+            <!-- <span class="logo-e360-hint">logo do projeto</span>
         <span class="logo-e360-text">E° 360</span>
         <span class="logo-e360-sub">EMERGÊNCIA 360</span> -->
-      </div>
-    </a>
+          </div>
+        </a>
 
-    <!-- Partner logo slots -->
-    <!-- <div class="nav-partners">
+        <!-- Partner logo slots -->
+        <!-- <div class="nav-partners">
       <div class="partner-logo cbmdf">
         <span class="partner-hint">logo CBMDF</span>
         <span class="partner-name">CBMDF</span>
@@ -392,39 +927,47 @@
       </div>
     </div> -->
 
-    <!-- Links -->
-    <div class="nav-links">
-      <a href="#sumario" class="nav-link">Visão Geral</a>
-      <!-- <a href="#interop"  class="nav-link">Análise Atual</a> -->
-      <a href="#governanca"   class="nav-link">Governança</a>
-      <a href="#escopo"   class="nav-link">Escopo</a>
-      <a href="#fases"    class="nav-link">Plano de Trabalho</a>
-      <a href="#riscos"   class="nav-link">Riscos</a>
-      <a href="viewer.html" class="nav-link cta">🗺 Mapeamento de Processos</a>
-    </div>
+        <!-- Links -->
+        <div class="nav-links">
+          <a href="#sumario" class="nav-link">Visão Geral</a>
+          <!-- <a href="#interop"  class="nav-link">Análise Atual</a> -->
+          <a href="#governanca" class="nav-link">Governança</a>
+          <a href="#escopo" class="nav-link">Escopo</a>
+          <a href="#fases" class="nav-link">Plano de Trabalho</a>
+          <a href="#riscos" class="nav-link">Riscos</a>
+          <a
+            href="viewer.html?diagram=./resources/bpmn%2FAtendimento%20e%20Despacho.bpmn"
+            class="nav-link cta"
+            >🗺 Mapeamento de Processos</a
+          >
+        </div>
+      </div>
+    </nav>
 
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="sumario">
-  <div class="hero-inner">
-    <img src="resources/img/sidebar-header.jpeg" alt="Emergência 360" class="hero-logo">
-    <div class="hero-eyebrow">
-      <!-- <span class="pulse-dot"></span> -->
-      <!-- <span class="hero-eyebrow-text">Plano de Trabalho — Interoperabilidade APH · v1.0 · Jun 2026</span> -->
-    </div>
-    <h1 class="hero-title">
-      <!-- Um cidadão.<br> -->
-      Para o cidadão, <br>
-      <span class="red">cada segundo</span> conta.
-    </h1>
-    <p class="hero-sub">
-      O <strong>Emergência 360°</strong> integra o CBMDF (193) e o SAMU/DF (192) em tempo real —
-      da triagem ao despacho, com deduplicação automática, consciência situacional compartilhada
-      e otimização no emprego de recursos.
-    </p>
-    <!-- <div class="hero-tags">
+    <!-- HERO -->
+    <section class="hero" id="sumario">
+      <div class="hero-inner">
+        <!-- <img
+          src="resources/img/sidebar-header.jpeg"
+          alt="Emergência 360"
+          class="hero-logo"
+        /> -->
+        <div class="hero-eyebrow">
+          <!-- <span class="pulse-dot"></span> -->
+          <!-- <span class="hero-eyebrow-text">Plano de Trabalho — Interoperabilidade APH · v1.0 · Jun 2026</span> -->
+        </div>
+        <h1 class="hero-title">
+          <!-- Um cidadão.<br> -->
+          Para o cidadão, <br />
+          <span class="red">cada segundo</span> conta.
+        </h1>
+        <p class="hero-sub">
+          O <strong>Emergência 360°</strong> integra o CBMDF (193) e o SAMU/DF
+          (192) em tempo real — da triagem ao despacho, com deduplicação
+          automática, consciência situacional compartilhada e otimização no
+          emprego de recursos.
+        </p>
+        <!-- <div class="hero-tags">
       <span class="tag">193 · CBMDF</span>
       <span class="tag">192 · SAMU/DF</span>
       <span class="tag">HL7 FHIR R4 · RNDS</span>
@@ -433,44 +976,61 @@
       <span class="tag">Lei 14.133/2021</span>
       <span class="tag">5 fases · 6 meses</span>
     </div> -->
-    <div class="hero-kpis">
-      <div class="kpi">
-        <div class="kpi-num"><span class="r">0</span>×</div>
-        <div class="kpi-label">Meta de duplicidade de empenho pós-Go-Live</div>
+        <div class="hero-kpis">
+          <div class="kpi">
+            <div class="kpi-num"><span class="r">0</span>×</div>
+            <div class="kpi-label">
+              Meta de duplicidade de empenho pós-Go-Live
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-num"><span class="g">360</span>°</div>
+            <div class="kpi-label">
+              Consciência situacional unificada em tempo real
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-num">99,99<sup>%</sup></div>
+            <div class="kpi-label">
+              Disponibilidade-alvo do barramento integrado
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="kpi">
-        <div class="kpi-num"><span class="g">360</span>°</div>
-        <div class="kpi-label">Consciência situacional unificada em tempo real</div>
+    </section>
+
+    <!-- RESULTS -->
+    <div class="results-strip">
+      <div class="result-card">
+        <div class="result-num">Resultado 01</div>
+        <div class="result-title">Sem duplicidade de empenho</div>
+        <div class="result-desc">
+          Gateway de deduplicação automática por chave de correlação:
+          geolocalização + janela temporal + telefone de origem + natureza da
+          ocorrência.
+        </div>
       </div>
-      <div class="kpi">
-        <div class="kpi-num">99,99<sup>%</sup></div>
-        <div class="kpi-label">Disponibilidade-alvo do barramento integrado</div>
+      <div class="result-card">
+        <div class="result-num">Resultado 02</div>
+        <div class="result-title">Consciência situacional unificada</div>
+        <div class="result-desc">
+          Painel comum com ocorrências ativas, status de regulação médica e
+          telemetria AVL/GPS de todas as viaturas das duas corporações.
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-num">Resultado 03</div>
+        <div class="result-title">Conformidade LGPD by design</div>
+        <div class="result-desc">
+          Dados sensíveis de saúde tratados com minimização, pseudonimização e
+          trilha de auditoria imutável. RIPD (Relatório de Impacto à Proteção de
+          Dados Pessoais) como pré-condição do desenvolvimento.
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- RESULTS -->
-<div class="results-strip">
-  <div class="result-card">
-    <div class="result-num">Resultado 01</div>
-    <div class="result-title">Sem duplicidade de empenho</div>
-    <div class="result-desc">Gateway de deduplicação automática por chave de correlação: geolocalização + janela temporal + telefone de origem + natureza da ocorrência.</div>
-  </div>
-  <div class="result-card">
-    <div class="result-num">Resultado 02</div>
-    <div class="result-title">Consciência situacional unificada</div>
-    <div class="result-desc">Painel comum com ocorrências ativas, status de regulação médica e telemetria AVL/GPS de todas as viaturas das duas corporações.</div>
-  </div>
-  <div class="result-card">
-    <div class="result-num">Resultado 03</div>
-    <div class="result-title">Conformidade LGPD by design</div>
-    <div class="result-desc">Dados sensíveis de saúde tratados com minimização, pseudonimização e trilha de auditoria imutável. RIPD (Relatório de Impacto à Proteção de Dados Pessoais) como pré-condição do desenvolvimento.</div>
-  </div>
-</div>
-
-<!-- S1: AS-IS -->
-<!-- <section class="section" id="interop">
+    <!-- S1: AS-IS -->
+    <!-- <section class="section" id="interop">
   <div class="page-wrap">
     <div class="section-header">
       <div class="eyebrow red"><span class="eyebrow-bar"></span>Análise do Fluxo Atual</div>
@@ -495,232 +1055,688 @@
   </div>
 </section> -->
 
-<!-- S5: GOVERNANÇA -->
-<section class="section" id="governanca">
-  <div class="page-wrap">
-    <div class="section-header">
-      <div class="eyebrow"><span class="eyebrow-bar"></span>Governança e Conformidade</div>
-      <h2 class="section-title">Princípios que sustentam o projeto</h2>
-    </div>
-    <div class="gov-grid">
-      <div class="gov-card">
-        <div class="gov-icon">🔗</div>
-        <div class="gov-title">Amplificador, não substituto</div>
-        <div class="gov-text">A integração potencializa a operação de cada corporação. Nenhuma indisponibilidade da camada integrada pode degradar o atendimento isolado de 193 ou 192.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">⚖️</div>
-        <div class="gov-title">Base legal LGPD</div>
-        <div class="gov-text">Tratamento fundamentado na execução de políticas públicas e tutela da saúde — Arts. 7º, 11 e 23 da Lei 13.709/2018. RIPD (Relatório de Impacto à Proteção de Dados Pessoais) como pré-condição do desenvolvimento.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">🏛️</div>
-        <div class="gov-title">Interoperabilidade de governo</div>
-        <div class="gov-text">Aderência ao e-PING e ao padrão HL7 FHIR/RNDS — favorecendo a replicabilidade do modelo por outros Corpos de Bombeiros e SAMUs estaduais.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">🔍</div>
-        <div class="gov-title">Auditabilidade total</div>
-        <div class="gov-text">Todo acesso a dado sensível registrado em trilha imutável, com retenção definida em política e prestação de contas ao Comitê Técnico Misto em cada gate de fase.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- S2: ESCOPO -->
-<section class="section section-alt" id="escopo">
-  <div class="page-wrap">
-    <div class="section-header">
-      <div class="eyebrow"><span class="eyebrow-bar"></span>Escopo e Diretrizes</div>
-      <h2 class="section-title">Padrões comuns, sistemas e infraestrutura</h2>
-    </div>
-
-    <div class="sub-h">2.1 Padronização e Nomenclatura Comum</div>
-    <div class="table-wrap"><table>
-      <thead><tr><th style="width:26%">Item</th><th>Diretriz</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Dicionário de Dados Unificado</strong></td><td>Catálogo único de entidades (Ocorrência, Solicitante, Vítima, Recurso/Viatura, Despacho, Regulação, Desfecho) com system of record, sensibilidade LGPD e obrigatoriedade por atributo.</td></tr>
-        <tr><td><strong>Taxonomia de Ocorrências</strong></td><td>Tabela de-para entre os códigos CBMDF e SAMU, ancorada em CID-10 e no modelo NEMSIS adaptado à realidade nacional.</td></tr>
-        <tr><td><strong>Codificação de Gravidade</strong></td><td>Escala única (vermelho / laranja / amarelo / verde / azul) mapeada a Manchester, START/jumpSTART, Glasgow e AVPU — "grave" deve significar o mesmo nas duas centrais.</td></tr>
-        <tr><td><strong>Eventos Sentinela</strong></td><td>Codificação prioritária para PCR, trauma com risco iminente, gestante em trabalho de parto e acionamento de plano de catástrofe (vítimas múltiplas).</td></tr>
-        <tr><td><strong>Triagem Integrada</strong></td><td>Roteiro de perguntas convergente nas duas centrais para que a transferência não exija reinício da triagem.</td></tr>
-      </tbody>
-    </table></div>
-
-    <div class="sub-h">2.2 Integração de Sistemas</div>
-    <div class="table-wrap"><table>
-      <thead><tr><th style="width:20%">Domínio</th><th style="width:22%">Sistemas</th><th>Estratégia de Interoperação</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Despacho</strong></td><td>CBMDF (SINESPCAD) + SAMU (SAU)</td><td>Integração por eventos (publish/subscribe): criação, atualização de status e fechamento publicados no barramento.</td></tr>
-        <tr><td><strong>Telemetria AVL/GPS</strong></td><td>Rastreamento das duas frotas</td><td>Feed georreferenciado em camada de mapa comum, atualizado em tempo quase-real.</td></tr>
-        <tr><td><strong>Prontuário / Registro APH</strong></td><td>Ficha APH (SAMU) + registro CBMDF</td><td>HL7 FHIR R4 com aderência à RNDS; CBMDF acessa apenas o subconjunto clínico estritamente necessário ao socorro.</td></tr>
-        <tr><td><strong>Identidade e Acesso</strong></td><td>Diretórios de cada corporação</td><td>Federação de identidade (SSO) com perfis por papel, sem bases de usuários duplicadas.</td></tr>
-      </tbody>
-    </table></div>
-
-    <div class="sub-h">2.3 Infraestrutura e Segurança</div>
-    <div class="table-wrap"><table>
-      <thead><tr><th style="width:22%">Pilar</th><th>Diretriz Arquitetural</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Padrão de Integração</strong></td><td>Arquitetura orientada a eventos com barramento/message broker + APIs REST versionadas (OpenAPI) para consultas síncronas.</td></tr>
-        <tr><td><strong>Alta Disponibilidade</strong></td><td>Topologia ativo-ativo ou ativo-passivo com failover automático. Meta ≥ 99,9%. A falha da integração nunca pode impedir o atendimento isolado de nenhuma central.</td></tr>
-        <tr><td><strong>Segurança da Informação</strong></td><td>TLS 1.2+/mTLS entre serviços, segregação de rede, gateway de API com rate limiting e WAF. Criptografia em trânsito e em repouso.</td></tr>
-        <tr><td><strong>Privacidade (LGPD)</strong></td><td>Minimização por design, pseudonimização, trilha de auditoria imutável e definição formal dos papéis de controlador/operador entre as corporações.</td></tr>
-        <tr><td><strong>Observabilidade</strong></td><td>Monitoramento de latência, taxa de erro e dead-letter queues; dashboards operacionais com alertas ativos.</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-</section>
-
-<!-- S3: FASES -->
-<section class="section" id="fases">
-  <div class="page-wrap">
-    <div class="section-header">
-      <div class="eyebrow"><span class="eyebrow-bar"></span>Plano de Trabalho</div>
-      <h2 class="section-title">5 fases em 6 meses</h2>
-      <p class="section-lead">Fases sequenciais com sobreposições controladas, sustentadas pelo Comitê Técnico Misto ativo desde o primeiro dia.</p>
-    </div>
-
-    <div class="phases">
-      <div class="phase"><div class="phase-spine"><div class="phase-dot">1</div><div class="phase-line"></div></div>
-        <div class="phase-body">
-          <div class="phase-period">Mês 1</div>
-          <div class="phase-name">Alinhamento Institucional e Diagnóstico</div>
-          <ul class="phase-items">
-            <li>Instituir o Comitê Técnico Misto (operacional, TI, jurídico/DPO, regulação médica)</li>
-            <li>Mapear processos As-Is — BPMN consolidado das centrais 193 e 192</li>
-            <li>Selecionar e aprovar os processos-âncora a interoperar</li>
-            <li>Levantar gargalos tecnológicos e inventário completo de sistemas de legado</li>
-            <li>Mapear bases legais LGPD, papéis de controlador/operador e esboçar RIPD inicial</li>
-          </ul>
-          <span class="phase-deliverable">📄 Matriz de processos interoperáveis + Diagnóstico técnico</span>
+    <!-- S5: GOVERNANÇA -->
+    <section class="section" id="governanca">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow">
+            <span class="eyebrow-bar"></span>Governança e Conformidade
+          </div>
+          <h2 class="section-title">Princípios que sustentam o projeto</h2>
+        </div>
+        <div class="gov-grid">
+          <div class="gov-card">
+            <div class="gov-icon">🔗</div>
+            <div class="gov-title">Amplificador, não substituto</div>
+            <div class="gov-text">
+              A integração potencializa a operação de cada corporação. Nenhuma
+              indisponibilidade da camada integrada pode degradar o atendimento
+              isolado de 193 ou 192.
+            </div>
+          </div>
+          <div class="gov-card">
+            <div class="gov-icon">⚖️</div>
+            <div class="gov-title">Base legal LGPD</div>
+            <div class="gov-text">
+              Tratamento fundamentado na execução de políticas públicas e tutela
+              da saúde — Arts. 7º, 11 e 23 da Lei 13.709/2018. RIPD (Relatório
+              de Impacto à Proteção de Dados Pessoais) como pré-condição do
+              desenvolvimento.
+            </div>
+          </div>
+          <div class="gov-card">
+            <div class="gov-icon">🏛️</div>
+            <div class="gov-title">Interoperabilidade de governo</div>
+            <div class="gov-text">
+              Aderência ao e-PING e ao padrão HL7 FHIR/RNDS — favorecendo a
+              replicabilidade do modelo por outros Corpos de Bombeiros e SAMUs
+              estaduais.
+            </div>
+          </div>
+          <div class="gov-card">
+            <div class="gov-icon">🔍</div>
+            <div class="gov-title">Auditabilidade total</div>
+            <div class="gov-text">
+              Todo acesso a dado sensível registrado em trilha imutável, com
+              retenção definida em política e prestação de contas ao Comitê
+              Técnico Misto em cada gate de fase.
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="phase"><div class="phase-spine"><div class="phase-dot">2</div><div class="phase-line"></div></div>
-        <div class="phase-body">
-          <div class="phase-period">Meses 1–2</div>
-          <div class="phase-name">Definição de Padrões e Governança</div>
-          <ul class="phase-items">
-            <li>Elaborar dicionário de dados unificado e tabelas de-para de taxonomia</li>
-            <li>Definir matriz de competências RACI para os cenários integrados</li>
-            <li>Desenhar fluxos To-Be dos processos-âncora (BPMN) e validar com o Comitê</li>
-            <li>Especificar regra de negócio da chave de correlação e validar com dados históricos</li>
-            <li>Consolidar política de governança, classificação da informação e plano de retenção</li>
-          </ul>
-          <span class="phase-deliverable">📄 Fluxos To-Be aprovados + Política de Governança publicada</span>
+    <!-- S2: ESCOPO -->
+    <section class="section section-alt" id="escopo">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow">
+            <span class="eyebrow-bar"></span>Escopo e Diretrizes
+          </div>
+          <h2 class="section-title">
+            Padrões comuns, sistemas e infraestrutura
+          </h2>
+        </div>
+
+        <div class="sub-h">2.1 Padronização e Nomenclatura Comum</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 26%">Item</th>
+                <th>Diretriz</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dicionário de Dados Unificado</strong></td>
+                <td>
+                  Catálogo único de entidades (Ocorrência, Solicitante, Vítima,
+                  Recurso/Viatura, Despacho, Regulação, Desfecho) com system of
+                  record, sensibilidade LGPD e obrigatoriedade por atributo.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Taxonomia de Ocorrências</strong></td>
+                <td>
+                  Tabela de-para entre os códigos CBMDF e SAMU, ancorada em
+                  CID-10 e no modelo NEMSIS adaptado à realidade nacional.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Codificação de Gravidade</strong></td>
+                <td>
+                  Escala única (vermelho / laranja / amarelo / verde / azul)
+                  mapeada a Manchester, START/jumpSTART, Glasgow e AVPU —
+                  "grave" deve significar o mesmo nas duas centrais.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Eventos Sentinela</strong></td>
+                <td>
+                  Codificação prioritária para PCR, trauma com risco iminente,
+                  gestante em trabalho de parto e acionamento de plano de
+                  catástrofe (vítimas múltiplas).
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Triagem Integrada</strong></td>
+                <td>
+                  Roteiro de perguntas convergente nas duas centrais para que a
+                  transferência não exija reinício da triagem.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sub-h">2.2 Integração de Sistemas</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 20%">Domínio</th>
+                <th style="width: 22%">Sistemas</th>
+                <th>Estratégia de Interoperação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Despacho</strong></td>
+                <td>CBMDF (SINESPCAD) + SAMU (SAU)</td>
+                <td>
+                  Integração por eventos (publish/subscribe): criação,
+                  atualização de status e fechamento publicados no barramento.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Telemetria AVL/GPS</strong></td>
+                <td>Rastreamento das duas frotas</td>
+                <td>
+                  Feed georreferenciado em camada de mapa comum, atualizado em
+                  tempo quase-real.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Prontuário / Registro APH</strong></td>
+                <td>Ficha APH (SAMU) + registro CBMDF</td>
+                <td>
+                  HL7 FHIR R4 com aderência à RNDS; CBMDF acessa apenas o
+                  subconjunto clínico estritamente necessário ao socorro.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Identidade e Acesso</strong></td>
+                <td>Diretórios de cada corporação</td>
+                <td>
+                  Federação de identidade (SSO) com perfis por papel, sem bases
+                  de usuários duplicadas.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sub-h">2.3 Infraestrutura e Segurança</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 22%">Pilar</th>
+                <th>Diretriz Arquitetural</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Padrão de Integração</strong></td>
+                <td>
+                  Arquitetura orientada a eventos com barramento/message broker
+                  + APIs REST versionadas (OpenAPI) para consultas síncronas.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Alta Disponibilidade</strong></td>
+                <td>
+                  Topologia ativo-ativo ou ativo-passivo com failover
+                  automático. Meta ≥ 99,9%. A falha da integração nunca pode
+                  impedir o atendimento isolado de nenhuma central.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Segurança da Informação</strong></td>
+                <td>
+                  TLS 1.2+/mTLS entre serviços, segregação de rede, gateway de
+                  API com rate limiting e WAF. Criptografia em trânsito e em
+                  repouso.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Privacidade (LGPD)</strong></td>
+                <td>
+                  Minimização por design, pseudonimização, trilha de auditoria
+                  imutável e definição formal dos papéis de controlador/operador
+                  entre as corporações.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Observabilidade</strong></td>
+                <td>
+                  Monitoramento de latência, taxa de erro e dead-letter queues;
+                  dashboards operacionais com alertas ativos.
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </section>
 
-      <div class="phase"><div class="phase-spine"><div class="phase-dot">3</div><div class="phase-line"></div></div>
-        <div class="phase-body">
-          <div class="phase-period">Meses 2–4</div>
-          <div class="phase-name">Arquitetura Tecnológica e Desenvolvimento</div>
-          <ul class="phase-items">
-            <li>Especificar e publicar contratos OpenAPI (ocorrência, status, recursos, deduplicação)</li>
-            <li>Implantar barramento com tópicos, filas e entrega at-least-once garantida</li>
-            <li>Desenvolver serviços de despacho cruzado e deduplicação com métricas de precisão/recall</li>
-            <li>Implementar camada de segurança: mTLS, SSO federado, log de auditoria imutável</li>
-            <li>Construir painel unificado de consciência situacional com telemetria AVL/GPS quase-real</li>
-          </ul>
-          <span class="phase-deliverable">📄 Ambiente integrado funcional homologado em sandbox</span>
+    <!-- S3: FASES -->
+    <section class="section" id="fases">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow">
+            <span class="eyebrow-bar"></span>Plano de Trabalho
+          </div>
+          <h2 class="section-title">5 fases em 6 meses</h2>
+          <p class="section-lead">
+            Fases sequenciais com sobreposições controladas, sustentadas pelo
+            Comitê Técnico Misto ativo desde o primeiro dia.
+          </p>
+        </div>
+
+        <div class="phases">
+          <div class="phase">
+            <div class="phase-spine">
+              <div class="phase-dot">1</div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-body">
+              <div class="phase-period">Mês 1</div>
+              <div class="phase-name">
+                Alinhamento Institucional e Diagnóstico
+              </div>
+              <ul class="phase-items">
+                <li>
+                  Instituir o Comitê Técnico Misto (operacional, TI,
+                  jurídico/DPO, regulação médica)
+                </li>
+                <li>
+                  Mapear processos As-Is — BPMN consolidado das centrais 193 e
+                  192
+                </li>
+                <li>Selecionar e aprovar os processos-âncora a interoperar</li>
+                <li>
+                  Levantar gargalos tecnológicos e inventário completo de
+                  sistemas de legado
+                </li>
+                <li>
+                  Mapear bases legais LGPD, papéis de controlador/operador e
+                  esboçar RIPD inicial
+                </li>
+              </ul>
+              <span class="phase-deliverable"
+                >📄 Matriz de processos interoperáveis + Diagnóstico
+                técnico</span
+              >
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-spine">
+              <div class="phase-dot">2</div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-body">
+              <div class="phase-period">Meses 1–2</div>
+              <div class="phase-name">Definição de Padrões e Governança</div>
+              <ul class="phase-items">
+                <li>
+                  Elaborar dicionário de dados unificado e tabelas de-para de
+                  taxonomia
+                </li>
+                <li>
+                  Definir matriz de competências RACI para os cenários
+                  integrados
+                </li>
+                <li>
+                  Desenhar fluxos To-Be dos processos-âncora (BPMN) e validar
+                  com o Comitê
+                </li>
+                <li>
+                  Especificar regra de negócio da chave de correlação e validar
+                  com dados históricos
+                </li>
+                <li>
+                  Consolidar política de governança, classificação da informação
+                  e plano de retenção
+                </li>
+              </ul>
+              <span class="phase-deliverable"
+                >📄 Fluxos To-Be aprovados + Política de Governança
+                publicada</span
+              >
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-spine">
+              <div class="phase-dot">3</div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-body">
+              <div class="phase-period">Meses 2–4</div>
+              <div class="phase-name">
+                Arquitetura Tecnológica e Desenvolvimento
+              </div>
+              <ul class="phase-items">
+                <li>
+                  Especificar e publicar contratos OpenAPI (ocorrência, status,
+                  recursos, deduplicação)
+                </li>
+                <li>
+                  Implantar barramento com tópicos, filas e entrega
+                  at-least-once garantida
+                </li>
+                <li>
+                  Desenvolver serviços de despacho cruzado e deduplicação com
+                  métricas de precisão/recall
+                </li>
+                <li>
+                  Implementar camada de segurança: mTLS, SSO federado, log de
+                  auditoria imutável
+                </li>
+                <li>
+                  Construir painel unificado de consciência situacional com
+                  telemetria AVL/GPS quase-real
+                </li>
+              </ul>
+              <span class="phase-deliverable"
+                >📄 Ambiente integrado funcional homologado em sandbox</span
+              >
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-spine">
+              <div class="phase-dot">4</div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-body">
+              <div class="phase-period">Meses 4–5</div>
+              <div class="phase-name">Projeto Piloto e Homologação</div>
+              <ul class="phase-items">
+                <li>
+                  Provisionar sandbox isolado com dados sintéticos/anonimizados
+                  espelhando produção
+                </li>
+                <li>
+                  Executar simulações ponta a ponta incluindo cenário de vítimas
+                  múltiplas
+                </li>
+                <li>
+                  Aplicar critérios de validação técnica (latência,
+                  deduplicação) e TAU operacional
+                </li>
+                <li>
+                  Piloto assistido em região delimitada com medição de redução
+                  de empenho duplo
+                </li>
+              </ul>
+              <span class="phase-deliverable"
+                >📄 Relatório de piloto com lições aprendidas + TAU
+                assinado</span
+              >
+            </div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-spine">
+              <div class="phase-dot">5</div>
+              <div class="phase-line"></div>
+            </div>
+            <div class="phase-body">
+              <div class="phase-period">Meses 5–6</div>
+              <div class="phase-name">Capacitação e Go-Live</div>
+              <ul class="phase-items">
+                <li>
+                  Elaborar material didático e POPs integrados para operadores
+                  193, 192 e equipes de rua
+                </li>
+                <li>
+                  Turmas de capacitação prática com avaliação mínima de
+                  aproveitamento
+                </li>
+                <li>
+                  Planejar Go-Live faseado e plano de rollback testado
+                  previamente
+                </li>
+                <li>
+                  Estabilização com operação assistida e transição formal para
+                  sustentação contínua
+                </li>
+              </ul>
+              <span class="phase-deliverable"
+                >📄 Go-Live executado + Relatório de pós-implantação</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-h" style="margin-top: 4px">
+          Cronograma Macro (indicativo)
+        </div>
+        <div class="tl-wrap">
+          <table class="tl-table">
+            <thead>
+              <tr>
+                <th style="width: 36%; text-align: left; padding-left: 13px">
+                  Fase
+                </th>
+                <th>M1</th>
+                <th>M2</th>
+                <th>M3</th>
+                <th>M4</th>
+                <th>M5</th>
+                <th>M6</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tl-name">1 — Alinhamento e Diagnóstico</td>
+                <td><span class="tl-bar tl-full"></span></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tl-name">2 — Padrões e Governança</td>
+                <td><span class="tl-bar tl-start"></span></td>
+                <td><span class="tl-bar tl-full"></span></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tl-name">3 — Arquitetura e Desenvolvimento</td>
+                <td></td>
+                <td><span class="tl-bar tl-start"></span></td>
+                <td><span class="tl-bar tl-full"></span></td>
+                <td><span class="tl-bar tl-full"></span></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tl-name">4 — Piloto e Homologação</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span class="tl-bar tl-start"></span></td>
+                <td><span class="tl-bar tl-full"></span></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="tl-name">5 — Capacitação e Go-Live</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span class="tl-bar tl-start"></span></td>
+                <td><span class="tl-bar tl-full"></span></td>
+              </tr>
+              <tr>
+                <td class="tl-name">
+                  <strong>Governança — Comitê Técnico Misto</strong>
+                </td>
+                <td><span class="tl-bar tl-gov"></span></td>
+                <td><span class="tl-bar tl-gov"></span></td>
+                <td><span class="tl-bar tl-gov"></span></td>
+                <td><span class="tl-bar tl-gov"></span></td>
+                <td><span class="tl-bar tl-gov"></span></td>
+                <td><span class="tl-bar tl-gov"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p
+          style="
+            font-size: 11px;
+            color: var(--cloud);
+            margin-top: 8px;
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+          "
+        >
+          <span style="display: inline-flex; align-items: center; gap: 5px"
+            ><span
+              class="tl-bar tl-full"
+              style="
+                width: 16px;
+                height: 10px;
+                border-radius: 2px;
+                display: inline-block;
+              "
+            ></span
+            >Execução plena</span
+          >
+          <span style="display: inline-flex; align-items: center; gap: 5px"
+            ><span
+              class="tl-bar tl-start"
+              style="
+                width: 16px;
+                height: 10px;
+                border-radius: 2px;
+                display: inline-block;
+              "
+            ></span
+            >Início com sobreposição</span
+          >
+          <span style="display: inline-flex; align-items: center; gap: 5px"
+            ><span
+              class="tl-bar tl-gov"
+              style="
+                width: 16px;
+                height: 10px;
+                border-radius: 2px;
+                display: inline-block;
+              "
+            ></span
+            >Atividade contínua</span
+          >
+        </p>
+      </div>
+    </section>
+
+    <!-- S4: RISCOS -->
+    <section class="section section-alt" id="riscos">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow red">
+            <span class="eyebrow-bar"></span>Gestão de Riscos
+          </div>
+          <h2 class="section-title">Matriz de riscos inicial</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 4%">#</th>
+                <th style="width: 22%">Risco</th>
+                <th style="width: 13%">Categoria</th>
+                <th style="width: 9%; text-align: center">Prob.</th>
+                <th style="width: 9%; text-align: center">Impacto</th>
+                <th>Mitigação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>R1</td>
+                <td>
+                  <strong
+                    >Resistência cultural / disputa de protagonismo</strong
+                  >
+                </td>
+                <td>Pessoas / Gov.</td>
+                <td style="text-align: center">
+                  <span class="badge badge-alta">Alta</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-alto">Alto</span>
+                </td>
+                <td>
+                  Comitê paritário; RACI explícita; patrocínio do alto comando;
+                  comunicação que preserva autonomia de cada corporação.
+                </td>
+              </tr>
+              <tr>
+                <td>R2</td>
+                <td>
+                  <strong>Indisponibilidade da integração</strong> como ponto
+                  único de falha
+                </td>
+                <td>Tecnologia</td>
+                <td style="text-align: center">
+                  <span class="badge badge-media">Média</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-critico">Crítico</span>
+                </td>
+                <td>
+                  Alta disponibilidade com failover; modo degradado garantindo
+                  operação isolada; testes de caos e runbooks.
+                </td>
+              </tr>
+              <tr>
+                <td>R3</td>
+                <td>
+                  <strong>Incompatibilidade de legado</strong> (sistemas sem
+                  API, modelos divergentes)
+                </td>
+                <td>Tecnologia</td>
+                <td style="text-align: center">
+                  <span class="badge badge-alta">Alta</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-alto">Alto</span>
+                </td>
+                <td>
+                  Camada de adapters/anticorrupção; tabelas de-para na camada de
+                  integração; abordagem MVP incremental.
+                </td>
+              </tr>
+              <tr>
+                <td>R4</td>
+                <td>
+                  <strong>Não conformidade LGPD</strong> no compartilhamento de
+                  dados sensíveis de saúde
+                </td>
+                <td>Jurídico</td>
+                <td style="text-align: center">
+                  <span class="badge badge-media">Média</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-critico">Crítico</span>
+                </td>
+                <td>
+                  RIPD concluído antes do desenvolvimento; minimização e
+                  pseudonimização by design; revisão do DPO em cada gate.
+                </td>
+              </tr>
+              <tr>
+                <td>R5</td>
+                <td>
+                  <strong>Inconsistência semântica</strong> (mesmo termo,
+                  significados diferentes)
+                </td>
+                <td>Dados</td>
+                <td style="text-align: center">
+                  <span class="badge badge-media">Média</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-alto">Alto</span>
+                </td>
+                <td>
+                  Dicionário de dados como artefato versionado de governança;
+                  validação com casos clínicos reais.
+                </td>
+              </tr>
+              <tr>
+                <td>R6</td>
+                <td>
+                  <strong>Falha humana na transição</strong> — operadores não
+                  absorvem o novo fluxo
+                </td>
+                <td>Pessoas</td>
+                <td style="text-align: center">
+                  <span class="badge badge-media">Média</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-medio">Médio</span>
+                </td>
+                <td>
+                  Treinamento obrigatório com avaliação; operação assistida no
+                  Go-Live; POPs integrados na estação de trabalho.
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+    </section>
 
-      <div class="phase"><div class="phase-spine"><div class="phase-dot">4</div><div class="phase-line"></div></div>
-        <div class="phase-body">
-          <div class="phase-period">Meses 4–5</div>
-          <div class="phase-name">Projeto Piloto e Homologação</div>
-          <ul class="phase-items">
-            <li>Provisionar sandbox isolado com dados sintéticos/anonimizados espelhando produção</li>
-            <li>Executar simulações ponta a ponta incluindo cenário de vítimas múltiplas</li>
-            <li>Aplicar critérios de validação técnica (latência, deduplicação) e TAU operacional</li>
-            <li>Piloto assistido em região delimitada com medição de redução de empenho duplo</li>
-          </ul>
-          <span class="phase-deliverable">📄 Relatório de piloto com lições aprendidas + TAU assinado</span>
-        </div>
-      </div>
-
-      <div class="phase"><div class="phase-spine"><div class="phase-dot">5</div><div class="phase-line"></div></div>
-        <div class="phase-body">
-          <div class="phase-period">Meses 5–6</div>
-          <div class="phase-name">Capacitação e Go-Live</div>
-          <ul class="phase-items">
-            <li>Elaborar material didático e POPs integrados para operadores 193, 192 e equipes de rua</li>
-            <li>Turmas de capacitação prática com avaliação mínima de aproveitamento</li>
-            <li>Planejar Go-Live faseado e plano de rollback testado previamente</li>
-            <li>Estabilização com operação assistida e transição formal para sustentação contínua</li>
-          </ul>
-          <span class="phase-deliverable">📄 Go-Live executado + Relatório de pós-implantação</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="sub-h" style="margin-top:4px">Cronograma Macro (indicativo)</div>
-    <div class="tl-wrap">
-      <table class="tl-table">
-        <thead><tr>
-          <th style="width:36%;text-align:left;padding-left:13px">Fase</th>
-          <th>M1</th><th>M2</th><th>M3</th><th>M4</th><th>M5</th><th>M6</th>
-        </tr></thead>
-        <tbody>
-          <tr><td class="tl-name">1 — Alinhamento e Diagnóstico</td>
-            <td><span class="tl-bar tl-full"></span></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><td class="tl-name">2 — Padrões e Governança</td>
-            <td><span class="tl-bar tl-start"></span></td><td><span class="tl-bar tl-full"></span></td><td></td><td></td><td></td><td></td></tr>
-          <tr><td class="tl-name">3 — Arquitetura e Desenvolvimento</td>
-            <td></td><td><span class="tl-bar tl-start"></span></td><td><span class="tl-bar tl-full"></span></td><td><span class="tl-bar tl-full"></span></td><td></td><td></td></tr>
-          <tr><td class="tl-name">4 — Piloto e Homologação</td>
-            <td></td><td></td><td></td><td><span class="tl-bar tl-start"></span></td><td><span class="tl-bar tl-full"></span></td><td></td></tr>
-          <tr><td class="tl-name">5 — Capacitação e Go-Live</td>
-            <td></td><td></td><td></td><td></td><td><span class="tl-bar tl-start"></span></td><td><span class="tl-bar tl-full"></span></td></tr>
-          <tr><td class="tl-name"><strong>Governança — Comitê Técnico Misto</strong></td>
-            <td><span class="tl-bar tl-gov"></span></td><td><span class="tl-bar tl-gov"></span></td><td><span class="tl-bar tl-gov"></span></td>
-            <td><span class="tl-bar tl-gov"></span></td><td><span class="tl-bar tl-gov"></span></td><td><span class="tl-bar tl-gov"></span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="font-size:11px;color:var(--cloud);margin-top:8px;display:flex;gap:18px;flex-wrap:wrap">
-      <span style="display:inline-flex;align-items:center;gap:5px"><span class="tl-bar tl-full" style="width:16px;height:10px;border-radius:2px;display:inline-block"></span>Execução plena</span>
-      <span style="display:inline-flex;align-items:center;gap:5px"><span class="tl-bar tl-start" style="width:16px;height:10px;border-radius:2px;display:inline-block"></span>Início com sobreposição</span>
-      <span style="display:inline-flex;align-items:center;gap:5px"><span class="tl-bar tl-gov" style="width:16px;height:10px;border-radius:2px;display:inline-block"></span>Atividade contínua</span>
-    </p>
-  </div>
-</section>
-
-<!-- S4: RISCOS -->
-<section class="section section-alt" id="riscos">
-  <div class="page-wrap">
-    <div class="section-header">
-      <div class="eyebrow red"><span class="eyebrow-bar"></span>Gestão de Riscos</div>
-      <h2 class="section-title">Matriz de riscos inicial</h2>
-    </div>
-    <div class="table-wrap"><table>
-      <thead><tr>
-        <th style="width:4%">#</th><th style="width:22%">Risco</th><th style="width:13%">Categoria</th>
-        <th style="width:9%;text-align:center">Prob.</th><th style="width:9%;text-align:center">Impacto</th><th>Mitigação</th>
-      </tr></thead>
-      <tbody>
-        <tr><td>R1</td><td><strong>Resistência cultural / disputa de protagonismo</strong></td><td>Pessoas / Gov.</td><td style="text-align:center"><span class="badge badge-alta">Alta</span></td><td style="text-align:center"><span class="badge badge-alto">Alto</span></td><td>Comitê paritário; RACI explícita; patrocínio do alto comando; comunicação que preserva autonomia de cada corporação.</td></tr>
-        <tr><td>R2</td><td><strong>Indisponibilidade da integração</strong> como ponto único de falha</td><td>Tecnologia</td><td style="text-align:center"><span class="badge badge-media">Média</span></td><td style="text-align:center"><span class="badge badge-critico">Crítico</span></td><td>Alta disponibilidade com failover; modo degradado garantindo operação isolada; testes de caos e runbooks.</td></tr>
-        <tr><td>R3</td><td><strong>Incompatibilidade de legado</strong> (sistemas sem API, modelos divergentes)</td><td>Tecnologia</td><td style="text-align:center"><span class="badge badge-alta">Alta</span></td><td style="text-align:center"><span class="badge badge-alto">Alto</span></td><td>Camada de adapters/anticorrupção; tabelas de-para na camada de integração; abordagem MVP incremental.</td></tr>
-        <tr><td>R4</td><td><strong>Não conformidade LGPD</strong> no compartilhamento de dados sensíveis de saúde</td><td>Jurídico</td><td style="text-align:center"><span class="badge badge-media">Média</span></td><td style="text-align:center"><span class="badge badge-critico">Crítico</span></td><td>RIPD concluído antes do desenvolvimento; minimização e pseudonimização by design; revisão do DPO em cada gate.</td></tr>
-        <tr><td>R5</td><td><strong>Inconsistência semântica</strong> (mesmo termo, significados diferentes)</td><td>Dados</td><td style="text-align:center"><span class="badge badge-media">Média</span></td><td style="text-align:center"><span class="badge badge-alto">Alto</span></td><td>Dicionário de dados como artefato versionado de governança; validação com casos clínicos reais.</td></tr>
-        <tr><td>R6</td><td><strong>Falha humana na transição</strong> — operadores não absorvem o novo fluxo</td><td>Pessoas</td><td style="text-align:center"><span class="badge badge-media">Média</span></td><td style="text-align:center"><span class="badge badge-medio">Médio</span></td><td>Treinamento obrigatório com avaliação; operação assistida no Go-Live; POPs integrados na estação de trabalho.</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div>
-    <strong>Emergência 360° — Plano de Trabalho</strong><br>
-    <!-- Proposta para validação do Comitê Técnico Misto<br>
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        <strong>Emergência 360° — Plano de Trabalho</strong><br />
+        <!-- Proposta para validação do Comitê Técnico Misto<br>
     CBMDF Central 193 × SAMU/DF Central 192 · GDF — Distrito Federal<br> -->
-    <!-- Emitido em 26/06/2026 · <em>Restrito — Plano de Interoperabilidade APH</em> -->
-  </div>
-  <!-- <div>
+        <!-- Emitido em 26/06/2026 · <em>Restrito — Plano de Interoperabilidade APH</em> -->
+      </div>
+      <!-- <div>
     <div class="footer-seal">
       <span class="seal-dot" style="background:var(--gdf-green)"></span>
       Governo do Distrito Federal
@@ -730,7 +1746,6 @@
       Atendimento Pré-Hospitalar Integrado
     </div>
   </div> -->
-</footer>
-
-</body>
+    </footer>
+  </body>
 </html>
