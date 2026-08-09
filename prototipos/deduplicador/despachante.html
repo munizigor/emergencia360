@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Despachante — Estação Integrada (Protótipo)</title>
+  <link rel="stylesheet" href="src/css/style.css">
+  <script src="src/js/dados.js"></script>
+  <script src="src/js/comum.js"></script>
+  <script src="src/js/motor.js"></script>
+  <script src="src/js/tour.js"></script>
+  <script>document.documentElement.dataset.orgao = ESTADO.obterVerComo();</script>
+</head>
+<body>
+  <div id="cabecalho"></div>
+
+  <main>
+    <h1 class="pagina-titulo">Ocorrências em andamento</h1>
+    <p class="pagina-subtitulo">
+      Tela do despachante. Verifique duplicidade a qualquer momento (HU02.3) e decida: vincular
+      (P2) ou descartar a sugestão (RN-17). A lista mostra as ocorrências do órgão selecionado em
+      "Ver como", no cabeçalho.
+    </p>
+
+    <section class="panel">
+      <h2>Minhas ocorrências</h2>
+      <div id="listaOcorrencias" class="lista-ocorrencias"></div>
+    </section>
+
+    <section class="panel painel-verificacao" id="containerVerificacao" hidden style="margin-top:20px;">
+      <h2>Verificação de duplicidade — <span id="tituloOrigem"></span></h2>
+      <p class="pagina-subtitulo" id="subtituloVerificacao" style="margin-bottom:14px;"></p>
+      <div id="statusVinculoOrigem" aria-live="polite"></div>
+      <div id="feedbackVerificacao" aria-live="polite"></div>
+      <div id="listaCandidatos" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="src/js/despachante.js"></script>
+</body>
+</html>
