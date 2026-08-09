@@ -56,6 +56,17 @@ trabalho, cada uma ligável/desligável no grupo **Camadas** do cabeçalho:
 O objetivo das camadas é duplo: validar cada processo isoladamente e observar a **carga
 combinada** sobre a estação do operador (risco R6 — "substituir canal, não somar").
 
+## Tour guiado
+
+Na primeira visita, um modal de boas-vindas oferece o tour guiado (~2 min), que atravessa as
+três telas na ordem da demonstração (Atendente → Despachante → Eventos), destacando cada
+recurso — inclusive preparando a tela a cada passo (seleciona o endereço EPTG, abre a
+verificação do cluster, garante um vínculo de exemplo, dispara a contra-regulação simulada).
+O botão **🎓 Tour** no cabeçalho relança o tour da tela atual a qualquer momento. O progresso
+fica na chave `e360_dedup_tour_v1` do localStorage, separada do estado da demonstração —
+"Reiniciar demonstração" não reapresenta o tour. Passos cujo alvo não existe (camada
+desligada, lista vazia) são pulados automaticamente. Motor em `src/js/tour.js`.
+
 ## Feedback
 
 Todas as telas exibem o botão flutuante **Feedback**. O link do formulário é configurado na

@@ -621,6 +621,7 @@ function montarCabecalho(paginaAtual) {
             <label class="controle-camada"><input type="checkbox" id="camadaP3" ${camadas.p3 ? 'checked' : ''}>P3 Regulação</label>
             <label class="controle-camada"><input type="checkbox" id="camadaP4" ${camadas.p4 ? 'checked' : ''}>P4 Contra-reg.</label>
           </div>
+          <button id="btnTour" class="btn-secundario" type="button" title="Tour guiado desta tela">🎓 Tour</button>
           <button id="btnReiniciar" class="btn-secundario" type="button">Reiniciar demonstração</button>
         </div>
       </div>
@@ -662,4 +663,11 @@ function montarCabecalho(paginaAtual) {
   montarBotaoFeedback();
   montarAlertasContrarregulacao();
   agendarSimulacaoContrarregulacao();
+
+  // Tour guiado: botão para relançar a qualquer momento + boas-vindas na
+  // primeira visita (ou continuação automática via ?tour=auto).
+  if (typeof TOUR !== 'undefined') {
+    document.getElementById('btnTour').addEventListener('click', () => TOUR.iniciar(paginaAtual));
+    TOUR.aoCarregarPagina(paginaAtual);
+  }
 }
