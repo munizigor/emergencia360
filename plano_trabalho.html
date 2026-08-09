@@ -1030,25 +1030,25 @@
               <div class="phase-line"></div>
             </div>
             <div class="phase-body">
-              <div class="phase-period">Estágio 3 · Portão de decisão da SES</div>
-              <div class="phase-name">Aval de viabilidade da SES</div>
+              <div class="phase-period">Estágio 3 · Portão de decisão técnica</div>
+              <div class="phase-name">Aval conjunto de viabilidade</div>
               <ul class="phase-items">
                 <li>
-                  Apresentação da visão arquitetural do processo à equipe
-                  técnica da SES: quais serviços a plataforma expõe e o que o
-                  SAU precisaria consumir ou fornecer
+                  Apresentação da visão arquitetural do processo às equipes
+                  técnicas das duas secretarias: quais serviços a plataforma
+                  expõe e o que cada sistema consome ou fornece
                 </li>
                 <li>
-                  SES avalia esforço, restrições e aderência do SAU à
-                  integração proposta
+                  As equipes avaliam esforço, restrições e aderência dos seus
+                  sistemas (SAU e Hefesto) à integração proposta
                 </li>
                 <li>
-                  Aval formal de viabilidade registrado — ou devolutiva com os
-                  ajustes necessários para viabilizar
+                  Aval conjunto de viabilidade registrado — ou devolutiva com
+                  os ajustes necessários para viabilizar
                 </li>
               </ul>
               <span class="phase-deliverable green"
-                >✅ Aval de viabilidade da SES — nada segue para
+                >✅ Aval conjunto de viabilidade — nada segue para
                 desenvolvimento sem ele</span
               >
             </div>
@@ -1064,12 +1064,12 @@
               <div class="phase-name">Desenvolvimento</div>
               <ul class="phase-items">
                 <li>
-                  SSP constrói e publica os serviços do processo na plataforma
-                  de integração (contratos versionados)
+                  Os serviços do processo são construídos e publicados na
+                  plataforma de integração (contratos versionados)
                 </li>
                 <li>
-                  SES adapta o SAU para consumir e fornecer os serviços, no seu
-                  ritmo e ambiente
+                  Cada secretaria adapta e conecta o seu sistema, no seu ritmo
+                  e ambiente
                 </li>
                 <li>
                   Requisitos técnicos detalhados aqui, quando de fato
@@ -1121,26 +1121,25 @@
             <span class="eyebrow-bar"></span>Premissa Arquitetural
           </div>
           <h2 class="section-title">
-            Orquestração na SSP, autonomia nas duas pontas
+            Uma plataforma comum, autonomia nas duas pontas
           </h2>
           <p class="section-lead">
-            Toda a lógica de orquestração da integração fica do lado da SSP,
-            que já opera o Hefesto (atendimento de ocorrências) interoperado
-            com o SINESPCAD (despacho e gerenciamento, sistema do MJSP). À SES
-            cabe adaptar o SAU para consumir e fornecer os serviços expostos
-            pela plataforma.
+            A integração acontece por meio de uma plataforma única — a camada
+            Emergência 360° — à qual cada secretaria conecta o seu sistema: a
+            SES com o SAU, a SSP com o Hefesto (já interoperado com o
+            SINESPCAD, sistema do MJSP). As definições de implantação e
+            operação da plataforma são detalhadas pelas equipes técnicas no
+            estágio de desenvolvimento.
           </p>
         </div>
 
         <div class="insight-box green">
-          <strong>Parceria, não subordinação:</strong> concentrar a
-          orquestração na SSP é uma decisão de engenharia — aproveita a
-          capacidade de desenvolvimento já instalada e evita duplicar
-          infraestrutura — e não uma relação hierárquica. O SAU permanece a
-          fonte da verdade clínica e da regulação médica, e a SES detém o
-          portão de decisão do projeto: nenhum processo avança para
-          desenvolvimento sem o seu aval de viabilidade. Quem decide o avanço
-          não é subordinado — é sócio.
+          <strong>Integração sem hierarquia:</strong> a plataforma é a camada
+          comum entre os sistemas — não substitui nenhum deles. O SAU permanece
+          a fonte da verdade clínica e da regulação médica; o Hefesto e o
+          SINESPCAD, a do despacho 193. E nenhum processo avança para
+          desenvolvimento sem o aval conjunto de viabilidade das equipes
+          técnicas das duas secretarias.
         </div>
 
         <div class="arch-diagram">
@@ -1162,10 +1161,10 @@
             <div class="arch-label">serviços e eventos (contratos versionados)</div>
           </div>
           <div class="arch-node plataforma">
-            <div class="arch-org">Plataforma de Integração · operada pela SSP</div>
+            <div class="arch-org">Plataforma de Integração</div>
             <div class="arch-sys">Emergência 360°</div>
             <div class="arch-desc">
-              Camada de orquestração entre as centrais.
+              Camada comum entre as centrais.
               <ul>
                 <li>Expõe os serviços dos 5 processos</li>
                 <li>Motor de deduplicação e correlação</li>
@@ -1245,6 +1244,13 @@
                 </td>
               </tr>
               <tr>
+                <td><strong>Implantação e operação da plataforma</strong></td>
+                <td>
+                  Onde a plataforma roda, quem a sustenta e o modelo de
+                  operação — definição técnica conjunta das duas secretarias.
+                </td>
+              </tr>
+              <tr>
                 <td><strong>Dados pessoais</strong></td>
                 <td>
                   Papéis de controlador/operador, minimização e RIPD — exigidos
@@ -1284,7 +1290,7 @@
                 <th style="width: 34%">Processo</th>
                 <th style="text-align: center">1 · Protótipo</th>
                 <th style="text-align: center">2 · Feedback</th>
-                <th style="text-align: center">3 · Aval SES</th>
+                <th style="text-align: center">3 · Aval técnico</th>
                 <th style="text-align: center">4 · Desenvolv.</th>
                 <th style="text-align: center">5 · Piloto</th>
               </tr>
@@ -1379,7 +1385,7 @@
           </p>
           <div class="proc-cols">
             <div class="proc-col">
-              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-title">Na plataforma</div>
               <div class="proc-col-text">
                 Motor de similaridade e serviço de consulta de correlatas;
                 registro de vínculos e descartes; evento consolidado da
@@ -1432,7 +1438,7 @@
           </p>
           <div class="proc-cols">
             <div class="proc-col">
-              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-title">Na plataforma</div>
               <div class="proc-col-text">
                 Serviço de "pacote de contexto" da ocorrência em triagem,
                 entregue à central de destino no momento da transferência.
@@ -1468,7 +1474,7 @@
           </p>
           <div class="proc-cols">
             <div class="proc-col">
-              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-title">Na plataforma</div>
               <div class="proc-col-text">
                 Canal de eventos de status de regulação vinculados à
                 ocorrência correlacionada.
@@ -1504,7 +1510,7 @@
           </p>
           <div class="proc-cols">
             <div class="proc-col">
-              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-title">Na plataforma</div>
               <div class="proc-col-text">
                 Roteamento de notificações de contra-regulação para as
                 centrais com recurso empenhado na ocorrência.
@@ -1541,7 +1547,7 @@
           </p>
           <div class="proc-cols">
             <div class="proc-col">
-              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-title">Na plataforma</div>
               <div class="proc-col-text">
                 Serviço de solicitação de apoio com ciclo de vida rastreável
                 (solicitado, aceito, recusado, concluído).
@@ -1591,12 +1597,11 @@
           </div>
           <div class="gov-card green">
             <div class="gov-icon">🤝</div>
-            <div class="gov-title">Decisão paritária</div>
+            <div class="gov-title">Decisão conjunta</div>
             <div class="gov-text">
-              A orquestração roda na SSP por praticidade de engenharia; o
-              avanço de cada processo depende do aval de viabilidade da SES.
-              Onde o código roda e quem decide são coisas distintas — e a
-              decisão é compartilhada.
+              O avanço de cada processo para desenvolvimento depende do aval
+              conjunto de viabilidade das equipes técnicas das duas
+              secretarias — nenhuma decide sozinha, nenhuma é atropelada.
             </div>
           </div>
           <div class="gov-card">
@@ -1653,8 +1658,8 @@
               <tr>
                 <td>R1</td>
                 <td>
-                  <strong>Inviabilidade da integração no SAU</strong> —
-                  restrições técnicas do lado da SES só descobertas tarde
+                  <strong>Restrições técnicas de integração</strong> (SAU ou
+                  Hefesto) descobertas tardiamente
                 </td>
                 <td>Tecnologia</td>
                 <td style="text-align: center">
@@ -1664,9 +1669,9 @@
                   <span class="badge badge-critico">Crítico</span>
                 </td>
                 <td>
-                  Portão de viabilidade da SES antes de qualquer
-                  desenvolvimento; equipe técnica da SES envolvida desde as
-                  sessões de feedback do protótipo.
+                  Portão conjunto de viabilidade técnica antes de qualquer
+                  desenvolvimento; equipes técnicas das duas secretarias
+                  envolvidas desde as sessões de feedback do protótipo.
                 </td>
               </tr>
               <tr>
@@ -1691,25 +1696,6 @@
               <tr>
                 <td>R3</td>
                 <td>
-                  <strong>Percepção de subordinação institucional</strong>
-                  entre as secretarias
-                </td>
-                <td>Pessoas / Gov.</td>
-                <td style="text-align: center">
-                  <span class="badge badge-media">Média</span>
-                </td>
-                <td style="text-align: center">
-                  <span class="badge badge-alto">Alto</span>
-                </td>
-                <td>
-                  Premissa arquitetural comunicada como decisão de engenharia;
-                  portão de decisão nas mãos da SES; SAU reconhecido como
-                  fonte da verdade clínica em todo material do projeto.
-                </td>
-              </tr>
-              <tr>
-                <td>R4</td>
-                <td>
                   <strong>Integração como ponto único de falha</strong>
                 </td>
                 <td>Tecnologia</td>
@@ -1726,7 +1712,7 @@
                 </td>
               </tr>
               <tr>
-                <td>R5</td>
+                <td>R4</td>
                 <td>
                   <strong>Não conformidade LGPD</strong> no compartilhamento de
                   dados sensíveis de saúde
@@ -1745,7 +1731,7 @@
                 </td>
               </tr>
               <tr>
-                <td>R6</td>
+                <td>R5</td>
                 <td>
                   <strong>Protótipo vira vitrine</strong> — feedback colhido
                   mas não incorporado, sem avanço para entrega
