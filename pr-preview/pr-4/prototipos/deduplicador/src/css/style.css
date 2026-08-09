@@ -1,0 +1,975 @@
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --primary: #1b2a4a;
+  --primary-strong: #10192f;
+  --text: #1f2937;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+
+  --org-cbmdf: #c0392b;
+  --org-cbmdf-bg: #fdecea;
+  --org-samu: #2471a3;
+  --org-samu-bg: #eaf3fb;
+  --org-pmdf: #34495e;
+  --org-pmdf-bg: #eceff2;
+
+  --forte: #1d7a46;
+  --forte-bg: #e6f6ec;
+  --fraca: #8a5a10;
+  --fraca-bg: #fdf3e0;
+  --alerta: #b91c1c;
+  --alerta-bg: #fdecea;
+  --info: #1b4f72;
+  --info-bg: #eaf2f8;
+
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/*
+ * Reskin por órgão — quando "Ver como" muda, a casca da tela muda junto
+ * (cabeçalho, marca, botão primário, fundo). Reaproveita os mesmos tokens
+ * --org-cbmdf/samu/pmdf já usados nas tags dos cartões, então a cor de
+ * "quem está vendo" (a casca) e a cor de "quem é dono do registro" (a tag
+ * do cartão) podem ficar visualmente diferentes ao mesmo tempo — isso é
+ * intencional, é a demonstração visual do princípio P2 (vincula sem fundir,
+ * nenhum órgão é dono da tela).
+ */
+:root[data-orgao="CBMDF"] {
+  --primary: var(--org-cbmdf);
+  --primary-strong: color-mix(in srgb, var(--org-cbmdf) 78%, black);
+  --tema-bg-tint: color-mix(in srgb, var(--org-cbmdf) 6%, #eef1f6);
+}
+:root[data-orgao="SAMU"] {
+  --primary: var(--org-samu);
+  --primary-strong: color-mix(in srgb, var(--org-samu) 78%, black);
+  --tema-bg-tint: color-mix(in srgb, var(--org-samu) 6%, #eef1f6);
+}
+:root[data-orgao="PMDF"] {
+  --primary: var(--org-pmdf);
+  --primary-strong: color-mix(in srgb, var(--org-pmdf) 78%, black);
+  --tema-bg-tint: color-mix(in srgb, var(--org-pmdf) 6%, #eef1f6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--tema-bg-tint, #e6ebf3) 0%, #f3f5f9 100%);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------------------------------------------------------------- */
+/* Cabeçalho */
+/* ---------------------------------------------------------------- */
+
+.watermark-banner {
+  position: sticky;
+  top: 0;
+  z-index: 21;
+  background: var(--alerta);
+  color: #fff;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 6px 12px;
+}
+
+.app-header {
+  background: var(--surface);
+  border-bottom: 3px solid var(--primary);
+  position: sticky;
+  top: 28px;
+  z-index: 20;
+}
+
+.header-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.brand-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.brand-title strong {
+  font-size: 0.98rem;
+}
+
+.brand-title span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.nav-links a.ativo,
+.nav-links a:hover {
+  background: var(--bg);
+  color: var(--primary-strong);
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.controle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.controle select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.controle-toggle input {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-secundario {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secundario:hover {
+  color: var(--alerta);
+  border-color: var(--alerta);
+}
+
+.aviso-degradado {
+  background: var(--fraca-bg);
+  color: #7a4c07;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Layout geral */
+/* ---------------------------------------------------------------- */
+
+main {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+.pagina-titulo {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+}
+
+.pagina-subtitulo {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.panel {
+  background: var(--surface);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+
+.panel h3 {
+  font-size: 0.95rem;
+  margin: 0 0 10px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Formulários */
+/* ---------------------------------------------------------------- */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.input-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 64px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-strong);
+}
+
+.btn-vincular {
+  background: var(--forte);
+  color: #fff;
+}
+
+.btn-descartar {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.btn-descartar:hover {
+  color: var(--alerta);
+  border-color: var(--alerta);
+}
+
+.btn-desvincular {
+  background: transparent;
+  color: var(--alerta);
+  border: 1px solid var(--alerta-bg);
+}
+
+/* ---------------------------------------------------------------- */
+/* Tags e badges */
+/* ---------------------------------------------------------------- */
+
+.tag-orgao {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tag-cbmdf {
+  background: var(--org-cbmdf-bg);
+  color: var(--org-cbmdf);
+}
+
+.tag-samu {
+  background: var(--org-samu-bg);
+  color: var(--org-samu);
+}
+
+.tag-pmdf {
+  background: var(--org-pmdf-bg);
+  color: var(--org-pmdf);
+}
+
+.badge-status {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badge-ativa {
+  background: #e6f6ec;
+  color: #1d7a46;
+}
+
+.badge-encerrada {
+  background: #eceff2;
+  color: var(--muted);
+}
+
+.badge-vinculado {
+  background: #e9edf5;
+  color: #1b2a4a;
+}
+
+.badge-score {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.badge-score-forte {
+  background: var(--forte-bg);
+  color: var(--forte);
+}
+
+.badge-score-fraca {
+  background: var(--fraca-bg);
+  color: var(--fraca);
+}
+
+.badge-score-nulo,
+.badge-score-baixa-confianca {
+  background: #eceff2;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* Tela do atendente */
+/* ---------------------------------------------------------------- */
+
+.grid-atendente {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.painel-carregando {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  padding: 14px 0;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.confirmacao-cadastro {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--forte-bg);
+  color: var(--forte);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.card-candidato {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.card-candidato-cabeco {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.card-candidato .endereco {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+.card-candidato .motivo {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.card-candidato .resumo {
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+}
+
+.card-candidato .acoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.suprimido {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------------- */
+/* Tela do despachante */
+/* ---------------------------------------------------------------- */
+
+.lista-ocorrencias {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item-ocorrencia {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.item-ocorrencia .info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-ocorrencia .info-linha1 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.item-ocorrencia .endereco {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.item-ocorrencia .meta {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.painel-verificacao {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+}
+
+.aviso-vinculo-existente {
+  background: var(--info-bg);
+  color: var(--info);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+}
+
+.aviso-vinculo-existente a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------- */
+/* Tela de evento vinculado */
+/* ---------------------------------------------------------------- */
+
+.grid-evento {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 2fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.lista-eventos .item-evento {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.lista-eventos .item-evento.ativo {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.lista-eventos .item-evento .orgaos {
+  display: flex;
+  gap: 4px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.grid-cartoes-evento {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.cartao-ocorrencia-evento {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  background: var(--surface);
+}
+
+.cartao-ocorrencia-evento dl {
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+}
+
+.cartao-ocorrencia-evento dt {
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.cartao-ocorrencia-evento dd {
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+
+.campo-suprimido {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.aviso-vazio {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 16px 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Modal (substitui confirm/prompt/alert nativos) */
+/* ---------------------------------------------------------------- */
+
+.modal-prototipo {
+  border: none;
+  border-radius: 16px;
+  padding: 22px 24px;
+  max-width: 420px;
+  width: calc(100% - 32px);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.modal-prototipo::backdrop {
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.modal-prototipo h2 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.modal-prototipo p#modalMensagem {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.modal-prototipo #modalCampoWrap {
+  margin-top: 14px;
+  margin-bottom: 0;
+}
+
+/* .input-group define display:flex, que teria prioridade sobre o display:none
+   padrão do atributo [hidden] (regra de autor sempre vence regra de user-agent,
+   independentemente de especificidade) — precisa de uma regra explícita aqui. */
+.modal-prototipo #modalCampoWrap[hidden] {
+  display: none;
+}
+
+.modal-erro {
+  color: var(--alerta);
+  font-size: 0.8rem;
+  margin: 6px 0 0;
+}
+
+.modal-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+@media (max-width: 880px) {
+  .grid-atendente,
+  .grid-evento {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Camadas de integração (P2/P3/P4) — controles no cabeçalho          */
+/* ------------------------------------------------------------------ */
+
+.camadas-grupo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.camadas-rotulo {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.controle-camada {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.controle-camada input {
+  accent-color: var(--primary);
+}
+
+/* ------------------------------------------------------------------ */
+/* Camada P3 — badge de status da regulação médica                     */
+/* ------------------------------------------------------------------ */
+
+.badge-regulacao {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  border-radius: 100px;
+  padding: 2px 9px;
+  white-space: nowrap;
+}
+.badge-reg-andamento {
+  background: var(--fraca-bg);
+  color: var(--fraca);
+  border: 1px solid currentColor;
+}
+.badge-reg-definida {
+  background: var(--forte-bg);
+  color: var(--forte);
+  border: 1px solid currentColor;
+}
+
+/* ------------------------------------------------------------------ */
+/* Camada P4 — alertas de contra-regulação                             */
+/* ------------------------------------------------------------------ */
+
+.alertas-contrarreg {
+  position: fixed;
+  top: 76px;
+  right: 16px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 340px;
+}
+.toast-contrarreg {
+  background: var(--surface);
+  border: 1px solid var(--alerta);
+  border-left: 5px solid var(--alerta);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px var(--shadow);
+  padding: 12px 14px;
+  animation: entrar-toast 0.3s ease-out;
+}
+@keyframes entrar-toast {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.toast-contrarreg-titulo {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--alerta);
+  margin-bottom: 6px;
+}
+.toast-contrarreg-corpo {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.btn-ciencia {
+  font-size: 12px;
+  padding: 6px 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Camada P2 — transferência de ligação com contexto                   */
+/* ------------------------------------------------------------------ */
+
+.banner-transferencia {
+  background: var(--info-bg);
+  border: 1px solid var(--info);
+  border-left: 5px solid var(--info);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.banner-transferencia .texto {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  flex: 1;
+  min-width: 220px;
+}
+.banner-transferencia .texto strong {
+  color: var(--info);
+}
+.btn-transferir {
+  background: var(--surface);
+  color: var(--info);
+  border: 1px solid var(--info);
+  margin-left: 8px;
+}
+.btn-transferir:hover {
+  background: var(--info-bg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Botão flutuante de Feedback                                         */
+/* ------------------------------------------------------------------ */
+
+.fab-feedback {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 100px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.fab-feedback:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px var(--shadow);
+}
+
+@media (max-width: 760px) {
+  .camadas-grupo { flex-wrap: wrap; }
+  .alertas-contrarreg { left: 16px; right: 16px; max-width: none; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Tour guiado                                                         */
+/* ------------------------------------------------------------------ */
+
+.tour-bloqueio {
+  position: fixed;
+  inset: 0;
+  z-index: 88;
+  background: transparent;
+}
+.tour-destaque {
+  position: absolute;
+  z-index: 90;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.55);
+  pointer-events: none;
+  transition: top 0.25s ease, left 0.25s ease, width 0.25s ease, height 0.25s ease;
+}
+.tour-cartao {
+  position: absolute;
+  z-index: 95;
+  width: min(360px, calc(100vw - 32px));
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--primary);
+  border-radius: 10px;
+  box-shadow: 0 16px 42px rgba(15, 23, 42, 0.35);
+  padding: 16px 18px 14px;
+}
+.tour-cartao-titulo {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--primary-strong);
+  margin-bottom: 8px;
+}
+.tour-cartao-texto {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.tour-cartao-rodape {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tour-sair {
+  background: none;
+  border: none;
+  font-size: 11.5px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+.tour-sair:hover {
+  color: var(--text);
+}
+.tour-progresso {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-left: auto;
+}
+.tour-navegacao {
+  display: flex;
+  gap: 8px;
+}
+.tour-navegacao .btn {
+  font-size: 12.5px;
+  padding: 7px 14px;
+}
+
+/* Boas-vindas (primeira visita) */
+.tour-welcome {
+  max-width: 520px;
+}
+.tour-welcome-lista {
+  list-style: none;
+  margin: 14px 0 18px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tour-welcome-lista li {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.65;
+  padding-left: 22px;
+  position: relative;
+}
+.tour-welcome-lista li::before {
+  content: "›";
+  position: absolute;
+  left: 6px;
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 16px;
+}
+.tour-welcome-nota {
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+}

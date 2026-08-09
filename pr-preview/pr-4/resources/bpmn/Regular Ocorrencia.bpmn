@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="e414032" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.4.0" camunda:diagramRelationId="0f3f1792-0d76-4892-bc13-b9c70b050367">
+  <bpmn:collaboration id="Collaboration_02x7inb" name="Regular Ocorrência">
+    <bpmn:participant id="Participant_16lm2lh" name="REGULAR OCORRÊNCIA COM CERU" processRef="Process_1kb1syr" />
+    <bpmn:participant id="Participant_0augbcm" name="REGULAR OCORRÊNCIA COM CERU" processRef="Process_17hvoac" />
+    <bpmn:messageFlow id="Flow_1wspzyo" sourceRef="Activity_0898wzv" targetRef="Activity_0mpk59b" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1kb1syr" name="Comunicar ocorrência a Central de Regulação Médica" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_0bu6tsw">
+      <bpmn:lane id="Lane_1tmqzyi" name="TELEATENDENTE">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0898wzv</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0opzt3b" name="COORDENADOR DE OPERAÇÕES" />
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Ocorrência Cadastrada">
+      <bpmn:outgoing>Flow_1o5vnff</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Activity_0898wzv" name="Comunicar ocorrência para CERU">
+      <bpmn:incoming>Flow_1o5vnff</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1o5vnff" sourceRef="StartEvent_1" targetRef="Activity_0898wzv" />
+  </bpmn:process>
+  <bpmn:process id="Process_17hvoac" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1xw3lpk">
+      <bpmn:lane id="Lane_1cibn9m" name="MÉDICO REGULADOR">
+        <bpmn:flowNodeRef>Activity_0mpk59b</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0uqmpsn</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:task id="Activity_0mpk59b" name="Regular ocorrência">
+      <bpmn:outgoing>Flow_1kfcmts</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_0uqmpsn">
+      <bpmn:incoming>Flow_1kfcmts</bpmn:incoming>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1kfcmts" sourceRef="Activity_0mpk59b" targetRef="Gateway_0uqmpsn" />
+    <bpmn:textAnnotation id="TextAnnotation_02zzx5q">
+      <bpmn:text>Se atendimento presencial não for recomendado, Coordenador decidirá pelo prosseguimento ou não</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1bn9f05" associationDirection="None" sourceRef="Gateway_0uqmpsn" targetRef="TextAnnotation_02zzx5q" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_02x7inb">
+      <bpmndi:BPMNShape id="Participant_16lm2lh_di" bpmnElement="Participant_16lm2lh" isHorizontal="true">
+        <dc:Bounds x="152" y="495" width="858" height="370" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0opzt3b_di" bpmnElement="Lane_0opzt3b" isHorizontal="true">
+        <dc:Bounds x="182" y="745" width="828" height="120" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1tmqzyi_di" bpmnElement="Lane_1tmqzyi" isHorizontal="true">
+        <dc:Bounds x="182" y="495" width="828" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="222" y="602" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="212" y="645" width="57" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0898wzv_di" bpmnElement="Activity_0898wzv">
+        <dc:Bounds x="310" y="580" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1o5vnff_di" bpmnElement="Flow_1o5vnff">
+        <di:waypoint x="258" y="620" />
+        <di:waypoint x="310" y="620" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0augbcm_di" bpmnElement="Participant_0augbcm" isHorizontal="true">
+        <dc:Bounds x="152" y="80" width="858" height="370" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1cibn9m_di" bpmnElement="Lane_1cibn9m" isHorizontal="true">
+        <dc:Bounds x="182" y="80" width="828" height="370" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_02zzx5q_di" bpmnElement="TextAnnotation_02zzx5q">
+        <dc:Bounds x="790" y="170" width="100" height="127" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mpk59b_di" bpmnElement="Activity_0mpk59b">
+        <dc:Bounds x="510" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0uqmpsn_di" bpmnElement="Gateway_0uqmpsn" isMarkerVisible="true">
+        <dc:Bounds x="665" y="295" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1bn9f05_di" bpmnElement="Association_1bn9f05">
+        <di:waypoint x="703" y="308" />
+        <di:waypoint x="790" y="241" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kfcmts_di" bpmnElement="Flow_1kfcmts">
+        <di:waypoint x="610" y="320" />
+        <di:waypoint x="665" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wspzyo_di" bpmnElement="Flow_1wspzyo">
+        <di:waypoint x="410" y="620" />
+        <di:waypoint x="460" y="620" />
+        <di:waypoint x="460" y="310" />
+        <di:waypoint x="510" y="310" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

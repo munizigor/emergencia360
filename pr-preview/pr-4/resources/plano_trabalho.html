@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>GDF - Emergência 360</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 18mm 15mm;
+            background-color: #fcfdfd;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                color: #718096;
+            }
+            @bottom-left {
+                content: "Restrito — Plano de Interoperabilidade CBMDF × SAMU";
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                color: #718096;
+            }
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.5;
+            color: #2d3748;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Top Banner */
+        .header-banner {
+            margin: -18mm -15mm 25px -15mm;
+            padding: 25px 15mm;
+            background-color: #0f2d59; /* Navy/Slate Deep Blue */
+            color: #ffffff;
+        }
+
+        .header-banner h1 {
+            font-size: 20pt;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .meta-info {
+            font-size: 9.5pt;
+            color: #e2e8f0;
+            margin: 5px 0;
+        }
+        
+        .meta-info strong {
+            color: #ffffff;
+        }
+
+        h2 {
+            font-size: 14pt;
+            color: #0f2d59;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 4px solid #dd6b20; /* Warm terracotta/orange accent */
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 11.5pt;
+            color: #2c5282;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 12px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        /* Callout / Blockquote */
+        blockquote {
+            margin: 15px 0;
+            padding: 10px 15px;
+            background-color: #f7fafc;
+            border-left: 3px solid #718096;
+            font-size: 10pt;
+            color: #4a5568;
+            page-break-inside: avoid;
+        }
+        
+        blockquote p {
+            margin: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 9.5pt;
+        }
+
+        th {
+            background-color: #1a365d;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: left;
+            padding: 8px 10px;
+            border: 1px solid #1a365d;
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid #cbd5e0;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .nowrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-banner">
+        <div class="meta-info"><h1>Plano de Trabalho — Integração de Dados, Serviços e Sistemas CBMDF e SAMU</h1></div>
+        <div class="meta-info"><strong>Projeto:</strong> Interoperabilidade do Atendimento Pré-Hospitalar (APH) — Centrais 193 (CBMDF) e 192 (SAMU/DF)</div>
+        <div class="meta-info"><strong>Versão:</strong> 1.0 (proposta inicial para validação do Comitê Técnico Misto)</div>
+        <div class="meta-info"><strong>Data: </strong>26/06/2026</div>
+    </div>
+
+    <h2>Sumário Executivo</h2>
+    <p>Este plano estrutura a integração operacional e tecnológica entre o <strong>Corpo de Bombeiros Militar do Distrito Federal (CBMDF)</strong> e o <strong>Serviço de Atendimento Móvel de Urgência (SAMU/DF)</strong>, com foco em três resultados de negócio:</p>
+    <ol>
+        <li><strong>Eliminação de duplicidade de empenho de viaturas</strong> — por meio de um serviço de deduplicação de ocorrências entre as centrais.</li>
+        <li><strong>Consciência situacional unificada</strong> — visão compartilhada e em tempo real de ocorrências, recursos e telemetria de viaturas.</li>
+        <li><strong>Conformidade plena com a LGPD</strong> — tratamento lícito, minimizado e auditável de dados sensíveis de saúde no fluxo interoperado.</li>
+    </ol>
+    <p>O trabalho está organizado em <strong>5 fases sequenciais com sobreposições controladas</strong>, sustentadas por uma camada de governança (Comitê Técnico Misto) ativa desde o primeiro dia.</p>
+
+    <h2>1. Insights do Mapeamento As-Is (análise do fluxo anexo)</h2>
+    <p>A leitura do diagrama BPMN fornecido evidencia <strong>dois fluxos de atendimento que correm em paralelo, hoje fracamente acoplados</strong> — o do CBMDF (raias de atendimento da ligação, CIADE/despacho 193) e o do SAMU (telefonista/regulação médica, médico regulador, equipe de socorro, médico da USB/USA). Os pontos de contato já existentes ou previstos são exatamente as fronteiras onde a integração agrega mais valor:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 25%;">Ponto de interoperabilidade (As-Is)</th>
+                <th style="width: 35%;">Observação do fluxo atual</th>
+                <th style="width: 35%;">Oportunidade na integração</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td><strong>Transferir Ligação CBMDF&harr;SAMU</strong></td>
+                <td>Hoje há transferência de chamada quando o atendente identifica natureza clínica (&ldquo;É Saúde ou SAMU?&rdquo;), com risco de queda de chamada e perda de contexto.</td>
+                <td>Transferência <em>com contexto</em> (warm transfer): o cadastro já preenchido viaja junto, não o cidadão repetindo a história.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><strong>Regular Ocorrência</strong> (Médico Regulador)</td>
+                <td>Decisão clínica concentrada no SAMU; CBMDF não enxerga o status da regulação.</td>
+                <td>Expor <em>status de regulação</em> ao despacho 193 para sincronizar empenho.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><strong>Contra-regular Ocorrência</strong></td>
+                <td>Ajuste/reavaliação da regulação inicial.</td>
+                <td>Notificação de mudança de gravidade/recurso para a outra central em tempo real.</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><strong>Designar recursos para a ocorrência</strong> (apoio adicional)</td>
+                <td>&ldquo;Solicitar apoio adicional&rdquo; e &ldquo;Designar recursos&rdquo; aparecem em ambas as raias, isoladamente.</td>
+                <td>Despacho cruzado: pedido de apoio CBMDF&rarr;SAMU (e vice-versa) como serviço, com aceite/recusa rastreável.</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><strong>Verificar se ocorrência foi cadastrada em outra agência</strong> <em>(a inserir)</em></td>
+                <td><strong>Não existe no As-Is</strong> &mdash; é a principal lacuna geradora de duplicidade.</td>
+                <td>Inserir <em>gateway</em> de deduplicação logo após &ldquo;Cadastrar Ocorrência&rdquo;, antes de &ldquo;Designar recursos&rdquo;.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <blockquote>
+        <p><strong>Insight crítico:</strong> a duplicidade de empenho nasce no intervalo entre <strong>&ldquo;Cadastrar Ocorrência&rdquo;</strong> e <strong>&ldquo;Designar recursos para a ocorrência&rdquo;</strong>. É nesse ponto que o novo controle de deduplicação (#5) deve ser inserido como tarefa de serviço automatizada, consultando a base unificada por chave de correlação (geolocalização + janela temporal + telefone de origem + natureza). Os demais marcos (#1&ndash;#4) são integrações de <em>evento</em> e <em>status</em>, não de processo único &mdash; preservando a autonomia decisória de cada corporação.</p>
+    </blockquote>
+
+    <h2>2. Escopo e Diretrizes Principais</h2>
+
+    <h3>2.1 Padronização e Nomenclatura Comum</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 30%;">Item</th>
+                <th style="width: 70%;">Diretriz</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Dicionário de Dados Unificado</strong></td>
+                <td>Catálogo único de entidades (Ocorrência, Solicitante, Vítima, Recurso/Viatura, Despacho, Regulação, Desfecho) com nome, tipo, domínio, obrigatoriedade, sensibilidade LGPD e sistema-mestre (<em>system of record</em>) de cada atributo.</td>
+            </tr>
+            <tr>
+                <td><strong>Taxonomia de Ocorrências</strong></td>
+                <td>Tabela de correspondência (<em>de-para</em>) entre os códigos do CBMDF e do SAMU, ancorada em padrões reconhecidos: CID-10 para condição clínica e, para classificação de incidente, alinhamento ao modelo do <strong>NEMSIS</strong> (referência internacional de dados de EMS) adaptado à realidade nacional.</td>
+            </tr>
+            <tr>
+                <td><strong>Codificação de Gravidade</strong></td>
+                <td>Escala única (ex.: vermelho/laranja/amarelo/verde/azul) mapeada a protocolos clínicos validados &mdash; <strong>Manchester / START / jumpSTART</strong>, escore de Glasgow e AVPU &mdash; para que &ldquo;grave&rdquo; signifique a mesma coisa nas duas centrais.</td>
+            </tr>
+            <tr>
+                <td><strong>Eventos sentinela</strong></td>
+                <td>Codificação padronizada e prioritária para PCR (parada cardiorrespiratória), trauma com risco iminente de vida, gestante em trabalho de parto, vítimas múltiplas (acionamento de plano de catástfere).</td>
+            </tr>
+            <tr>
+                <td><strong>Protocolos de Triagem Integrados</strong></td>
+                <td>Roteiro de perguntas convergente nas duas centrais, de modo que a transferência de ligação não exija recomeço da triagem; a regulação médica permanece atribuição exclusiva do SAMU.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2.2 Integração de Sistemas</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Domínio</th>
+                <th style="width: 25%;">Sistema(s)</th>
+                <th style="width: 50%;">Estratégia de interoperação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Despacho de ocorrências (CAD)</strong></td>
+                <td>Sistema de despacho do CIADE/CBMDF e sistema de regulação/despacho do SAMU</td>
+                <td>Integração por eventos (publish/subscribe): criação, atualização de status e fechamento de ocorrência publicados em barramento.</td>
+            </tr>
+            <tr>
+                <td><strong>Telemetria de viaturas (AVL/GPS)</strong></td>
+                <td>Rastreamento das viaturas de ambas as frotas</td>
+                <td><em>Feed</em> de posição georreferenciada compartilhado em camada de mapa comum, com atualização em tempo quase-real.</td>
+            </tr>
+            <tr>
+                <td><strong>Prontuário / registro clínico</strong></td>
+                <td>Ficha de atendimento APH (SAMU) e registro de ocorrência (CBMDF)</td>
+                <td>Interoperação <strong>HL7 FHIR R4</strong>, com aderência à <strong>RNDS</strong> quando aplicável; CBMDF acessa apenas o subconjunto clínico estritamente necessário ao socorro.</td>
+            </tr>
+            <tr>
+                <td><strong>Identidade e acesso</strong></td>
+                <td>Diretórios de cada corporação</td>
+                <td>Federação de identidade (SSO) com perfis por papel, evitando bases de usuários duplicadas.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>2.3 Infraestrutura e Segurança</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Pilar</th>
+                <th style="width: 75%;">Diretriz arquitetural</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Padrão de integração</strong></td>
+                <td>Arquitetura orientada a eventos com <strong>barramento de serviços / message broker</strong> (ex.: fila de mensagens com entrega garantida) + <strong>APIs REST</strong> versionadas para consultas síncronas; contratos de API documentados em OpenAPI.</td>
+            </tr>
+            <tr>
+                <td><strong>Alta disponibilidade</strong></td>
+                <td>Topologia ativo-ativo ou ativo-passivo com <em>failover</em> automático; meta de disponibilidade &ge; 99,9%; operação degradada offline prevista (a falha da integração nunca pode impedir o atendimento isolado de cada central).</td>
+            </tr>
+            <tr>
+                <td><strong>Segurança da informação</strong></td>
+                <td>Criptografia em trânsito (TLS 1.2+/mTLS entre serviços) e em repouso; segregação de rede; <em>gateway</em> de API com <em>rate limiting</em> e WAF.</td>
+            </tr>
+            <tr>
+                <td><strong>Privacidade (LGPD)</strong></td>
+                <td>Minimização de dados por <em>design</em> (cada parte recebe só o necessário), pseudonimização onde possível, trilha de auditoria imutável de todo acesso a dado sensível, e definição formal dos papéis de <strong>controlador / operador</strong> entre as corporações.</td>
+            </tr>
+            <tr>
+                <td><strong>Observabilidade</strong></td>
+                <td>Monitoramento de latência, taxa de erro e <em>dead-letter queues</em>; <em>dashboards</em> operacionais e alertas.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. Estrutura do Plano de Trabalho — Fases, Entregáveis e Indicadores</h2>
+
+    <h3>Fase 1 — Alinhamento Institucional e Diagnóstico</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">Atividades</th>
+                <th style="width: 35%;">Produtos / Entregáveis</th>
+                <th style="width: 30%;">Indicadores de Sucesso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Instituir o <strong>Comitê Técnico Misto</strong> (representantes operacionais, de TI, jurídico/DPO e regulação médica de cada corporação)</td>
+                <td>Portaria/Termo de instituição do Comitê e regimento interno</td>
+                <td>Comitê instituído formalmente; quórum em &ge; 90% das reuniões.</td>
+            </tr>
+            <tr>
+                <td>Mapear processos <strong>As-Is</strong> das duas corporações</td>
+                <td>Documento BPMN As-Is consolidado das centrais 193 e 192</td>
+                <td>100% dos macroprocessos de APH mapeados e validados pelas áreas.</td>
+            </tr>
+            <tr>
+                <td>Selecionar os processos a interoperar: Transferir Ligação, Regular, Contra-regular, Designar recursos (apoio) e o novo <em>Verificar duplicidade</em></td>
+                <td>Matriz de processos interoperáveis priorizada</td>
+                <td>5 processos-âncora definidos e aprovados.</td>
+            </tr>
+            <tr>
+                <td>Levantar gargalos tecnológicos e de legado</td>
+                <td>Relatório de diagnóstico técnico (inventário de sistemas, APIs existentes, dívida técnica)</td>
+                <td>Inventário completo dos sistemas críticos das duas pontas.</td>
+            </tr>
+            <tr>
+                <td>Mapear bases legais e papéis LGPD</td>
+                <td>Parecer jurídico inicial e esboço de RIPD (Relatório de Impacto à Proteção de Dados)</td>
+                <td>Base legal definida para o compartilhamento.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Fase 2 — Definição de Padrões e Governança</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">Atividades</th>
+                <th style="width: 35%;">Produtos / Entregáveis</th>
+                <th style="width: 30%;">Indicadores de Sucesso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Elaborar o <strong>dicionário de dados unificado</strong></td>
+                <td>Dicionário de dados versionado + tabelas <em>de-para</em> de taxonomia</td>
+                <td>100% dos atributos do MVP catalogados com <em>system of record</em> definido.</td>
+            </tr>
+            <tr>
+                <td>Definir <strong>matriz de competências</strong> (quem atende o quê, quando e quem assume a coordenação)</td>
+                <td>Matriz RACI operacional dos cenários integrados</td>
+                <td>Matriz validada pelas duas corporações sem pendências.</td>
+            </tr>
+            <tr>
+                <td>Desenhar os novos fluxos <strong>To-Be</strong> integrados</td>
+                <td>Modelos BPMN To-Be dos 5 processos-âncora</td>
+                <td>Fluxos To-Be aprovados pelo Comitê.</td>
+            </tr>
+            <tr>
+                <td>Especificar o controle de deduplicação</td>
+                <td>Regra de negócio da chave de correlação (geo + tempo + telefone + natureza)</td>
+                <td>Regra de <em>match</em> validada com casos históricos reais.</td>
+            </tr>
+            <tr>
+                <td>Consolidar política de governança de dados</td>
+                <td>Política de governança, classificação da informação e plano de retenção</td>
+                <td>Política publicada e referenciada nos contratos de API.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Fase 3 — Arquitetura Tecnológica e Desenvolvimento</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">Atividades</th>
+                <th style="width: 35%;">Produtos / Entregáveis</th>
+                <th style="width: 30%;">Indicadores de Sucesso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Especificar <strong>APIs</strong> e contratos</td>
+                <td>Especificações OpenAPI dos serviços (ocorrência, status, recursos, deduplicação)</td>
+                <td>Contratos aprovados e publicados em portal de APIs.</td>
+            </tr>
+            <tr>
+                <td>Implantar o <strong>barramento de integração</strong></td>
+                <td>Barramento/broker configurado com tópicos e filas</td>
+                <td>Mensagens entregues com garantia <em>at-least-once</em> e <em>dead-letter</em> funcional.</td>
+            </tr>
+            <tr>
+                <td>Desenvolver regras de <strong>despacho cruzado</strong> e deduplicação</td>
+                <td>Serviços de despacho cruzado e de verificação de duplicidade</td>
+                <td>Deduplicação operando com precisão/recall medidos em ambiente de teste.</td>
+            </tr>
+            <tr>
+                <td>Implementar <strong>segurança</strong> (criptografia, IAM, auditoria)</td>
+                <td>Camada de segurança: mTLS, SSO federado, <em>log</em> de auditoria imutável</td>
+                <td>100% das chamadas autenticadas e registradas; varredura de segurança sem achados críticos.</td>
+            </tr>
+            <tr>
+                <td>Construir a <strong>camada de consciência situacional</strong></td>
+                <td>Painel unificado de ocorrências + telemetria</td>
+                <td>Posição das viaturas atualizada em tempo quase-real no painel comum.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Fase 4 — Projeto Piloto e Homologação</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">Atividades</th>
+                <th style="width: 35%;">Produtos / Entregáveis</th>
+                <th style="width: 30%;">Indicadores de Sucesso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Provisionar <strong>ambiente de testes (sandbox)</strong> com dados sintéticos/anonimizados</td>
+                <td>Sandbox isolado e massa de dados de teste</td>
+                <td>Ambiente espelhado e segregado da produção.</td>
+            </tr>
+            <tr>
+                <td>Executar <strong>simulação de ocorrências em tempo real</strong> (incl. cenário de vítimas múltiplas)</td>
+                <td>Roteiros de simulação e relatórios de execução</td>
+                <td>Cenários executados ponta a ponta sem perda de mensagem.</td>
+            </tr>
+            <tr>
+                <td>Aplicar <strong>critérios de validação técnica e operacional</strong></td>
+                <td>Plano e relatório de homologação (TAU — Termo de Aceite do Usuário)</td>
+                <td>Latência de transferência de ocorrência dentro da meta; 0 duplicidades não detectadas nos cenários.</td>
+            </tr>
+            <tr>
+                <td>Piloto operacional assistido em região delimitada</td>
+                <td>Relatório de piloto com lições aprendidas</td>
+                <td>Redução mensurável de empenho duplicado vs. linha de base.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Fase 5 — Capacitação e Implementação</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">Atividades</th>
+                <th style="width: 35%;">Produtos / Entregáveis</th>
+                <th style="width: 30%;">Indicadores de Sucesso</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Elaborar <strong>plano de treinamento</strong> para operadores das centrais 193 e 192 e equipes de rua</td>
+                <td>Material didático, POPs (procedimentos operacionais padrão) integrados</td>
+                <td>&ge; 95% dos operadores treinados e avaliados antes do Go-Live.</td>
+            </tr>
+            <tr>
+                <td>Capacitação prática em sala e em estações de trabalho</td>
+                <td>Turmas realizadas + avaliação de aprendizagem</td>
+                <td>Nota mínima de aproveitamento atingida.</td>
+            </tr>
+            <tr>
+                <td>Planejar a <strong>virada de chave (Go-Live)</strong> e o plano de <em>rollback</em></td>
+                <td>Cronograma de Go-Live faseado e plano de contingência</td>
+                <td>Go-Live executado com plano de reversão testado.</td>
+            </tr>
+            <tr>
+                <td>Estabilização e operação assistida</td>
+                <td>Relatório de pós-implantação e transição para sustentação</td>
+                <td>Indicadores operacionais estáveis por período de observação definido.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Cronograma Macro (indicativo)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 28%;">Fase</th>
+                <th style="width: 6%;" class="text-center">M1</th>
+                <th style="width: 6%;" class="text-center">M2</th>
+                <th style="width: 6%;" class="text-center">M3</th>
+                <th style="width: 6%;" class="text-center">M4</th>
+                <th style="width: 6%;" class="text-center">M5</th>
+                <th style="width: 6%;" class="text-center">M6</th>
+                <th style="width: 6%;" class="text-center">M7</th>
+                <th style="width: 6%;" class="text-center">M8</th>
+                <th style="width: 6%;" class="text-center">M9</th>
+                <th style="width: 6%;" class="text-center">M10</th>
+                <th style="width: 6%;" class="text-center">M11</th>
+                <th style="width: 6%;" class="text-center">M12</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1 — Alinhamento e Diagnóstico</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+            </tr>
+            <tr>
+                <td>2 — Padrões e Governança</td>
+                <td class="text-center"></td>
+                <td class="text-center">░░</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+            </tr>
+            <tr>
+                <td>3 — Arquitetura e Desenvolvimento</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center">░░</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+            </tr>
+            <tr>
+                <td>4 — Piloto e Homologação</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center">░░</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+            </tr>
+            <tr>
+                <td>5 — Capacitação e Go-Live</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center">░░</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+                <td class="text-center">██</td>
+            </tr>
+            <tr>
+                <td><strong>Governança (Comitê Técnico Misto)</strong></td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+                <td class="text-center">▓▓</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <blockquote>
+        <p>Legenda: ██ execução &middot; ░░ início com sobreposição à fase anterior &middot; ▓▓ atividade contínua. Os prazos são referenciais e devem ser recalibrados pelo Comitê após a Fase 1.</p>
+    </blockquote>
+
+    <h2>4. Matriz de Riscos Inicial</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 25%;">Risco</th>
+                <th style="width: 15%;">Categoria</th>
+                <th style="width: 8%;" class="text-center">Prob.</th>
+                <th style="width: 8%;" class="text-center">Impacto</th>
+                <th style="width: 39%;">Ação de Mitigação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>R1</td>
+                <td><strong>Resistência cultural / disputa de protagonismo</strong> entre corporações (&ldquo;quem comanda a cena?&rdquo;)</td>
+                <td>Pessoas / Governança</td>
+                <td class="text-center">Alta</td>
+                <td class="text-center">Alto</td>
+                <td>Comitê Técnico Misto com decisão paritária; matriz RACI explícita por cenário; patrocínio formal do alto comando das duas instituições; comunicação de que a integração <em>preserva</em> a autonomia de cada corporação.</td>
+            </tr>
+            <tr>
+                <td>R2</td>
+                <td><strong>Indisponibilidade de sistemas</strong> (a integração vira ponto único de falha)</td>
+                <td>Tecnologia / Operação</td>
+                <td class="text-center">Média</td>
+                <td class="text-center">Crítico</td>
+                <td>Arquitetura de alta disponibilidade com <em>failover</em>; <strong>modo degradado</strong>: cada central continua operando isoladamente se a integração cair; testes de caos e <em>runbooks</em> de contingência.</td>
+            </tr>
+            <tr>
+                <td>R3</td>
+                <td><strong>Incompatibilidade de legado</strong> (sistemas antigos sem API, modelos de dados divergentes)</td>
+                <td>Tecnologia</td>
+                <td class="text-center">Alta</td>
+                <td class="text-center">Alto</td>
+                <td>Camada de <em>adapters</em>/anticorrupção isolando o legado; tabelas <em>de-para</em> na camada de integração, não nos sistemas-fonte; abordagem incremental por MVP antes de ampliar escopo.</td>
+            </tr>
+            <tr>
+                <td>R4</td>
+                <td><strong>Não conformidade com a LGPD</strong> no compartilhamento de dado sensível de saúde</td>
+                <td>Jurídico / Privacidade</td>
+                <td class="text-center">Média</td>
+                <td class="text-center">Crítico</td>
+                <td>RIPD concluído antes do desenvolvimento; minimização e pseudonimização por <em>design</em>; trilha de auditoria imutável; definição formal de controlador/operador; revisão do DPO em cada <em>gate</em> de fase.</td>
+            </tr>
+            <tr>
+                <td>R5</td>
+                <td><strong>Inconsistência semântica</strong> (mesmo termo, significados diferentes &rarr; gravidade traduzida errada)</td>
+                <td>Dados</td>
+                <td class="text-center">Média</td>
+                <td class="text-center">Alto</td>
+                <td>Dicionário de dados unificado como artefato de governança versionado; validação das tabelas <em>de-para</em> com casos clínicos reais; testes de regressão sobre a tradução de gravidade.</td>
+            </tr>
+            <tr>
+                <td>R6</td>
+                <td><strong>Falha humana na transição</strong> (operadores não absorvem o novo fluxo)</td>
+                <td>Pessoas / Operação</td>
+                <td class="text-center">Média</td>
+                <td class="text-center">Médio</td>
+                <td>Treinamento obrigatório com avaliação; operação assistida no Go-Live; POPs integrados disponíveis na estação de trabalho.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>5. Notas de Governança e Conformidade</h2>
+    <ul>
+        <li><strong>Princípio reitor:</strong> a integração é um <em>amplificador</em> da operação de cada corporação, nunca um substituto. Nenhuma indisponibilidade da camada integrada pode degradar o atendimento isolado de 193 ou 192.</li>
+        <li><strong>LGPD — base legal:</strong> o tratamento apoia-se na execução de políticas públicas e na tutela da saúde (Arts. 7º, 11 e 23 da Lei 13.709/2018), com o RIPD como pré-condição do desenvolvimento.</li>
+        <li><strong>Interoperabilidade de governo:</strong> aderência ao e-PING e, na dimensão de saúde, ao padrão HL7 FHIR/RNDS, favorecendo a replicabilidade do modelo por outros Corpos de Bombeiros e SAMUs estaduais.</li>
+        <li><strong>Auditabilidade:</strong> todo acesso a dado sensível é registrado em trilha imutável, com retenção definida em política e prestação de contas ao Comitê.</li>
+    </ul>
+
+</body>
+</html>
