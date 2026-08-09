@@ -1,0 +1,44 @@
+# Publica o site no branch gh-pages a cada push no main.
+#
+# Par deste workflow: pr-preview.yml, que publica uma prévia de cada pull
+# request em gh-pages/pr-preview/pr-<N>/. O clean-exclude abaixo garante que
+# o deploy de produção não apague as prévias abertas.
+#
+# Requisito único (uma vez por repositório): em Settings → Pages, apontar a
+# fonte para "Deploy from a branch" → gh-pages / (root). Faça isso DEPOIS da
+# primeira execução deste workflow, para o branch gh-pages já existir
+# populado.
+#
+# Este arquivo é genérico: para reutilizar em outro projeto de site estático,
+# basta copiá-lo junto com pr-preview.yml. Se o projeto tiver etapa de build,
+# acrescente o passo de build e troque "folder: ." pela pasta de saída
+# (ex.: dist).
+
+name: Deploy do site (gh-pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publicar no gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .
+          branch: gh-pages
+          clean: true
+          clean-exclude: pr-preview/
+          force: false
