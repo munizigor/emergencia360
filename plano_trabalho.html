@@ -1268,9 +1268,11 @@
           <p class="section-lead">
             Selecionados a partir do mapeamento BPMN das centrais 193 e 192 —
             são as fronteiras onde a interoperabilidade elimina fricção real.
-            A deduplicação abre o trabalho como prova de conceito, por ser o
-            processo mais simples e já contar com documento de visão e
-            protótipo navegável.
+            A deduplicação abre o trabalho como prova de conceito. Os
+            protótipos de P2, P3 e P4 são construídos como camadas da mesma
+            estação integrada, ligáveis no cabeçalho do protótipo — o que
+            permite avaliar cada processo isolado e a carga combinada sobre o
+            operador numa única sessão de feedback.
           </p>
         </div>
 
@@ -1301,7 +1303,7 @@
               </tr>
               <tr>
                 <td><strong>P2 — Transferência de ligação com contexto</strong></td>
-                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
@@ -1309,7 +1311,7 @@
               </tr>
               <tr>
                 <td><strong>P3 — Status da regulação médica</strong></td>
-                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
@@ -1317,7 +1319,7 @@
               </tr>
               <tr>
                 <td><strong>P4 — Notificação de contra-regulação</strong></td>
-                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
                 <td style="text-align: center"><span class="stage-todo"></span></td>
@@ -1784,5 +1786,20 @@
         <a href="prototipos.html">protótipos</a>
       </div>
     </footer>
+    <!-- Botão flutuante de Feedback -->
+    <!-- TODO: inserir o link do formulário de feedback no href abaixo -->
+    <a class="fab-feedback" href="#" onclick="return false;" title="Formulário de feedback — em breve">💬 Feedback</a>
+    <style>
+      .fab-feedback {
+        position: fixed; bottom: 18px; right: 18px; z-index: 200;
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--aph-red); color: #fff;
+        font-size: 13px; font-weight: 700;
+        padding: 10px 16px; border-radius: 100px; text-decoration: none;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .fab-feedback:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); }
+    </style>
   </body>
 </html>

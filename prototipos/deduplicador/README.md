@@ -1,4 +1,4 @@
-# Protótipo — Painel de Ocorrências Correlatas
+# Protótipo — Estação Integrada (Deduplicação + Camadas P2–P4)
 
 Protótipo de média fidelidade, sem backend, com dados 100% sintéticos. Construído para validar
 interação e parâmetros (P1–P3, desacoplamento do motor, raios/janelas/limiares de score) antes de
@@ -36,6 +36,31 @@ O cabeçalho, presente nas três telas, controla:
 
 Tudo fica em `localStorage`, chave `e360_dedup_prototipo_v1`. Fechar a aba não perde o progresso; o
 botão "Reiniciar demonstração" limpa essa chave e recarrega a massa de dados original de `src/js/dados.js`.
+
+## Camadas de integração (P2/P3/P4)
+
+Além da deduplicação (P1), as telas carregam as demais camadas de integração do plano de
+trabalho, cada uma ligável/desligável no grupo **Camadas** do cabeçalho:
+
+- **P2 — Transferência com contexto**: na tela do atendente, o botão "Transferir ligação com
+  contexto" envia o cadastro parcial à outra central; trocando "Ver como" para a central de
+  destino, um banner permite assumir a triagem com o formulário pré-carregado.
+- **P3 — Status da regulação médica**: ocorrências do SAMU exibem o badge de regulação
+  (em regulação / definida · USB/USA) em todas as listas. A decisão clínica permanece no SAU —
+  só o status viaja.
+- **P4 — Contra-regulação**: na visão SAMU da tela de eventos, "Contra-regular (demo)" altera o
+  recurso regulado e notifica as demais centrais com um alerta na própria tela (com ciência
+  explícita). Alguns segundos após abrir qualquer tela, uma contra-regulação simulada também
+  dispara automaticamente, para a demonstração não depender de ação prévia.
+
+O objetivo das camadas é duplo: validar cada processo isoladamente e observar a **carga
+combinada** sobre a estação do operador (risco R6 — "substituir canal, não somar").
+
+## Feedback
+
+Todas as telas exibem o botão flutuante **Feedback**. O link do formulário é configurado na
+constante `LINK_FORMULARIO_FEEDBACK` em `src/js/comum.js` (TODO pendente — enquanto vazio, o
+botão informa que o formulário será disponibilizado).
 
 ## Estrutura
 
