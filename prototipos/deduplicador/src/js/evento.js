@@ -59,14 +59,23 @@ function renderizarDetalheEvento() {
   const verComo = ESTADO.obterVerComo();
   const destino = document.getElementById('detalheEvento');
 
+  const camadas = ESTADO.obterCamadas();
+
   destino.innerHTML = ocorrencias
     .map((o) => {
       const suprimir = o.sigiloso && o.orgao !== verComo;
+      // Camada P4: contra-regular é ato do médico regulador — o botão só
+      // aparece na visão SAMU, sobre ocorrências do próprio SAMU.
+      const podeContrarregular = camadas.p4 && verComo === 'SAMU' && o.orgao === 'SAMU' && o.status !== 'ENCERRADA';
+      const linhaRegulacao = o.regulacao && camadas.p3
+        ? `<dt>Regulação</dt><dd>${badgeRegulacao(o)}</dd>`
+        : '';
       return `
         <article class="cartao-ocorrencia-evento">
           <div class="card-candidato-cabeco">
             ${tagOrgao(o.orgao)}
             ${badgeStatus(o.status)}
+            ${suprimir ? '' : badgeRegulacao(o)}
           </div>
           <dl>
             <dt>Identificador</dt>
@@ -77,16 +86,41 @@ function renderizarDetalheEvento() {
             <dd>${suprimir ? '🔒 Reservado' : labelTipo(o.tipo_canonico)}</dd>
             <dt>Abertura</dt>
             <dd>${formatarDataHora(o.abertura)}</dd>
+            ${linhaRegulacao}
             <dt>Resumo</dt>
             <dd class="${suprimir ? 'campo-suprimido' : ''}">${suprimir ? '🔒 Conteúdo suprimido — acesso restrito ao órgão de origem' : escaparHtml(o.resumo)}</dd>
           </dl>
           <div class="acoes" style="margin-top:12px;">
+            ${podeContrarregular ? `<button class="btn btn-vincular" onclick="contrarregularDemo('${o.id_ocorrencia}')">Contra-regular (demo)</button>` : ''}
             <button class="btn btn-desvincular" onclick="desvincularOcorrencia('${o.id_ocorrencia}')">Desvincular</button>
           </div>
         </article>
       `;
     })
     .join('');
+}
+
+// Camada P4 — a contra-regulação parte do médico regulador (visão SAMU) e
+// notifica em tempo real as centrais com recurso empenhado na ocorrência.
+async function contrarregularDemo(idOcorrencia) {
+  const o = ESTADO.obterOcorrenciaPorId(idOcorrencia);
+  if (!o) return;
+  const de = o.recurso_regulado || 'USB';
+  const para = de === 'USA' ? 'USB' : 'USA';
+  const confirmado = await confirmarAcao({
+    titulo: 'Contra-regulação (demonstração)',
+    mensagem: `Alterar o recurso regulado de ${de} para ${para}? As demais centrais com recurso empenhado nesta ocorrência serão notificadas em tempo real (P4). Para ver a notificação chegar, troque "Ver como" para CBMDF ou PMDF depois de contra-regular.`,
+    textoConfirmar: 'Contra-regular',
+  });
+  if (!confirmado) return;
+  ESTADO.registrarContrarregulacao({
+    idOcorrencia,
+    de,
+    para,
+    motivo: 'Reavaliação do médico regulador (demonstração).',
+  });
+  renderizarListaEventos();
+  montarAlertasContrarregulacao();
 }
 
 async function desvincularOcorrencia(idOcorrencia) {

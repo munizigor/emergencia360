@@ -59,7 +59,91 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('campoTipo').addEventListener('change', tentarBuscarCandidatos);
   document.getElementById('formCadastro').addEventListener('submit', concluirCadastro);
   window.addEventListener('motorAlterado', tentarBuscarCandidatos);
+
+  // Camada P2 — transferência de ligação com contexto
+  if (ESTADO.obterCamadas().p2) {
+    const btnTransferir = document.getElementById('btnTransferir');
+    btnTransferir.hidden = false;
+    btnTransferir.addEventListener('click', transferirComContexto);
+    renderizarBannerTransferencia();
+  }
 });
+
+// ---------------------------------------------------------------------
+// Camada P2 — o pacote de contexto viaja junto com a transferência da
+// chamada: a central de destino continua a triagem de onde parou.
+// ---------------------------------------------------------------------
+
+const DESTINO_TRANSFERENCIA = { CBMDF: 'SAMU', SAMU: 'CBMDF', PMDF: 'CBMDF' };
+
+async function transferirComContexto() {
+  const endereco = enderecoSelecionado();
+  const tipo = document.getElementById('campoTipo').value;
+  const confirmacao = document.getElementById('confirmacao');
+
+  if (!endereco || !tipo) {
+    confirmacao.innerHTML =
+      '<div class="confirmacao-cadastro" style="background:var(--alerta-bg);color:var(--alerta)">Selecione endereço e tipo antes de transferir — é esse contexto que viaja com a ligação.</div>';
+    return;
+  }
+
+  const orgaoOrigem = ESTADO.obterVerComo();
+  const orgaoDestino = DESTINO_TRANSFERENCIA[orgaoOrigem];
+
+  const confirmado = await confirmarAcao({
+    titulo: `Transferir ligação ao ${orgaoDestino}`,
+    mensagem: `A chamada será transferida ao ${orgaoDestino} levando junto o pacote de contexto (endereço, tipo, telefone e relato já colhidos). A triagem continua de onde parou — o cidadão não reconta nada (P2).`,
+    textoConfirmar: 'Transferir com contexto',
+  });
+  if (!confirmado) return;
+
+  ESTADO.criarTransferencia({
+    orgaoOrigem,
+    orgaoDestino,
+    enderecoIndice: Number(document.getElementById('campoEndereco').value),
+    tipo,
+    telefone: document.getElementById('campoTelefone').value.trim(),
+    resumo: document.getElementById('campoResumo').value.trim(),
+    hora: endereco.abertura,
+  });
+
+  confirmacao.innerHTML = `<div class="confirmacao-cadastro">📞 Ligação transferida ao ${orgaoDestino} com contexto às ${formatarHora(endereco.abertura)}. Troque "Ver como" para ${orgaoDestino} no cabeçalho para assumir a triagem na central de destino.</div>`;
+  document.getElementById('formCadastro').reset();
+  tentarBuscarCandidatos();
+}
+
+function renderizarBannerTransferencia() {
+  const verComo = ESTADO.obterVerComo();
+  const pendente = ESTADO.obterTransferenciaPendente(verComo);
+  const destino = document.getElementById('bannerTransferencia');
+  if (!pendente) {
+    destino.innerHTML = '';
+    return;
+  }
+  destino.innerHTML = `
+    <div class="banner-transferencia" role="status">
+      <div class="texto">
+        📞 <strong>Ligação transferida do ${escaparHtml(pendente.orgaoOrigem)} com contexto</strong> às
+        ${formatarHora(pendente.hora)} — endereço, tipo e relato já colhidos viajaram junto.
+        O cidadão não precisa recontar (P2).
+      </div>
+      <button type="button" class="btn btn-primary" id="btnAssumirTransferencia">Assumir triagem</button>
+    </div>
+  `;
+  document.getElementById('btnAssumirTransferencia').addEventListener('click', () => assumirTriagem(pendente));
+}
+
+function assumirTriagem(transferencia) {
+  document.getElementById('campoEndereco').value = String(transferencia.enderecoIndice);
+  document.getElementById('campoTipo').value = transferencia.tipo;
+  document.getElementById('campoTelefone').value = transferencia.telefone || '';
+  const prefixo = `(via transferência do ${transferencia.orgaoOrigem}, contexto recebido às ${formatarHora(transferencia.hora)}) `;
+  document.getElementById('campoResumo').value = prefixo + (transferencia.resumo || '');
+  ESTADO.assumirTransferencia(transferencia.id);
+  document.getElementById('bannerTransferencia').innerHTML =
+    '<div class="confirmacao-cadastro">Contexto carregado — a triagem continua de onde parou. Revise os dados e conclua o cadastro.</div>';
+  tentarBuscarCandidatos();
+}
 
 function popularEnderecos() {
   const select = document.getElementById('campoEndereco');
@@ -128,6 +212,7 @@ function renderizarCandidatosAtendente(resultado, destino) {
           <div class="card-candidato-cabeco">
             ${tagOrgao(o.orgao)}
             ${badgeStatus(o.status)}
+            ${suprimir ? '' : badgeRegulacao(o)}
             ${badgeScore(item.score, item.baixaConfianca)}
           </div>
           <div class="endereco">${suprimir ? 'Endereço reservado' : escaparHtml(o.endereco_normalizado)}</div>

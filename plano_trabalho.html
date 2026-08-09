@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Emergência 360 — CBMDF - SAMU/DF</title>
+    <title>Emergência 360 — Plano de Trabalho</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
@@ -74,23 +74,6 @@
       .gdf-util-label:last-child {
         border-right: none;
       }
-      .gdf-util-right {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-      .gdf-util-link {
-        font-size: 11px;
-        color: rgba(255, 255, 255, 0.65);
-        text-decoration: none;
-      }
-      .gdf-util-link:hover {
-        color: white;
-      }
-      .gdf-shield {
-        width: 20px;
-        height: 20px;
-      }
 
       /* ── MAIN NAV ── */
       .main-nav {
@@ -112,12 +95,10 @@
       .nav-brand {
         display: flex;
         align-items: center;
-        margin-right: 16px;
+        margin-right: auto;
         text-decoration: none;
         flex-shrink: 0;
       }
-
-      /* Project logo slot */
       .logo-e360 {
         height: 38px;
         min-width: 110px;
@@ -128,110 +109,6 @@
         overflow: hidden;
         position: relative;
       }
-      .logo-e360 img {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-        display: block;
-      }
-      .logo-e360-hint {
-        position: absolute;
-        top: -9px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 7px;
-        background: var(--gdf-green);
-        color: white;
-        padding: 1px 5px;
-        border-radius: 2px;
-        white-space: nowrap;
-        letter-spacing: 0.05em;
-      }
-      .logo-e360-text {
-        font-size: 12px;
-        font-weight: 800;
-        color: var(--gdf-green-dk);
-        line-height: 1;
-      }
-      .logo-e360-sub {
-        font-size: 7px;
-        color: var(--gdf-green);
-        letter-spacing: 0.06em;
-        font-weight: 600;
-      }
-
-      /* Partner logo slots */
-      .nav-partners {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding-left: 18px;
-        border-left: 1px solid var(--line);
-        margin-right: auto;
-      }
-      .partner-logo {
-        height: 34px;
-        padding: 0 8px;
-        border: 2px dashed var(--line);
-        border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1px;
-        position: relative;
-      }
-      .partner-logo.cbmdf {
-        border-color: var(--fire-orange);
-        background: var(--fire-lt);
-      }
-      .partner-logo.samu {
-        border-color: var(--aph-red);
-        background: var(--aph-red-lt);
-      }
-      .partner-hint {
-        position: absolute;
-        top: -9px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 7px;
-        padding: 1px 5px;
-        border-radius: 2px;
-        white-space: nowrap;
-        letter-spacing: 0.05em;
-        color: white;
-      }
-      .cbmdf .partner-hint {
-        background: var(--fire-orange);
-      }
-      .samu .partner-hint {
-        background: var(--aph-red);
-      }
-      .partner-name {
-        font-size: 10.5px;
-        font-weight: 800;
-        line-height: 1;
-      }
-      .cbmdf .partner-name {
-        color: var(--fire-orange);
-      }
-      .samu .partner-name {
-        color: var(--aph-red);
-      }
-      .partner-sub {
-        font-size: 7.5px;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        line-height: 1;
-      }
-      .cbmdf .partner-sub {
-        color: #a04010;
-      }
-      .samu .partner-sub {
-        color: var(--aph-red-dk);
-      }
-
-      /* Nav links */
       .nav-links {
         display: flex;
         align-items: center;
@@ -258,11 +135,6 @@
       .nav-link:hover {
         color: var(--aph-red);
         border-bottom-color: var(--aph-red-lt);
-      }
-      .nav-link.active {
-        color: var(--aph-red);
-        border-bottom-color: var(--aph-red);
-        font-weight: 600;
       }
       .nav-link.cta {
         margin-left: 8px;
@@ -327,13 +199,6 @@
         position: relative;
         z-index: 1;
       }
-      .hero-logo {
-        display: block;
-        height: 256px;
-        width: auto;
-        margin-bottom: 24px;
-        filter: brightness(1.05) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
-      }
       .hero-eyebrow {
         display: inline-flex;
         align-items: center;
@@ -343,26 +208,6 @@
         letter-spacing: 0.12em;
         text-transform: uppercase;
         margin-bottom: 18px;
-      }
-      .pulse-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--aph-red);
-        animation: pulse 2s infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.6;
-          transform: scale(1.3);
-        }
-      }
-      .hero-eyebrow-text {
         color: rgba(255, 255, 255, 0.65);
       }
       .hero-title {
@@ -371,7 +216,7 @@
         color: white;
         line-height: 1.1;
         letter-spacing: -1px;
-        max-width: 640px;
+        max-width: 680px;
         margin-bottom: 16px;
       }
       .hero-title .red {
@@ -380,27 +225,12 @@
       .hero-sub {
         font-size: 15px;
         color: rgba(255, 255, 255, 0.58);
-        max-width: 530px;
+        max-width: 560px;
         margin-bottom: 32px;
         line-height: 1.75;
       }
       .hero-sub strong {
         color: rgba(255, 255, 255, 0.88);
-      }
-      .hero-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px;
-        margin-bottom: 44px;
-      }
-      .tag {
-        font-size: 11px;
-        font-weight: 500;
-        padding: 4px 11px;
-        border-radius: 100px;
-        background: rgba(255, 255, 255, 0.07);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.65);
       }
       .hero-kpis {
         display: grid;
@@ -432,15 +262,11 @@
       .kpi-num .g {
         color: #5dbf5d;
       }
-      .kpi-num sup {
-        font-size: 16px;
-        vertical-align: super;
-      }
       .kpi-label {
         font-size: 11px;
         color: rgba(255, 255, 255, 0.48);
         line-height: 1.4;
-        max-width: 120px;
+        max-width: 130px;
       }
 
       /* ── SECTION ── */
@@ -488,58 +314,8 @@
         margin-top: 9px;
         font-size: 14px;
         color: var(--slate);
-        max-width: 600px;
+        max-width: 640px;
         line-height: 1.75;
-      }
-
-      /* ── RESULTS STRIP ── */
-      .results-strip {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2px;
-        background: var(--line);
-      }
-      .result-card {
-        background: white;
-        padding: 24px 22px 20px;
-        position: relative;
-      }
-      .result-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-      }
-      .result-card:nth-child(1)::before {
-        background: var(--aph-red);
-      }
-      .result-card:nth-child(2)::before {
-        background: var(--gdf-green);
-      }
-      .result-card:nth-child(3)::before {
-        background: var(--fire-orange);
-      }
-      .result-num {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--cloud);
-        margin-bottom: 8px;
-      }
-      .result-title {
-        font-size: 14.5px;
-        font-weight: 700;
-        color: var(--ink);
-        margin-bottom: 7px;
-        line-height: 1.3;
-      }
-      .result-desc {
-        font-size: 13px;
-        color: var(--slate);
-        line-height: 1.65;
       }
 
       /* ── INSIGHT ── */
@@ -556,6 +332,15 @@
       }
       .insight-box strong {
         color: var(--aph-red);
+      }
+      .insight-box.green {
+        background: var(--gdf-green-lt);
+        border-color: #b5d9b5;
+        border-left-color: var(--gdf-green);
+        color: #1d4a1d;
+      }
+      .insight-box.green strong {
+        color: var(--gdf-green-dk);
       }
 
       /* ── TABLES ── */
@@ -593,7 +378,7 @@
         background: var(--aph-red-lt);
       }
 
-      /* ── PHASES ── */
+      /* ── MÉTODO (estágios) ── */
       .phases {
         display: flex;
         flex-direction: column;
@@ -628,7 +413,7 @@
         background: #c0501a;
       }
       .phase:nth-child(3) .phase-dot {
-        background: #8b1a1a;
+        background: var(--gdf-green-dk);
       }
       .phase:nth-child(4) .phase-dot {
         background: #a52828;
@@ -661,6 +446,9 @@
         font-weight: 800;
         color: var(--aph-red-dk);
         margin-bottom: 10px;
+      }
+      .phase:nth-child(3) .phase-name {
+        color: var(--gdf-green-dk);
       }
       .phase-items {
         list-style: none;
@@ -696,49 +484,234 @@
         font-weight: 600;
         color: var(--aph-red-dk);
       }
+      .phase-deliverable.green {
+        background: var(--gdf-green-lt);
+        border-color: #b5d9b5;
+        color: var(--gdf-green-dk);
+      }
 
-      /* ── TIMELINE ── */
-      .tl-wrap {
-        overflow-x: auto;
+      /* ── ARQUITETURA (diagrama) ── */
+      .arch-diagram {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+        margin: 26px 0;
+        flex-wrap: wrap;
       }
-      .tl-table {
-        min-width: 660px;
+      .arch-node {
+        flex: 1;
+        min-width: 180px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px 16px;
       }
-      .tl-table th {
+      .arch-node.ses {
+        border-top: 4px solid var(--aph-red);
+      }
+      .arch-node.plataforma {
+        border-top: 4px solid var(--gdf-green);
+        background: var(--gdf-green-lt);
+        border-color: #b5d9b5;
+      }
+      .arch-node.ssp {
+        border-top: 4px solid var(--fire-orange);
+      }
+      .arch-org {
         font-size: 10px;
-        text-align: center;
-        padding: 8px 3px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--cloud);
+        margin-bottom: 6px;
       }
-      .tl-table td {
-        text-align: center;
-        padding: 7px 2px;
+      .arch-sys {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 6px;
       }
-      td.tl-name {
-        text-align: left;
+      .arch-desc {
         font-size: 12px;
-        font-weight: 500;
-        padding-left: 13px;
-        white-space: nowrap;
+        color: var(--slate);
+        line-height: 1.6;
       }
-      .tl-bar {
-        display: inline-block;
-        width: 24px;
-        height: 13px;
-        border-radius: 3px;
+      .arch-desc ul {
+        list-style: none;
+        margin-top: 6px;
       }
-      .tl-full {
-        background: var(--aph-red);
+      .arch-desc li {
+        padding-left: 12px;
+        position: relative;
       }
-      .tl-start {
-        background: var(--fire-orange);
-        opacity: 0.8;
+      .arch-desc li::before {
+        content: "›";
+        position: absolute;
+        left: 0;
+        color: var(--gdf-green-dk);
+        font-weight: 700;
       }
-      .tl-gov {
-        background: var(--aph-red);
-        opacity: 0.8;
+      .arch-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        flex-shrink: 0;
+      }
+      .arch-arrow {
+        font-size: 18px;
+        color: var(--cloud);
+        line-height: 1;
+      }
+      .arch-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--cloud);
+        text-align: center;
+        max-width: 90px;
+        line-height: 1.4;
+        margin-top: 4px;
       }
 
-      /* ── RISK BADGES ── */
+      /* ── GOV CARDS ── */
+      .gov-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .gov-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-top: 3px solid var(--aph-red);
+        border-radius: 0 0 6px 6px;
+        padding: 20px 20px 16px;
+      }
+      .gov-card.green {
+        border-top-color: var(--gdf-green);
+      }
+      .gov-icon {
+        font-size: 20px;
+        margin-bottom: 9px;
+      }
+      .gov-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--aph-red-dk);
+        margin-bottom: 7px;
+      }
+      .gov-card.green .gov-title {
+        color: var(--gdf-green-dk);
+      }
+      .gov-text {
+        font-size: 13px;
+        color: var(--slate);
+        line-height: 1.65;
+      }
+
+      /* ── PROCESSOS ── */
+      .proc-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--aph-red);
+        border-radius: 0 8px 8px 0;
+        padding: 22px 24px;
+        margin-bottom: 16px;
+      }
+      .proc-card.poc {
+        border-left-color: var(--gdf-green);
+        background: linear-gradient(to right, var(--gdf-green-lt), white 40%);
+      }
+      .proc-head {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .proc-num {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        color: var(--cloud);
+        text-transform: uppercase;
+      }
+      .proc-name {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--aph-red-dk);
+      }
+      .proc-card.poc .proc-name {
+        color: var(--gdf-green-dk);
+      }
+      .proc-desc {
+        font-size: 13.5px;
+        color: var(--slate);
+        line-height: 1.7;
+        margin-bottom: 14px;
+        max-width: 800px;
+      }
+      .proc-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 4px;
+      }
+      .proc-col {
+        background: var(--fog);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 12px 14px;
+      }
+      .proc-col-title {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--cloud);
+        margin-bottom: 6px;
+      }
+      .proc-col-text {
+        font-size: 12.5px;
+        color: var(--slate);
+        line-height: 1.6;
+      }
+      .proc-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 14px;
+      }
+      .btn-sm {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--gdf-green-dk);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 5px;
+        font-size: 12.5px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 0.15s;
+      }
+      .btn-sm:hover {
+        background: var(--gdf-green);
+      }
+      .btn-sm.outline {
+        background: white;
+        color: var(--slate);
+        border: 1px solid var(--line);
+        font-weight: 600;
+      }
+      .btn-sm.outline:hover {
+        border-color: var(--gdf-green);
+        color: var(--gdf-green-dk);
+      }
+
+      /* ── BADGES ── */
       .badge {
         display: inline-block;
         font-size: 10px;
@@ -773,34 +746,52 @@
         color: #d35400;
         border: 1px solid #f8d07a;
       }
+      .badge-poc {
+        background: var(--gdf-green-lt);
+        color: var(--gdf-green-dk);
+        border: 1px solid #b5d9b5;
+      }
 
-      /* ── GOV CARDS ── */
-      .gov-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+      /* ── QUADRO DE ESTÁGIOS ── */
+      .stage-done,
+      .stage-doing,
+      .stage-todo {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
       }
-      .gov-card {
-        background: white;
-        border: 1px solid var(--line);
-        border-top: 3px solid var(--aph-red);
-        border-radius: 0 0 6px 6px;
-        padding: 20px 20px 16px;
+      .stage-done {
+        background: var(--gdf-green);
       }
-      .gov-icon {
-        font-size: 20px;
-        margin-bottom: 9px;
+      .stage-doing {
+        background: var(--fire-orange);
+        animation: pulse-soft 2s infinite;
       }
-      .gov-title {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--aph-red-dk);
-        margin-bottom: 7px;
+      @keyframes pulse-soft {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.45;
+        }
       }
-      .gov-text {
-        font-size: 13px;
-        color: var(--slate);
-        line-height: 1.65;
+      .stage-todo {
+        background: var(--line);
+      }
+      .stage-legend {
+        font-size: 11px;
+        color: var(--cloud);
+        margin-top: 8px;
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .stage-legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
       }
 
       /* ── SUB-HEADING ── */
@@ -828,19 +819,24 @@
       .footer strong {
         color: rgba(255, 255, 255, 0.82);
       }
-      .footer-seal {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        justify-content: flex-end;
-        margin-bottom: 4px;
-      }
-      .seal-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
+      .footer a {
+        color: rgba(255, 255, 255, 0.65);
       }
 
+      @media (max-width: 860px) {
+        .proc-cols {
+          grid-template-columns: 1fr;
+        }
+        .arch-diagram {
+          flex-direction: column;
+        }
+        .arch-link {
+          padding: 8px 0;
+        }
+        .arch-arrow {
+          transform: rotate(90deg);
+        }
+      }
       @media (max-width: 700px) {
         .hero-inner,
         .page-wrap {
@@ -849,9 +845,6 @@
         }
         .hero-kpis {
           grid-template-columns: 1fr 1fr;
-        }
-        .results-strip {
-          grid-template-columns: 1fr;
         }
         .gov-grid {
           grid-template-columns: 1fr;
@@ -886,11 +879,6 @@
     <!-- GDF UTILITY BAR -->
     <div class="gdf-util-bar">
       <div class="gdf-util-left">
-        <!-- <img
-          src="https://www.df.gov.br/wp-conteudo/themes/templategdf/img/logogdf_1.svg"
-          alt="GDF"
-          class="gdf-shield"
-        /> -->
         <span class="gdf-util-label">Governo do Distrito Federal</span>
         <span class="gdf-util-label">Secretaria de Segurança Pública</span>
         <span class="gdf-util-label">Secretaria de Saúde</span>
@@ -900,46 +888,17 @@
     <!-- MAIN NAV -->
     <nav class="main-nav">
       <div class="nav-inner">
-        <!-- Emergência 360 logo slot -->
-        <a href="/" class="nav-brand">
-          <div class="logo-e360">
-            <!-- <img
-              src="resources/img/sidebar-header.jpeg"
-              alt="Logo Emergência 360"
-            /> -->
-            <!-- <span class="logo-e360-hint">logo do projeto</span>
-        <span class="logo-e360-text">E° 360</span>
-        <span class="logo-e360-sub">EMERGÊNCIA 360</span> -->
-          </div>
+        <a href="index.html" class="nav-brand">
+          <div class="logo-e360"></div>
         </a>
-
-        <!-- Partner logo slots -->
-        <!-- <div class="nav-partners">
-      <div class="partner-logo cbmdf">
-        <span class="partner-hint">logo CBMDF</span>
-        <span class="partner-name">CBMDF</span>
-        <span class="partner-sub">Central 193</span>
-      </div>
-      <div class="partner-logo samu">
-        <span class="partner-hint">logo SAMU</span>
-        <span class="partner-name">SAMU/DF</span>
-        <span class="partner-sub">Central 192</span>
-      </div>
-    </div> -->
-
-        <!-- Links -->
         <div class="nav-links">
           <a href="#sumario" class="nav-link">Visão Geral</a>
-          <!-- <a href="#interop"  class="nav-link">Análise Atual</a> -->
+          <a href="#metodo" class="nav-link">Método</a>
+          <a href="#arquitetura" class="nav-link">Arquitetura</a>
+          <a href="#processos" class="nav-link">Os 5 Processos</a>
           <a href="#governanca" class="nav-link">Governança</a>
-          <a href="#escopo" class="nav-link">Escopo</a>
-          <a href="#fases" class="nav-link">Plano de Trabalho</a>
           <a href="#riscos" class="nav-link">Riscos</a>
-          <a
-            href="viewer.html?diagram=./resources/bpmn%2FAtendimento%20e%20Despacho.bpmn"
-            class="nav-link cta"
-            >🗺 Mapeamento de Processos</a
-          >
+          <a href="prototipos.html" class="nav-link cta">🧪 Protótipos</a>
         </div>
       </div>
     </nav>
@@ -947,342 +906,66 @@
     <!-- HERO -->
     <section class="hero" id="sumario">
       <div class="hero-inner">
-        <!-- <img
-          src="resources/img/sidebar-header.jpeg"
-          alt="Emergência 360"
-          class="hero-logo"
-        /> -->
         <div class="hero-eyebrow">
-          <!-- <span class="pulse-dot"></span> -->
-          <!-- <span class="hero-eyebrow-text">Plano de Trabalho — Interoperabilidade APH · v1.0 · Jun 2026</span> -->
+          Plano de Trabalho · v2.0 · Ago 2026
         </div>
         <h1 class="hero-title">
-          <!-- Um cidadão.<br> -->
-          Para o cidadão, <br />
-          <span class="red">cada segundo</span> conta.
+          Cinco processos.<br />
+          Entrega <span class="red">de verdade</span>, um por vez.
         </h1>
         <p class="hero-sub">
-          O <strong>Emergência 360°</strong> integra o CBMDF (193) e o SAMU/DF
-          (192) em tempo real — da triagem ao despacho, com deduplicação
-          automática, consciência situacional compartilhada e otimização no
-          emprego de recursos.
+          O <strong>Emergência 360°</strong> integra as centrais 193 (CBMDF/SSP)
+          e 192 (SAMU/SES) em cinco processos operacionais. Cada processo
+          avança por protótipo navegável, feedback das centrais e aval de
+          viabilidade — e só então vira desenvolvimento. Menos documento,
+          mais solução funcionando.
         </p>
-        <!-- <div class="hero-tags">
-      <span class="tag">193 · CBMDF</span>
-      <span class="tag">192 · SAMU/DF</span>
-      <span class="tag">HL7 FHIR R4 · RNDS</span>
-      <span class="tag">LGPD Arts. 7, 11 e 23</span>
-      <span class="tag">e-PING</span>
-      <span class="tag">Lei 14.133/2021</span>
-      <span class="tag">5 fases · 6 meses</span>
-    </div> -->
         <div class="hero-kpis">
           <div class="kpi">
-            <div class="kpi-num"><span class="r">0</span>×</div>
+            <div class="kpi-num"><span class="r">5</span></div>
+            <div class="kpi-label">Processos a integrar entre as centrais</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-num"><span class="g">1</span>º</div>
             <div class="kpi-label">
-              Meta de duplicidade de empenho pós-Go-Live
+              Protótipo no ar: deduplicação (prova de conceito)
             </div>
           </div>
           <div class="kpi">
-            <div class="kpi-num"><span class="g">360</span>°</div>
+            <div class="kpi-num">0<span class="r">×</span></div>
             <div class="kpi-label">
-              Consciência situacional unificada em tempo real
-            </div>
-          </div>
-          <div class="kpi">
-            <div class="kpi-num">99,99<sup>%</sup></div>
-            <div class="kpi-label">
-              Disponibilidade-alvo do barramento integrado
+              Meta de duplicidade de empenho de recursos
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- RESULTS -->
-    <div class="results-strip">
-      <div class="result-card">
-        <div class="result-num">Resultado 01</div>
-        <div class="result-title">Sem duplicidade de empenho</div>
-        <div class="result-desc">
-          Gateway de deduplicação automática por chave de correlação:
-          geolocalização + janela temporal + telefone de origem + natureza da
-          ocorrência.
-        </div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">Resultado 02</div>
-        <div class="result-title">Consciência situacional unificada</div>
-        <div class="result-desc">
-          Painel comum com ocorrências ativas, status de regulação médica e
-          telemetria AVL/GPS de todas as viaturas das duas corporações.
-        </div>
-      </div>
-      <div class="result-card">
-        <div class="result-num">Resultado 03</div>
-        <div class="result-title">Conformidade LGPD by design</div>
-        <div class="result-desc">
-          Dados sensíveis de saúde tratados com minimização, pseudonimização e
-          trilha de auditoria imutável. RIPD (Relatório de Impacto à Proteção de
-          Dados Pessoais) como pré-condição do desenvolvimento.
-        </div>
-      </div>
-    </div>
-
-    <!-- S1: AS-IS -->
-    <!-- <section class="section" id="interop">
-  <div class="page-wrap">
-    <div class="section-header">
-      <div class="eyebrow red"><span class="eyebrow-bar"></span>Análise do Fluxo Atual</div>
-      <h2 class="section-title">Onde a integração elimina fricção imediata</h2>
-      <p class="section-lead">O mapeamento BPMN revelou dois fluxos paralelos fracamente acoplados — CBMDF (193) e SAMU/DF (192). Os cinco pontos abaixo são as fronteiras onde a interoperabilidade agrega valor direto.</p>
-    </div>
-    <div class="insight-box">
-      <strong>Insight crítico:</strong> a duplicidade de empenho nasce no intervalo entre "Cadastrar Ocorrência" e "Designar recursos". O controle de deduplicação (#5) deve ser inserido como tarefa automatizada nesse exato ponto — consultando a base unificada por chave de correlação. Os pontos #1–#4 são integrações de evento e status, preservando a autonomia decisória de cada corporação.
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th style="width:4%">#</th><th style="width:22%">Ponto de interoperabilidade</th><th style="width:37%">Situação atual (As-Is)</th><th style="width:37%">Oportunidade com a integração</th></tr></thead>
-        <tbody>
-          <tr><td><strong>1</strong></td><td><strong>Transferir Ligação CBMDF ↔ SAMU</strong></td><td>Transferência de chamada com risco de queda e perda de contexto — o cidadão reconta tudo do início.</td><td>Warm transfer com contexto: o cadastro já preenchido viaja junto, sem reiniciar a triagem.</td></tr>
-          <tr><td><strong>2</strong></td><td><strong>Regular Ocorrência</strong> (Médico Regulador)</td><td>Decisão clínica concentrada no SAMU; o despacho 193 não enxerga o status da regulação.</td><td>Expor status de regulação ao CBMDF para sincronizar empenho de recursos em tempo real.</td></tr>
-          <tr><td><strong>3</strong></td><td><strong>Contra-regular Ocorrência</strong></td><td>Ajuste de regulação sem notificação automática à outra central.</td><td>Notificação em tempo real de mudança de gravidade ou tipo de recurso para ambas as centrais.</td></tr>
-          <tr><td><strong>4</strong></td><td><strong>Designar recursos — apoio adicional</strong></td><td>"Solicitar apoio" e "Designar recursos" correm isoladamente em cada raia do processo.</td><td>Despacho cruzado com aceite/recusa rastreável: CBMDF → SAMU e vice-versa como serviço integrado.</td></tr>
-          <tr><td><strong>5</strong></td><td><strong>Verificar duplicidade</strong> <em>(a inserir)</em></td><td style="color:var(--aph-red);font-weight:600">Não existe no As-Is — principal lacuna geradora de acionamento duplo.</td><td>Gateway de deduplicação após "Cadastrar Ocorrência", antes de "Designar recursos", automatizado e auditável.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section> -->
-
-    <!-- S5: GOVERNANÇA -->
-    <section class="section" id="governanca">
+    <!-- MÉTODO -->
+    <section class="section" id="metodo">
       <div class="page-wrap">
         <div class="section-header">
           <div class="eyebrow">
-            <span class="eyebrow-bar"></span>Governança e Conformidade
-          </div>
-          <h2 class="section-title">Princípios que sustentam o projeto</h2>
-        </div>
-        <div class="gov-grid">
-          <div class="gov-card">
-            <div class="gov-icon">🔗</div>
-            <div class="gov-title">Amplificador, não substituto</div>
-            <div class="gov-text">
-              A integração potencializa a operação de cada corporação. Nenhuma
-              indisponibilidade da camada integrada pode degradar o atendimento
-              isolado de 193 ou 192.
-            </div>
-          </div>
-          <div class="gov-card">
-            <div class="gov-icon">⚖️</div>
-            <div class="gov-title">Base legal LGPD</div>
-            <div class="gov-text">
-              Tratamento fundamentado na execução de políticas públicas e tutela
-              da saúde — Arts. 7º, 11 e 23 da Lei 13.709/2018. RIPD (Relatório
-              de Impacto à Proteção de Dados Pessoais) como pré-condição do
-              desenvolvimento.
-            </div>
-          </div>
-          <div class="gov-card">
-            <div class="gov-icon">🏛️</div>
-            <div class="gov-title">Interoperabilidade de governo</div>
-            <div class="gov-text">
-              Aderência ao e-PING e ao padrão HL7 FHIR/RNDS — favorecendo a
-              replicabilidade do modelo por outros Corpos de Bombeiros e SAMUs
-              estaduais.
-            </div>
-          </div>
-          <div class="gov-card">
-            <div class="gov-icon">🔍</div>
-            <div class="gov-title">Auditabilidade total</div>
-            <div class="gov-text">
-              Todo acesso a dado sensível registrado em trilha imutável, com
-              retenção definida em política e prestação de contas ao Comitê
-              Técnico Misto em cada gate de fase.
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- S2: ESCOPO -->
-    <section class="section section-alt" id="escopo">
-      <div class="page-wrap">
-        <div class="section-header">
-          <div class="eyebrow">
-            <span class="eyebrow-bar"></span>Escopo e Diretrizes
+            <span class="eyebrow-bar"></span>Método de Trabalho
           </div>
           <h2 class="section-title">
-            Padrões comuns, sistemas e infraestrutura
+            Protótipo → feedback → viabilidade → desenvolvimento
           </h2>
-        </div>
-
-        <div class="sub-h">2.1 Padronização e Nomenclatura Comum</div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 26%">Item</th>
-                <th>Diretriz</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Dicionário de Dados Unificado</strong></td>
-                <td>
-                  Catálogo único de entidades (Ocorrência, Solicitante, Vítima,
-                  Recurso/Viatura, Despacho, Regulação, Desfecho) com system of
-                  record, sensibilidade LGPD e obrigatoriedade por atributo.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Taxonomia de Ocorrências</strong></td>
-                <td>
-                  Tabela de-para entre os códigos CBMDF e SAMU, ancorada em
-                  CID-10 e no modelo NEMSIS adaptado à realidade nacional.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Codificação de Gravidade</strong></td>
-                <td>
-                  Escala única (vermelho / laranja / amarelo / verde / azul)
-                  mapeada a Manchester, START/jumpSTART, Glasgow e AVPU —
-                  "grave" deve significar o mesmo nas duas centrais.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Eventos Sentinela</strong></td>
-                <td>
-                  Codificação prioritária para PCR, trauma com risco iminente,
-                  gestante em trabalho de parto e acionamento de plano de
-                  catástrofe (vítimas múltiplas).
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Triagem Integrada</strong></td>
-                <td>
-                  Roteiro de perguntas convergente nas duas centrais para que a
-                  transferência não exija reinício da triagem.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="sub-h">2.2 Integração de Sistemas</div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 20%">Domínio</th>
-                <th style="width: 22%">Sistemas</th>
-                <th>Estratégia de Interoperação</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Despacho</strong></td>
-                <td>CBMDF (SINESPCAD) + SAMU (SAU)</td>
-                <td>
-                  Integração por eventos (publish/subscribe): criação,
-                  atualização de status e fechamento publicados no barramento.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Telemetria AVL/GPS</strong></td>
-                <td>Rastreamento das duas frotas</td>
-                <td>
-                  Feed georreferenciado em camada de mapa comum, atualizado em
-                  tempo quase-real.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Prontuário / Registro APH</strong></td>
-                <td>Ficha APH (SAMU) + registro CBMDF</td>
-                <td>
-                  HL7 FHIR R4 com aderência à RNDS; CBMDF acessa apenas o
-                  subconjunto clínico estritamente necessário ao socorro.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Identidade e Acesso</strong></td>
-                <td>Diretórios de cada corporação</td>
-                <td>
-                  Federação de identidade (SSO) com perfis por papel, sem bases
-                  de usuários duplicadas.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="sub-h">2.3 Infraestrutura e Segurança</div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 22%">Pilar</th>
-                <th>Diretriz Arquitetural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Padrão de Integração</strong></td>
-                <td>
-                  Arquitetura orientada a eventos com barramento/message broker
-                  + APIs REST versionadas (OpenAPI) para consultas síncronas.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Alta Disponibilidade</strong></td>
-                <td>
-                  Topologia ativo-ativo ou ativo-passivo com failover
-                  automático. Meta ≥ 99,9%. A falha da integração nunca pode
-                  impedir o atendimento isolado de nenhuma central.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Segurança da Informação</strong></td>
-                <td>
-                  TLS 1.2+/mTLS entre serviços, segregação de rede, gateway de
-                  API com rate limiting e WAF. Criptografia em trânsito e em
-                  repouso.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Privacidade (LGPD)</strong></td>
-                <td>
-                  Minimização por design, pseudonimização, trilha de auditoria
-                  imutável e definição formal dos papéis de controlador/operador
-                  entre as corporações.
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Observabilidade</strong></td>
-                <td>
-                  Monitoramento de latência, taxa de erro e dead-letter queues;
-                  dashboards operacionais com alertas ativos.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- S3: FASES -->
-    <section class="section" id="fases">
-      <div class="page-wrap">
-        <div class="section-header">
-          <div class="eyebrow">
-            <span class="eyebrow-bar"></span>Plano de Trabalho
-          </div>
-          <h2 class="section-title">5 fases em 6 meses</h2>
           <p class="section-lead">
-            Fases sequenciais com sobreposições controladas, sustentadas pelo
-            Comitê Técnico Misto ativo desde o primeiro dia.
+            Em vez de fases documentais que precedem qualquer entrega, cada um
+            dos cinco processos percorre os mesmos cinco estágios. O andamento
+            do projeto é medido por processos avançando de estágio — não por
+            documentos aprovados.
           </p>
+        </div>
+
+        <div class="insight-box">
+          <strong>Formalismo sob demanda:</strong> especificações, dicionários
+          de dados e acordos formais são produzidos no momento em que
+          destravam uma entrega — nunca antes, como pré-condição genérica.
+          O protótipo com dados sintéticos é o instrumento central de
+          discussão: barato de mudar, concreto o bastante para colher
+          feedback real das equipes das centrais.
         </div>
 
         <div class="phases">
@@ -1292,32 +975,23 @@
               <div class="phase-line"></div>
             </div>
             <div class="phase-body">
-              <div class="phase-period">Mês 1</div>
-              <div class="phase-name">
-                Alinhamento Institucional e Diagnóstico
-              </div>
+              <div class="phase-period">Estágio 1</div>
+              <div class="phase-name">Visão e protótipo</div>
               <ul class="phase-items">
                 <li>
-                  Instituir o Comitê Técnico Misto (operacional, TI,
-                  jurídico/DPO, regulação médica)
+                  Documento de visão curto: problema, princípios e o que o
+                  processo integrado precisa fazer
                 </li>
                 <li>
-                  Mapear processos As-Is — BPMN consolidado das centrais 193 e
-                  192
-                </li>
-                <li>Selecionar e aprovar os processos-âncora a interoperar</li>
-                <li>
-                  Levantar gargalos tecnológicos e inventário completo de
-                  sistemas de legado
+                  Protótipo navegável com dados 100% sintéticos, sem backend —
+                  publicado na página de protótipos
                 </li>
                 <li>
-                  Mapear bases legais LGPD, papéis de controlador/operador e
-                  esboçar RIPD inicial
+                  Roteiro de demonstração para conduzir as sessões de feedback
                 </li>
               </ul>
               <span class="phase-deliverable"
-                >📄 Matriz de processos interoperáveis + Diagnóstico
-                técnico</span
+                >🧪 Protótipo navegável publicado</span
               >
             </div>
           </div>
@@ -1328,33 +1002,24 @@
               <div class="phase-line"></div>
             </div>
             <div class="phase-body">
-              <div class="phase-period">Meses 1–2</div>
-              <div class="phase-name">Definição de Padrões e Governança</div>
+              <div class="phase-period">Estágio 2</div>
+              <div class="phase-name">Feedback operacional</div>
               <ul class="phase-items">
                 <li>
-                  Elaborar dicionário de dados unificado e tabelas de-para de
-                  taxonomia
+                  Sessões de demonstração com operadores e supervisores das
+                  centrais 193 e 192
                 </li>
                 <li>
-                  Definir matriz de competências RACI para os cenários
-                  integrados
+                  Registro objetivo dos ajustes na planilha de acompanhamento —
+                  o que muda, o que confirma, o que descarta
                 </li>
                 <li>
-                  Desenhar fluxos To-Be dos processos-âncora (BPMN) e validar
-                  com o Comitê
-                </li>
-                <li>
-                  Especificar regra de negócio da chave de correlação e validar
-                  com dados históricos
-                </li>
-                <li>
-                  Consolidar política de governança, classificação da informação
-                  e plano de retenção
+                  Iteração rápida do protótipo até estabilizar o desenho da
+                  interação e das regras de negócio
                 </li>
               </ul>
               <span class="phase-deliverable"
-                >📄 Fluxos To-Be aprovados + Política de Governança
-                publicada</span
+                >📄 Protótipo validado pelas equipes operacionais</span
               >
             </div>
           </div>
@@ -1365,34 +1030,26 @@
               <div class="phase-line"></div>
             </div>
             <div class="phase-body">
-              <div class="phase-period">Meses 2–4</div>
-              <div class="phase-name">
-                Arquitetura Tecnológica e Desenvolvimento
-              </div>
+              <div class="phase-period">Estágio 3 · Portão de decisão da SES</div>
+              <div class="phase-name">Aval de viabilidade da SES</div>
               <ul class="phase-items">
                 <li>
-                  Especificar e publicar contratos OpenAPI (ocorrência, status,
-                  recursos, deduplicação)
+                  Apresentação da visão arquitetural do processo à equipe
+                  técnica da SES: quais serviços a plataforma expõe e o que o
+                  SAU precisaria consumir ou fornecer
                 </li>
                 <li>
-                  Implantar barramento com tópicos, filas e entrega
-                  at-least-once garantida
+                  SES avalia esforço, restrições e aderência do SAU à
+                  integração proposta
                 </li>
                 <li>
-                  Desenvolver serviços de despacho cruzado e deduplicação com
-                  métricas de precisão/recall
-                </li>
-                <li>
-                  Implementar camada de segurança: mTLS, SSO federado, log de
-                  auditoria imutável
-                </li>
-                <li>
-                  Construir painel unificado de consciência situacional com
-                  telemetria AVL/GPS quase-real
+                  Aval formal de viabilidade registrado — ou devolutiva com os
+                  ajustes necessários para viabilizar
                 </li>
               </ul>
-              <span class="phase-deliverable"
-                >📄 Ambiente integrado funcional homologado em sandbox</span
+              <span class="phase-deliverable green"
+                >✅ Aval de viabilidade da SES — nada segue para
+                desenvolvimento sem ele</span
               >
             </div>
           </div>
@@ -1403,29 +1060,26 @@
               <div class="phase-line"></div>
             </div>
             <div class="phase-body">
-              <div class="phase-period">Meses 4–5</div>
-              <div class="phase-name">Projeto Piloto e Homologação</div>
+              <div class="phase-period">Estágio 4</div>
+              <div class="phase-name">Desenvolvimento</div>
               <ul class="phase-items">
                 <li>
-                  Provisionar sandbox isolado com dados sintéticos/anonimizados
-                  espelhando produção
+                  SSP constrói e publica os serviços do processo na plataforma
+                  de integração (contratos versionados)
                 </li>
                 <li>
-                  Executar simulações ponta a ponta incluindo cenário de vítimas
-                  múltiplas
+                  SES adapta o SAU para consumir e fornecer os serviços, no seu
+                  ritmo e ambiente
                 </li>
                 <li>
-                  Aplicar critérios de validação técnica (latência,
-                  deduplicação) e TAU operacional
+                  Requisitos técnicos detalhados aqui, quando de fato
+                  necessários — com o protótipo validado como especificação
+                  funcional viva
                 </li>
-                <li>
-                  Piloto assistido em região delimitada com medição de redução
-                  de empenho duplo
-                </li>
+                <li>Homologação conjunta em ambiente de testes integrado</li>
               </ul>
               <span class="phase-deliverable"
-                >📄 Relatório de piloto com lições aprendidas + TAU
-                assinado</span
+                >⚙️ Serviço homologado pelas duas secretarias</span
               >
             </div>
           </div>
@@ -1436,177 +1090,560 @@
               <div class="phase-line"></div>
             </div>
             <div class="phase-body">
-              <div class="phase-period">Meses 5–6</div>
-              <div class="phase-name">Capacitação e Go-Live</div>
+              <div class="phase-period">Estágio 5</div>
+              <div class="phase-name">Piloto e operação</div>
               <ul class="phase-items">
                 <li>
-                  Elaborar material didático e POPs integrados para operadores
-                  193, 192 e equipes de rua
+                  Piloto assistido em escopo delimitado, com medição do
+                  indicador do processo (ex.: redução de empenho duplicado)
                 </li>
                 <li>
-                  Turmas de capacitação prática com avaliação mínima de
-                  aproveitamento
+                  Capacitação prática dos operadores no fluxo integrado
                 </li>
                 <li>
-                  Planejar Go-Live faseado e plano de rollback testado
-                  previamente
-                </li>
-                <li>
-                  Estabilização com operação assistida e transição formal para
-                  sustentação contínua
+                  Entrada em operação com acompanhamento e ajuste contínuo
                 </li>
               </ul>
               <span class="phase-deliverable"
-                >📄 Go-Live executado + Relatório de pós-implantação</span
+                >🚀 Processo integrado em operação</span
               >
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="sub-h" style="margin-top: 4px">
-          Cronograma Macro (indicativo)
+    <!-- ARQUITETURA -->
+    <section class="section section-alt" id="arquitetura">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow green">
+            <span class="eyebrow-bar"></span>Premissa Arquitetural
+          </div>
+          <h2 class="section-title">
+            Orquestração na SSP, autonomia nas duas pontas
+          </h2>
+          <p class="section-lead">
+            Toda a lógica de orquestração da integração fica do lado da SSP,
+            que já opera o Hefesto (atendimento de ocorrências) interoperado
+            com o SINESPCAD (despacho e gerenciamento, sistema do MJSP). À SES
+            cabe adaptar o SAU para consumir e fornecer os serviços expostos
+            pela plataforma.
+          </p>
         </div>
-        <div class="tl-wrap">
-          <table class="tl-table">
+
+        <div class="insight-box green">
+          <strong>Parceria, não subordinação:</strong> concentrar a
+          orquestração na SSP é uma decisão de engenharia — aproveita a
+          capacidade de desenvolvimento já instalada e evita duplicar
+          infraestrutura — e não uma relação hierárquica. O SAU permanece a
+          fonte da verdade clínica e da regulação médica, e a SES detém o
+          portão de decisão do projeto: nenhum processo avança para
+          desenvolvimento sem o seu aval de viabilidade. Quem decide o avanço
+          não é subordinado — é sócio.
+        </div>
+
+        <div class="arch-diagram">
+          <div class="arch-node ses">
+            <div class="arch-org">SES · Central 192</div>
+            <div class="arch-sys">SAU</div>
+            <div class="arch-desc">
+              Sistema de atendimento e regulação do SAMU/DF. Fonte da verdade
+              clínica.
+              <ul>
+                <li>Consome os serviços da plataforma</li>
+                <li>Fornece eventos do seu fluxo (cadastro, regulação)</li>
+                <li>Adapta-se no ritmo e ambiente da SES</li>
+              </ul>
+            </div>
+          </div>
+          <div class="arch-link">
+            <div class="arch-arrow">⇄</div>
+            <div class="arch-label">serviços e eventos (contratos versionados)</div>
+          </div>
+          <div class="arch-node plataforma">
+            <div class="arch-org">Plataforma de Integração · operada pela SSP</div>
+            <div class="arch-sys">Emergência 360°</div>
+            <div class="arch-desc">
+              Camada de orquestração entre as centrais.
+              <ul>
+                <li>Expõe os serviços dos 5 processos</li>
+                <li>Motor de deduplicação e correlação</li>
+                <li>Notificações e sincronização de status</li>
+                <li>Trilha de auditoria dos acessos</li>
+              </ul>
+            </div>
+          </div>
+          <div class="arch-link">
+            <div class="arch-arrow">⇄</div>
+            <div class="arch-label">integração nativa</div>
+          </div>
+          <div class="arch-node ssp">
+            <div class="arch-org">SSP · Central 193</div>
+            <div class="arch-sys">Hefesto + SINESPCAD</div>
+            <div class="arch-desc">
+              Hefesto: atendimento de ocorrências (SSP). SINESPCAD: despacho e
+              gerenciamento (sistema do MJSP, utilizado pela SSP).
+              <ul>
+                <li>Hefesto já interopera com o SINESPCAD</li>
+                <li>Fonte da verdade do despacho 193</li>
+                <li>Mudanças concentradas no Hefesto, preservando o SINESPCAD</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-h">Requisitos técnicos a definir (por processo, no estágio 4)</div>
+        <p class="section-lead" style="margin-bottom: 14px">
+          A visão acima é deliberadamente de alto nível: os requisitos abaixo
+          ainda não estão fechados e serão detalhados processo a processo,
+          com o protótipo validado em mãos — não antes.
+        </p>
+        <div class="table-wrap">
+          <table>
             <thead>
               <tr>
-                <th style="width: 36%; text-align: left; padding-left: 13px">
-                  Fase
-                </th>
-                <th>M1</th>
-                <th>M2</th>
-                <th>M3</th>
-                <th>M4</th>
-                <th>M5</th>
-                <th>M6</th>
+                <th style="width: 28%">Tema</th>
+                <th>O que falta definir</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="tl-name">1 — Alinhamento e Diagnóstico</td>
-                <td><span class="tl-bar tl-full"></span></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="tl-name">2 — Padrões e Governança</td>
-                <td><span class="tl-bar tl-start"></span></td>
-                <td><span class="tl-bar tl-full"></span></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="tl-name">3 — Arquitetura e Desenvolvimento</td>
-                <td></td>
-                <td><span class="tl-bar tl-start"></span></td>
-                <td><span class="tl-bar tl-full"></span></td>
-                <td><span class="tl-bar tl-full"></span></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="tl-name">4 — Piloto e Homologação</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><span class="tl-bar tl-start"></span></td>
-                <td><span class="tl-bar tl-full"></span></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="tl-name">5 — Capacitação e Go-Live</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><span class="tl-bar tl-start"></span></td>
-                <td><span class="tl-bar tl-full"></span></td>
-              </tr>
-              <tr>
-                <td class="tl-name">
-                  <strong>Governança — Comitê Técnico Misto</strong>
+                <td><strong>Contratos de serviço</strong></td>
+                <td>
+                  Formato dos payloads, versionamento, estilo de integração por
+                  processo (síncrono via API / assíncrono via eventos).
                 </td>
-                <td><span class="tl-bar tl-gov"></span></td>
-                <td><span class="tl-bar tl-gov"></span></td>
-                <td><span class="tl-bar tl-gov"></span></td>
-                <td><span class="tl-bar tl-gov"></span></td>
-                <td><span class="tl-bar tl-gov"></span></td>
-                <td><span class="tl-bar tl-gov"></span></td>
+              </tr>
+              <tr>
+                <td><strong>Identidade entre órgãos</strong></td>
+                <td>
+                  Autenticação e autorização entre SAU, plataforma e Hefesto;
+                  perfis de acesso por papel operacional.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Semântica mínima</strong></td>
+                <td>
+                  De-para de naturezas de ocorrência e gravidade — apenas o
+                  subconjunto exigido por cada processo, não um dicionário
+                  universal prévio.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Níveis de serviço</strong></td>
+                <td>
+                  Latência e disponibilidade exigidas por processo; comportamento
+                  degradado quando a integração estiver indisponível.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Ambientes</strong></td>
+                <td>
+                  Ambiente de homologação integrado acessível às equipes das
+                  duas secretarias, com dados sintéticos.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Dados pessoais</strong></td>
+                <td>
+                  Papéis de controlador/operador, minimização e RIPD — exigidos
+                  antes do primeiro dado real (piloto), não antes do protótipo.
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p
-          style="
-            font-size: 11px;
-            color: var(--cloud);
-            margin-top: 8px;
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
-          "
-        >
-          <span style="display: inline-flex; align-items: center; gap: 5px"
-            ><span
-              class="tl-bar tl-full"
-              style="
-                width: 16px;
-                height: 10px;
-                border-radius: 2px;
-                display: inline-block;
-              "
-            ></span
-            >Execução plena</span
-          >
-          <span style="display: inline-flex; align-items: center; gap: 5px"
-            ><span
-              class="tl-bar tl-start"
-              style="
-                width: 16px;
-                height: 10px;
-                border-radius: 2px;
-                display: inline-block;
-              "
-            ></span
-            >Início com sobreposição</span
-          >
-          <span style="display: inline-flex; align-items: center; gap: 5px"
-            ><span
-              class="tl-bar tl-gov"
-              style="
-                width: 16px;
-                height: 10px;
-                border-radius: 2px;
-                display: inline-block;
-              "
-            ></span
-            >Atividade contínua</span
-          >
-        </p>
       </div>
     </section>
 
-    <!-- S4: RISCOS -->
-    <section class="section section-alt" id="riscos">
+    <!-- PROCESSOS -->
+    <section class="section" id="processos">
       <div class="page-wrap">
         <div class="section-header">
-          <div class="eyebrow red">
+          <div class="eyebrow">
+            <span class="eyebrow-bar"></span>Escopo
+          </div>
+          <h2 class="section-title">Os cinco processos a integrar</h2>
+          <p class="section-lead">
+            Selecionados a partir do mapeamento BPMN das centrais 193 e 192 —
+            são as fronteiras onde a interoperabilidade elimina fricção real.
+            A deduplicação abre o trabalho como prova de conceito. Os
+            protótipos de P2, P3 e P4 são construídos como camadas da mesma
+            estação integrada, ligáveis no cabeçalho do protótipo — o que
+            permite avaliar cada processo isolado e a carga combinada sobre o
+            operador numa única sessão de feedback.
+          </p>
+        </div>
+
+        <div class="sub-h" style="margin-top: 0">Quadro de andamento</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 34%">Processo</th>
+                <th style="text-align: center">1 · Protótipo</th>
+                <th style="text-align: center">2 · Feedback</th>
+                <th style="text-align: center">3 · Aval SES</th>
+                <th style="text-align: center">4 · Desenvolv.</th>
+                <th style="text-align: center">5 · Piloto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>P1 — Deduplicação de ocorrências</strong>
+                  <span class="badge badge-poc">Prova de conceito</span>
+                </td>
+                <td style="text-align: center"><span class="stage-done"></span></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+              </tr>
+              <tr>
+                <td><strong>P2 — Transferência de ligação com contexto</strong></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+              </tr>
+              <tr>
+                <td><strong>P3 — Status da regulação médica</strong></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+              </tr>
+              <tr>
+                <td><strong>P4 — Notificação de contra-regulação</strong></td>
+                <td style="text-align: center"><span class="stage-doing"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+              </tr>
+              <tr>
+                <td><strong>P5 — Despacho cruzado de apoio</strong></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+                <td style="text-align: center"><span class="stage-todo"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="stage-legend">
+          <span><span class="stage-done"></span>Concluído</span>
+          <span><span class="stage-doing"></span>Em andamento</span>
+          <span><span class="stage-todo"></span>Não iniciado</span>
+        </p>
+        <div class="proc-actions" style="margin: 14px 0 34px">
+          <a
+            href="https://docs.google.com/spreadsheets/d/1sxRtVrnqCDhz7_zZwB2J3kLevCHaJnmL/edit"
+            class="btn-sm"
+            target="_blank"
+            rel="noopener"
+            >📊 Planilha de acompanhamento</a
+          >
+          <a href="prototipos.html" class="btn-sm outline"
+            >🧪 Página de protótipos</a
+          >
+          <a
+            href="viewer.html?diagram=./resources/bpmn%2FAtendimento%20e%20Despacho.bpmn"
+            class="btn-sm outline"
+            >🗺 Mapeamento BPMN</a
+          >
+        </div>
+
+        <div class="sub-h" style="margin-top: 0">
+          Visão arquitetural por processo
+        </div>
+
+        <div class="proc-card poc">
+          <div class="proc-head">
+            <span class="proc-num">P1</span>
+            <span class="proc-name">Deduplicação de ocorrências</span>
+            <span class="badge badge-poc">Prova de conceito · protótipo no ar</span>
+          </div>
+          <p class="proc-desc">
+            A mesma emergência acionada nas duas centrais gera hoje dois
+            registros e pode gerar dois empenhos. O motor de correlação
+            identifica ocorrências candidatas a duplicidade (localização,
+            janela temporal, telefone, natureza) e apresenta ao operador as
+            correlatas para vincular ou descartar — sem nunca bloquear o
+            cadastro.
+          </p>
+          <div class="proc-cols">
+            <div class="proc-col">
+              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-text">
+                Motor de similaridade e serviço de consulta de correlatas;
+                registro de vínculos e descartes; evento consolidado da
+                ocorrência unificada.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No SAU (SES)</div>
+              <div class="proc-col-text">
+                Publica cadastros de ocorrência na plataforma e consome o
+                painel/serviço de correlatas na tela do seu operador.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No Hefesto (SSP)</div>
+              <div class="proc-col-text">
+                Publica cadastros 193 e consome as correlatas; vínculos
+                refletem no fluxo de despacho via integração já existente com
+                o SINESPCAD.
+              </div>
+            </div>
+          </div>
+          <div class="proc-actions">
+            <a href="prototipos/deduplicador/index.html" class="btn-sm"
+              >Abrir protótipo</a
+            >
+            <a
+              href="prototipos/deduplicador/docs/documento_de_visao.pdf"
+              class="btn-sm outline"
+              >Documento de visão</a
+            >
+            <a
+              href="prototipos/deduplicador/docs/roteiro_demonstracao_prototipo.md"
+              class="btn-sm outline"
+              >Roteiro de demonstração</a
+            >
+          </div>
+        </div>
+
+        <div class="proc-card">
+          <div class="proc-head">
+            <span class="proc-num">P2</span>
+            <span class="proc-name">Transferência de ligação com contexto</span>
+          </div>
+          <p class="proc-desc">
+            Hoje a transferência de chamada entre 193 e 192 arrisca queda de
+            ligação e obriga o cidadão a recontar tudo. Com a integração, o
+            cadastro já preenchido viaja junto com a transferência — a triagem
+            continua de onde parou, em qualquer direção.
+          </p>
+          <div class="proc-cols">
+            <div class="proc-col">
+              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-text">
+                Serviço de "pacote de contexto" da ocorrência em triagem,
+                entregue à central de destino no momento da transferência.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No SAU (SES)</div>
+              <div class="proc-col-text">
+                Recebe o contexto e pré-carrega a tela de triagem; envia o
+                contexto quando a transferência parte do 192.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No Hefesto (SSP)</div>
+              <div class="proc-col-text">
+                Idem no sentido 193: envia o cadastro parcial ao transferir e
+                pré-carrega ao receber.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proc-card">
+          <div class="proc-head">
+            <span class="proc-num">P3</span>
+            <span class="proc-name">Status da regulação médica</span>
+          </div>
+          <p class="proc-desc">
+            A decisão clínica é do médico regulador do SAMU, mas o despacho
+            193 não enxerga em que pé está a regulação. O processo expõe o
+            status de regulação ao CBMDF em tempo real, sincronizando o
+            empenho de recursos sem transferir a decisão clínica.
+          </p>
+          <div class="proc-cols">
+            <div class="proc-col">
+              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-text">
+                Canal de eventos de status de regulação vinculados à
+                ocorrência correlacionada.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No SAU (SES)</div>
+              <div class="proc-col-text">
+                Publica as transições de status da regulação (aguardando,
+                em regulação, definida) — o conteúdo clínico permanece no SAU.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No Hefesto (SSP)</div>
+              <div class="proc-col-text">
+                Exibe o status na ocorrência correspondente para orientar o
+                despachante 193.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proc-card">
+          <div class="proc-head">
+            <span class="proc-num">P4</span>
+            <span class="proc-name">Notificação de contra-regulação</span>
+          </div>
+          <p class="proc-desc">
+            Quando a regulação muda — gravidade reavaliada, tipo de recurso
+            alterado — a outra central hoje não é avisada automaticamente. O
+            processo notifica em tempo real qualquer mudança relevante às duas
+            centrais envolvidas na ocorrência.
+          </p>
+          <div class="proc-cols">
+            <div class="proc-col">
+              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-text">
+                Roteamento de notificações de contra-regulação para as
+                centrais com recurso empenhado na ocorrência.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No SAU (SES)</div>
+              <div class="proc-col-text">
+                Publica eventos de contra-regulação; recebe notificações
+                quando a mudança parte do lado 193.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No Hefesto (SSP)</div>
+              <div class="proc-col-text">
+                Alerta o despachante e permite ajustar o empenho de recursos
+                em resposta à mudança.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proc-card">
+          <div class="proc-head">
+            <span class="proc-num">P5</span>
+            <span class="proc-name">Despacho cruzado de apoio</span>
+          </div>
+          <p class="proc-desc">
+            Solicitar apoio da outra corporação hoje corre por canais
+            informais, sem rastreabilidade. O processo transforma o pedido de
+            apoio em serviço integrado, com aceite ou recusa registrados — em
+            ambas as direções, preservando a decisão de empenho de cada
+            corporação.
+          </p>
+          <div class="proc-cols">
+            <div class="proc-col">
+              <div class="proc-col-title">Na plataforma (SSP)</div>
+              <div class="proc-col-text">
+                Serviço de solicitação de apoio com ciclo de vida rastreável
+                (solicitado, aceito, recusado, concluído).
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No SAU (SES)</div>
+              <div class="proc-col-text">
+                Origina e responde solicitações de apoio; a decisão de empenho
+                do 192 permanece no SAU.
+              </div>
+            </div>
+            <div class="proc-col">
+              <div class="proc-col-title">No Hefesto (SSP)</div>
+              <div class="proc-col-text">
+                Origina e responde solicitações do lado 193, refletindo o
+                empenho no fluxo do SINESPCAD.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GOVERNANÇA -->
+    <section class="section section-alt" id="governanca">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow">
+            <span class="eyebrow-bar"></span>Governança Enxuta
+          </div>
+          <h2 class="section-title">Princípios que sustentam o projeto</h2>
+          <p class="section-lead">
+            Poucos princípios, aplicados sempre — em vez de estruturas formais
+            que precedem a entrega.
+          </p>
+        </div>
+        <div class="gov-grid">
+          <div class="gov-card">
+            <div class="gov-icon">🔗</div>
+            <div class="gov-title">Amplificador, não substituto</div>
+            <div class="gov-text">
+              A integração potencializa a operação de cada corporação sem
+              substituir seus sistemas. Nenhuma indisponibilidade da camada
+              integrada pode degradar o atendimento isolado do 193 ou do 192.
+            </div>
+          </div>
+          <div class="gov-card green">
+            <div class="gov-icon">🤝</div>
+            <div class="gov-title">Decisão paritária</div>
+            <div class="gov-text">
+              A orquestração roda na SSP por praticidade de engenharia; o
+              avanço de cada processo depende do aval de viabilidade da SES.
+              Onde o código roda e quem decide são coisas distintas — e a
+              decisão é compartilhada.
+            </div>
+          </div>
+          <div class="gov-card">
+            <div class="gov-icon">⚖️</div>
+            <div class="gov-title">LGPD no momento certo</div>
+            <div class="gov-text">
+              Protótipos usam apenas dados sintéticos — nenhuma exigência
+              formal os bloqueia. Papéis de controlador/operador, minimização
+              e RIPD tornam-se obrigatórios antes do primeiro dado real, no
+              piloto de cada processo.
+            </div>
+          </div>
+          <div class="gov-card">
+            <div class="gov-icon">📊</div>
+            <div class="gov-title">Transparência de andamento</div>
+            <div class="gov-text">
+              O quadro de estágios e a
+              <a
+                href="https://docs.google.com/spreadsheets/d/1sxRtVrnqCDhz7_zZwB2J3kLevCHaJnmL/edit"
+                target="_blank"
+                rel="noopener"
+                >planilha de acompanhamento</a
+              >
+              são o registro vivo do projeto: cada feedback incorporado e cada
+              decisão de avanço ficam visíveis às duas secretarias.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RISCOS -->
+    <section class="section" id="riscos">
+      <div class="page-wrap">
+        <div class="section-header">
+          <div class="eyebrow">
             <span class="eyebrow-bar"></span>Gestão de Riscos
           </div>
-          <h2 class="section-title">Matriz de riscos inicial</h2>
+          <h2 class="section-title">Matriz de riscos</h2>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th style="width: 4%">#</th>
-                <th style="width: 22%">Risco</th>
-                <th style="width: 13%">Categoria</th>
+                <th style="width: 24%">Risco</th>
+                <th style="width: 12%">Categoria</th>
                 <th style="width: 9%; text-align: center">Prob.</th>
                 <th style="width: 9%; text-align: center">Impacto</th>
                 <th>Mitigação</th>
@@ -1616,27 +1653,8 @@
               <tr>
                 <td>R1</td>
                 <td>
-                  <strong
-                    >Resistência cultural / disputa de protagonismo</strong
-                  >
-                </td>
-                <td>Pessoas / Gov.</td>
-                <td style="text-align: center">
-                  <span class="badge badge-alta">Alta</span>
-                </td>
-                <td style="text-align: center">
-                  <span class="badge badge-alto">Alto</span>
-                </td>
-                <td>
-                  Comitê paritário; RACI explícita; patrocínio do alto comando;
-                  comunicação que preserva autonomia de cada corporação.
-                </td>
-              </tr>
-              <tr>
-                <td>R2</td>
-                <td>
-                  <strong>Indisponibilidade da integração</strong> como ponto
-                  único de falha
+                  <strong>Inviabilidade da integração no SAU</strong> —
+                  restrições técnicas do lado da SES só descobertas tarde
                 </td>
                 <td>Tecnologia</td>
                 <td style="text-align: center">
@@ -1646,15 +1664,16 @@
                   <span class="badge badge-critico">Crítico</span>
                 </td>
                 <td>
-                  Alta disponibilidade com failover; modo degradado garantindo
-                  operação isolada; testes de caos e runbooks.
+                  Portão de viabilidade da SES antes de qualquer
+                  desenvolvimento; equipe técnica da SES envolvida desde as
+                  sessões de feedback do protótipo.
                 </td>
               </tr>
               <tr>
-                <td>R3</td>
+                <td>R2</td>
                 <td>
-                  <strong>Incompatibilidade de legado</strong> (sistemas sem
-                  API, modelos divergentes)
+                  <strong>Dependência do SINESPCAD</strong> — mudanças em
+                  sistema do MJSP fogem à governança local
                 </td>
                 <td>Tecnologia</td>
                 <td style="text-align: center">
@@ -1664,12 +1683,50 @@
                   <span class="badge badge-alto">Alto</span>
                 </td>
                 <td>
-                  Camada de adapters/anticorrupção; tabelas de-para na camada de
-                  integração; abordagem MVP incremental.
+                  Concentrar a integração no Hefesto, que já interopera com o
+                  SINESPCAD — evitando depender de alterações no sistema
+                  federal.
+                </td>
+              </tr>
+              <tr>
+                <td>R3</td>
+                <td>
+                  <strong>Percepção de subordinação institucional</strong>
+                  entre as secretarias
+                </td>
+                <td>Pessoas / Gov.</td>
+                <td style="text-align: center">
+                  <span class="badge badge-media">Média</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-alto">Alto</span>
+                </td>
+                <td>
+                  Premissa arquitetural comunicada como decisão de engenharia;
+                  portão de decisão nas mãos da SES; SAU reconhecido como
+                  fonte da verdade clínica em todo material do projeto.
                 </td>
               </tr>
               <tr>
                 <td>R4</td>
+                <td>
+                  <strong>Integração como ponto único de falha</strong>
+                </td>
+                <td>Tecnologia</td>
+                <td style="text-align: center">
+                  <span class="badge badge-media">Média</span>
+                </td>
+                <td style="text-align: center">
+                  <span class="badge badge-critico">Crítico</span>
+                </td>
+                <td>
+                  Modo degradado obrigatório: cada central opera isolada se a
+                  plataforma cair; requisito de disponibilidade definido por
+                  processo no estágio de desenvolvimento.
+                </td>
+              </tr>
+              <tr>
+                <td>R5</td>
                 <td>
                   <strong>Não conformidade LGPD</strong> no compartilhamento de
                   dados sensíveis de saúde
@@ -1682,35 +1739,18 @@
                   <span class="badge badge-critico">Crítico</span>
                 </td>
                 <td>
-                  RIPD concluído antes do desenvolvimento; minimização e
-                  pseudonimização by design; revisão do DPO em cada gate.
-                </td>
-              </tr>
-              <tr>
-                <td>R5</td>
-                <td>
-                  <strong>Inconsistência semântica</strong> (mesmo termo,
-                  significados diferentes)
-                </td>
-                <td>Dados</td>
-                <td style="text-align: center">
-                  <span class="badge badge-media">Média</span>
-                </td>
-                <td style="text-align: center">
-                  <span class="badge badge-alto">Alto</span>
-                </td>
-                <td>
-                  Dicionário de dados como artefato versionado de governança;
-                  validação com casos clínicos reais.
+                  Dados 100% sintéticos até o piloto; RIPD e papéis de
+                  controlador/operador formalizados antes do primeiro dado
+                  real de cada processo.
                 </td>
               </tr>
               <tr>
                 <td>R6</td>
                 <td>
-                  <strong>Falha humana na transição</strong> — operadores não
-                  absorvem o novo fluxo
+                  <strong>Protótipo vira vitrine</strong> — feedback colhido
+                  mas não incorporado, sem avanço para entrega
                 </td>
-                <td>Pessoas</td>
+                <td>Método</td>
                 <td style="text-align: center">
                   <span class="badge badge-media">Média</span>
                 </td>
@@ -1718,8 +1758,9 @@
                   <span class="badge badge-medio">Médio</span>
                 </td>
                 <td>
-                  Treinamento obrigatório com avaliação; operação assistida no
-                  Go-Live; POPs integrados na estação de trabalho.
+                  Ciclos curtos com registro de ajustes na planilha; critério
+                  explícito de saída do estágio 2 (protótipo validado) e
+                  agendamento imediato do portão de viabilidade.
                 </td>
               </tr>
             </tbody>
@@ -1731,21 +1772,34 @@
     <!-- FOOTER -->
     <footer class="footer">
       <div>
-        <strong>Emergência 360° — Plano de Trabalho</strong><br />
-        <!-- Proposta para validação do Comitê Técnico Misto<br>
-    CBMDF Central 193 × SAMU/DF Central 192 · GDF — Distrito Federal<br> -->
-        <!-- Emitido em 26/06/2026 · <em>Restrito — Plano de Interoperabilidade APH</em> -->
+        <strong>Emergência 360° — Plano de Trabalho</strong> · v2.0 · Ago 2026<br />
+        SSP (Hefesto · SINESPCAD · Central 193) × SES (SAU · Central 192) ·
+        Governo do Distrito Federal<br />
+        Acompanhamento:
+        <a
+          href="https://docs.google.com/spreadsheets/d/1sxRtVrnqCDhz7_zZwB2J3kLevCHaJnmL/edit"
+          target="_blank"
+          rel="noopener"
+          >planilha do projeto</a
+        >
+        ·
+        <a href="prototipos.html">protótipos</a>
       </div>
-      <!-- <div>
-    <div class="footer-seal">
-      <span class="seal-dot" style="background:var(--gdf-green)"></span>
-      Governo do Distrito Federal
-    </div>
-    <div class="footer-seal" style="margin-top:5px">
-      <span class="seal-dot" style="background:var(--aph-red)"></span>
-      Atendimento Pré-Hospitalar Integrado
-    </div>
-  </div> -->
     </footer>
+    <!-- Botão flutuante de Feedback -->
+    <!-- TODO: inserir o link do formulário de feedback no href abaixo -->
+    <a class="fab-feedback" href="#" onclick="return false;" title="Formulário de feedback — em breve">💬 Feedback</a>
+    <style>
+      .fab-feedback {
+        position: fixed; bottom: 18px; right: 18px; z-index: 200;
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--aph-red); color: #fff;
+        font-size: 13px; font-weight: 700;
+        padding: 10px 16px; border-radius: 100px; text-decoration: none;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .fab-feedback:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); }
+    </style>
   </body>
 </html>

@@ -233,14 +233,18 @@
 
     <div class="proto-card">
       <div>
-        <span class="proto-badge">Média fidelidade · Dados sintéticos</span>
-        <h2 class="proto-name">Deduplicador — Painel de Ocorrências Correlatas</h2>
+        <span class="proto-badge">Média fidelidade · Dados sintéticos · Camadas P1–P4</span>
+        <h2 class="proto-name">Estação Integrada — Deduplicação + Camadas de Integração</h2>
         <p class="proto-desc">
-          Demonstra a deduplicação de ocorrências entre as centrais: o painel de correlatas carrega
-          em paralelo ao cadastro sem bloqueá-lo, o despachante verifica duplicidade e vincula ou
-          descarta candidatas, e o evento consolida as ocorrências vinculadas lado a lado.
-          O motor de similaridade pode ser ligado e desligado para demonstrar o desacoplamento
-          entre as telas e o algoritmo.
+          Começou como o protótipo do deduplicador (P1) e evoluiu para a estação integrada: além do
+          painel de correlatas, das verificações de duplicidade e dos eventos vinculados, as demais
+          camadas de integração aparecem nas mesmas telas — transferência de ligação com contexto
+          (P2), status da regulação médica (P3) e alerta de contra-regulação (P4). Cada camada liga
+          e desliga no cabeçalho, permitindo avaliar tanto os processos isolados quanto a carga
+          combinada sobre a estação do operador. O motor de similaridade também pode ser desligado
+          para demonstrar o desacoplamento entre telas e algoritmo. Na primeira visita, um
+          <strong>tour guiado</strong> apresenta cada recurso passo a passo — nenhuma explicação
+          prévia é necessária.
         </p>
         <div class="proto-actions">
           <a href="prototipos/deduplicador/index.html" class="btn-primary">
@@ -292,6 +296,22 @@
     </div>
   </div>
 </footer>
+
+<!-- Botão flutuante de Feedback -->
+<!-- TODO: inserir o link do formulário de feedback no href abaixo -->
+<a class="fab-feedback" href="#" onclick="return false;" title="Formulário de feedback — em breve">💬 Feedback</a>
+<style>
+  .fab-feedback {
+    position: fixed; bottom: 18px; right: 18px; z-index: 200;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--red); color: #fff;
+    font-size: 13px; font-weight: 700;
+    padding: 10px 16px; border-radius: 100px; text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .fab-feedback:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3); }
+</style>
 
 </body>
 </html>

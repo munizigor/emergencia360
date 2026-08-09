@@ -27,6 +27,15 @@ function novaOcorrencia(campos) {
   };
   const ocorrencia = Object.assign(base, campos);
   ocorrencia.id_evento = ocorrencia.id_ocorrencia;
+  // Camada P3: toda ocorrência do SAMU carrega o estado da regulação médica.
+  // A decisão clínica permanece no SAU — a plataforma só transporta o status.
+  if (ocorrencia.orgao === 'SAMU' && !ocorrencia.regulacao) {
+    const definida = ['DESPACHADA', 'A_CAMINHO', 'ENCERRADA'].includes(ocorrencia.status);
+    ocorrencia.regulacao = definida ? 'DEFINIDA' : 'EM_REGULACAO';
+    ocorrencia.recurso_regulado = definida
+      ? (ocorrencia.tipo_canonico === 'ACIDENTE_TRANSITO' ? 'USA' : 'USB')
+      : null;
+  }
   return ocorrencia;
 }
 

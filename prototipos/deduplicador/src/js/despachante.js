@@ -35,6 +35,7 @@ function renderizarLista() {
           <div class="info-linha1">
             ${tagOrgao(o.orgao)}
             ${badgeStatus(o.status)}
+            ${badgeRegulacao(o)}
             ${outrasVinculadas.length ? badgeVinculo(outrasVinculadas.length) : ''}
             <span class="endereco">${escaparHtml(o.endereco_normalizado)}</span>
           </div>
@@ -103,6 +104,7 @@ function renderizarCandidatos(resultado, idOrigem) {
         <div class="card-candidato-cabeco">
           ${tagOrgao(o.orgao)}
           ${badgeStatus(o.status)}
+          ${suprimir ? '' : badgeRegulacao(o)}
           ${badgeScore(item.score, item.baixaConfianca)}
         </div>
         ${
