@@ -1,0 +1,42 @@
+# Prévia automática de cada pull request.
+#
+# Publica o conteúdo do PR em gh-pages/pr-preview/pr-<N>/ e comenta no
+# próprio PR o link da prévia (ex.:
+# https://<usuario>.github.io/<repo>/pr-preview/pr-3/). A cada novo push no
+# PR a prévia atualiza; quando o PR é fechado ou mergeado, a prévia é
+# removida automaticamente.
+#
+# Par deste workflow: deploy-pages.yml (produção). Ver lá o requisito único
+# de configuração do GitHub Pages.
+#
+# Arquivo genérico: para reutilizar em outro projeto de site estático, basta
+# copiá-lo junto com deploy-pages.yml. Se o projeto tiver build, acrescente o
+# passo de build e troque "source-dir: ." pela pasta de saída.
+
+name: Prévia do pull request
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publicar prévia do PR
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: .
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
