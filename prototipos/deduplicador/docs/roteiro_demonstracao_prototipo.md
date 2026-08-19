@@ -41,12 +41,15 @@ lateral leva ~800 ms para responder — o mesmo *timeout* do NFR-01/§4.3 do doc
 
 ### 2 — O valor central: enxergar o outro órgão (§2.2)
 
-Em `despachante.html`, abra a ocorrência **CBMDF-2026-0158234** (EPTG KM 5, 14:22) e clique em
-**"Verificar duplicidade"**. Aparecem candidatos do SAMU e da PMDF, ambos com **sugestão forte**, score
-acima de 0,85, e motivo legível ("30 m, 2 min, tipo compatível").
+Em `despachante.html`, localize a ocorrência **CBMDF-2026-0158234** (EPTG KM 5, 14:22) — **sem clicar em
+nada**. Ela já chega marcada com "⚠ 2 possíveis duplicadas" e traz, logo abaixo, os candidatos do SAMU e
+da PMDF, ambos com **sugestão forte**, score acima de 0,85, e motivo legível ("30 m, 2 min, tipo
+compatível"). A verificação é da plataforma; o clique que resta é o da decisão.
 
 > **Pergunta que isso responde:** um despachante do CBMDF, sem esta tela, saberia que o SAMU e a PMDF já
 > foram acionados para o mesmo local? Hoje, não — é exatamente a dor D2/D3 do documento de visão §2.2.
+> E saberia disso **sem precisar suspeitar primeiro**: a verificação não depende de o operador lembrar
+> de pedi-la ocorrência por ocorrência.
 
 ### 3 — Vincular sem fundir (P2)
 

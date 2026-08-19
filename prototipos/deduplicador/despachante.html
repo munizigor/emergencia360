@@ -17,22 +17,15 @@
   <main>
     <h1 class="pagina-titulo">Ocorrências em andamento</h1>
     <p class="pagina-subtitulo">
-      Tela do despachante. Verifique duplicidade a qualquer momento (HU02.3) e decida: vincular
-      (P2) ou descartar a sugestão (RN-17). A lista mostra as ocorrências do órgão selecionado em
+      Tela do despachante. A duplicidade já vem verificada (HU02.3) — cada ocorrência mostra suas
+      possíveis duplicadas sem precisar de clique. A decisão continua sua: vincular (P2) ou
+      descartar a sugestão (RN-17). A lista mostra as ocorrências do órgão selecionado em
       "Ver como", no cabeçalho.
     </p>
 
     <section class="panel">
       <h2>Minhas ocorrências</h2>
-      <div id="listaOcorrencias" class="lista-ocorrencias"></div>
-    </section>
-
-    <section class="panel painel-verificacao" id="containerVerificacao" hidden style="margin-top:20px;">
-      <h2>Verificação de duplicidade — <span id="tituloOrigem"></span></h2>
-      <p class="pagina-subtitulo" id="subtituloVerificacao" style="margin-bottom:14px;"></p>
-      <div id="statusVinculoOrigem" aria-live="polite"></div>
-      <div id="feedbackVerificacao" aria-live="polite"></div>
-      <div id="listaCandidatos" aria-live="polite"></div>
+      <div id="listaOcorrencias" class="lista-ocorrencias" aria-live="polite"></div>
     </section>
   </main>
 
