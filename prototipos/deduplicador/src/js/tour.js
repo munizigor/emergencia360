@@ -104,9 +104,9 @@ const TOUR = (() => {
           texto: 'A fila do despachante mostra as ocorrências em andamento do órgão selecionado em "Ver como". Ocorrências do SAMU trazem o status da regulação (P3); vínculos já feitos aparecem como badge.',
         },
         {
-          alvo: '#containerVerificacao',
-          titulo: 'Verificação de duplicidade',
-          texto: 'Abrimos a colisão da EPTG. O motor buscou candidatas por proximidade geográfica, janela temporal e compatibilidade de tipo. Com o motor desligado (cabeçalho), a lista continua — apenas em ordem cronológica, sem score.',
+          alvo: `#oc-${IDS_DEMO.clusterOrigem} .bloco-duplicidade`,
+          titulo: 'Duplicidade já verificada — sem clique',
+          texto: 'Esta é a colisão da EPTG. O motor já buscou candidatas por proximidade geográfica, janela temporal e compatibilidade de tipo — o despachante não precisa pedir a verificação, ela chega junto com a ocorrência. Com o motor desligado (cabeçalho), a lista continua: apenas em ordem cronológica, sem score.',
           aoEntrar: async () => {
             if (typeof abrirVerificacao === 'function') {
               abrirVerificacao(IDS_DEMO.clusterOrigem);
@@ -115,12 +115,12 @@ const TOUR = (() => {
           },
         },
         {
-          alvo: '#listaCandidatos .card-candidato',
+          alvo: `#oc-${IDS_DEMO.clusterOrigem} .card-candidato`,
           titulo: 'Candidatas com score',
           texto: 'Cada cartão mostra o órgão, o status e a força da sugestão (forte/fraca). A sugestão fraca existe de propósito: há um segundo acidente real no sentido oposto da via — nem toda semelhança é duplicidade.',
         },
         {
-          alvo: '#listaCandidatos .card-candidato .acoes',
+          alvo: `#oc-${IDS_DEMO.clusterOrigem} .card-candidato .acoes`,
           titulo: 'A decisão é sempre humana',
           texto: '"É o mesmo evento" vincula as ocorrências num evento único. "São eventos distintos" descarta a sugestão — e o motivo informado vira rótulo de calibração do motor (RN-17). O sistema sugere; o operador decide.',
         },

@@ -506,42 +506,103 @@ main {
 
 .item-ocorrencia {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
   padding: 12px 14px;
   border: 1px solid var(--border);
   border-radius: 12px;
+}
+
+/* A ocorrência com possível duplicidade se destaca na fila sem depender de
+   clique: o despachante identifica onde há decisão pendente só varrendo a
+   lista com os olhos. */
+.item-ocorrencia.tem-duplicidade {
+  border-color: color-mix(in srgb, var(--fraca) 45%, var(--border));
+  background: color-mix(in srgb, var(--fraca-bg) 40%, var(--surface));
+}
+
+.item-ocorrencia-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
-.item-ocorrencia .info {
+.item-ocorrencia-topo .info {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.item-ocorrencia .info-linha1 {
+.item-ocorrencia-topo .info-linha1 {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.item-ocorrencia .endereco {
+.item-ocorrencia-topo .endereco {
   font-weight: 600;
   font-size: 0.92rem;
 }
 
-.item-ocorrencia .meta {
+.item-ocorrencia-topo .meta {
   font-size: 0.78rem;
   color: var(--muted);
 }
 
-.painel-verificacao {
-  margin-top: 16px;
-  padding-top: 16px;
+.badge-dup {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badge-dup-com {
+  background: var(--fraca-bg);
+  color: var(--fraca);
+}
+
+.badge-dup-sem {
+  background: #eceff2;
+  color: var(--muted);
+}
+
+.bloco-duplicidade {
   border-top: 1px dashed var(--border);
+  padding-top: 12px;
+}
+
+.bloco-duplicidade-titulo {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.bloco-duplicidade-estrategia {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.lista-candidatos .card-candidato {
+  background: var(--surface);
+}
+
+.lista-candidatos .card-candidato:last-child {
+  margin-bottom: 0;
+}
+
+/* Sem vínculo feito nem feedback pendente, o contêiner não deve abrir buraco
+   no espaçamento do cartão. */
+.feedback-vinculo:empty {
+  display: none;
 }
 
 .aviso-vinculo-existente {
@@ -550,7 +611,6 @@ main {
   border-radius: 12px;
   padding: 10px 14px;
   font-size: 0.85rem;
-  margin-bottom: 14px;
 }
 
 .aviso-vinculo-existente a {
