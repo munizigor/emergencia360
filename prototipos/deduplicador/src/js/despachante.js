@@ -91,8 +91,8 @@ function badgeDuplicidade(qtd) {
 
 function blocoDuplicidade(origem, resultado, verComo) {
   const estrategia = resultado.degradado
-    ? 'Estratégia efetiva: cronológica (motor desligado) — mesmos candidatos, sem score.'
-    : 'Estratégia efetiva: geo-temporal.';
+    ? 'Sugestão automática desligada — as mesmas ocorrências, em ordem de horário.'
+    : 'Encontradas por proximidade de local, horário e tipo de ocorrência.';
 
   return `
     <div class="bloco-duplicidade">
@@ -121,7 +121,7 @@ function cartaoCandidato(item, idOrigem, verComo) {
       </div>
       ${
         suprimir
-          ? `<div class="suprimido">🔒 Conteúdo reservado — acesso restrito ao órgão de origem (RN-13)</div>`
+          ? `<div class="suprimido">🔒 Conteúdo reservado — acesso restrito ao órgão de origem</div>`
           : `
             <div class="endereco">${escaparHtml(o.endereco_normalizado)}</div>
             <div class="motivo">${escaparHtml(item.motivo)} · aberta às ${formatarHora(o.abertura)} · ${labelTipo(o.tipo_canonico)}</div>
@@ -156,7 +156,7 @@ async function vincularCandidato(idOrigem, idCandidata) {
     const confirmado = await confirmarAcao({
       titulo: 'Vincular ocorrência reservada',
       mensagem:
-        'Esta ocorrência é sigilosa (RN-13): você não vê endereço, tipo ou resumo dela, apenas o score. Confirma o vínculo mesmo sem ver o conteúdo?',
+        'Esta ocorrência é sigilosa: você não vê o endereço, o tipo nem o resumo dela — só o quanto ela se parece com a sua. Confirma o vínculo mesmo sem ver o conteúdo?',
       textoConfirmar: 'Vincular mesmo assim',
       textoCancelar: 'Cancelar',
       variantePerigo: true,
@@ -184,7 +184,7 @@ function mostrarFeedbackVinculo(idOrigem, idCandidata, idEvento) {
 async function descartarCandidato(idOrigem, idCandidata) {
   const motivo = await pedirTexto({
     titulo: 'São eventos distintos',
-    mensagem: 'Por que estes são eventos distintos? (opcional — vira rótulo de calibração, RN-17)',
+    mensagem: 'Por que estes são eventos distintos? (opcional — ajuda a melhorar as próximas sugestões)',
     campo: 'Motivo (opcional)',
     obrigatorio: false,
     textoConfirmar: 'Descartar sugestão',

@@ -21,9 +21,10 @@ na hora.
 ## Personas usadas na demo
 
 Mapeadas ao documento de visão §3.2: **atendente** (`prototipo/index.html`), **despachante**
-(`prototipo/despachante.html`) e **regulador médico** (`prototipo/evento.html`, "Ver como: SAMU").
+(`prototipo/despachante.html`) e **regulador médico** (`prototipo/evento.html`, com a central SAMU
+selecionada no cabeçalho).
 
-O seletor **"Ver como"**, no cabeçalho de todas as telas, troca o órgão sob cuja ótica a tela é
+O seletor **"Estou na central"**, no cabeçalho de todas as telas, troca o órgão sob cuja ótica a tela é
 exibida — inclusive para demonstrar segregação de visibilidade (RN-13), sem precisar simular login.
 
 ---
@@ -32,7 +33,7 @@ exibida — inclusive para demonstrar segregação de visibilidade (RN-13), sem 
 
 ### 1 — O painel não atrapalha (P1)
 
-Em `index.html`, com "Ver como: CBMDF", cadastre uma ocorrência nova (qualquer endereço). O painel
+Em `index.html`, com a central CBMDF selecionada, cadastre uma ocorrência nova (qualquer endereço). O painel
 lateral leva ~800 ms para responder — o mesmo *timeout* do NFR-01/§4.3 do documento de visão. Clique em
 **"Concluir cadastro"** antes de o painel terminar de carregar.
 
@@ -43,8 +44,8 @@ lateral leva ~800 ms para responder — o mesmo *timeout* do NFR-01/§4.3 do doc
 
 Em `despachante.html`, localize a ocorrência **CBMDF-2026-0158234** (EPTG KM 5, 14:22) — **sem clicar em
 nada**. Ela já chega marcada com "⚠ 2 possíveis duplicadas" e traz, logo abaixo, os candidatos do SAMU e
-da PMDF, ambos com **sugestão forte**, score acima de 0,85, e motivo legível ("30 m, 2 min, tipo
-compatível"). A verificação é da plataforma; o clique que resta é o da decisão.
+da PMDF, ambos marcados como **muito parecida**, acima de 85% de semelhança, e com motivo legível
+("30 m, 2 min, mesmo tipo"). A verificação é da plataforma; o clique que resta é o da decisão.
 
 > **Pergunta que isso responde:** um despachante do CBMDF, sem esta tela, saberia que o SAMU e a PMDF já
 > foram acionados para o mesmo local? Hoje, não — é exatamente a dor D2/D3 do documento de visão §2.2.
@@ -62,9 +63,10 @@ status e campos originais **intactos**.
 
 ### 4 — O produto sobrevive sem o motor (§4.3)
 
-No cabeçalho, desligue o alternador **"Motor de similaridade"**. Repita o passo 2 (verificar
-duplicidade na mesma ocorrência CBMDF). A lista continua aparecendo — mesmos candidatos, sem score,
-ordenados cronologicamente, com o aviso discreto "ordenação por horário".
+No cabeçalho, desligue o alternador **"Sugerir ocorrências parecidas"** e olhe a mesma ocorrência do
+CBMDF. Os candidatos continuam aparecendo — os mesmos, sem o percentual de semelhança, ordenados
+cronologicamente, com o aviso discreto "Sugestão automática desligada — as ocorrências próximas
+continuam aparecendo, em ordem de horário".
 
 > **Pergunta que isso responde:** o painel depende do motor de IA/scoring para ser útil? Não — é a
 > forma do contrato descrita no documento de visão §4.3, não uma alegação.
@@ -75,20 +77,21 @@ Religue o motor antes de seguir para o próximo passo.
 
 Ainda em `despachante.html`, na mesma verificação de duplicidade da ocorrência CBMDF-2026-0158234,
 repare no terceiro candidato: **PMDF-2026-021077**, "EPTG KM 5 **sentido Taguatinga**" (sentido oposto
-ao da ocorrência original), aberto 18 minutos depois, com **sugestão fraca** (score na faixa 0,60–0,84).
+ao da ocorrência original), aberto 18 minutos depois, marcado como **pouco parecida** (60% a 84% de
+semelhança).
 É um acidente real e distinto — colisão traseira, sem vítimas — que por proximidade geo-temporal ainda
 aparece na lista.
 
 Clique em **"São eventos distintos"** para descartá-lo.
 
-> **Pergunta que isso responde:** o operador confia cegamente no score, ou lê o motivo, o endereço e o
+> **Pergunta que isso responde:** o operador confia cegamente no percentual, ou lê o motivo, o endereço e o
 > resumo antes de decidir? É o contraponto direto ao princípio P1–P3 (§2.5 do documento de visão): o
 > custo de vincular errado é maior que o de não vincular, e por isso a decisão fica com o humano.
 
 ### 6 — Segredo que participa sem se expor (RN-13)
 
-Troque "Ver como" para **PMDF** e abra a ocorrência **PMDF-2026-021204** (Recanto das Emas, 20h15) — o
-conteúdo aparece completo, porque o PMDF é o órgão de origem. Troque "Ver como" para **CBMDF** e
+Troque a central para **PMDF** e abra a ocorrência **PMDF-2026-021204** (Recanto das Emas, 20h15) — o
+conteúdo aparece completo, porque o PMDF é o órgão de origem. Troque a central para **CBMDF** e
 verifique a mesma ocorrência aparecendo como candidata de **CBMDF-2026-0158299** (aberta por volta das
 20h19, a ~40 m): o card aparece com cadeado, sem endereço nem resumo, marcado apenas como "RESERVADO".
 
@@ -101,7 +104,7 @@ verifique a mesma ocorrência aparecendo como candidata de **CBMDF-2026-0158299*
   mostra **CBMDF-2026-0158201**, já **ENCERRADA**, 12 minutos antes — o sinal de "já foi atendido".
 - **Geolocalização imprecisa** (RN-11): a ocorrência **PMDF-2026-021150** (Ceilândia, precisão 800 m)
   é buscada por região administrativa + tipo, não por raio geográfico, e o candidato retorna marcado
-  "baixa confiança de localização".
+  "Localização imprecisa".
 
 ---
 
@@ -117,6 +120,6 @@ propósito para serem difíceis.
 ## Perguntas para os operadores (quando houver teste real, fora do escopo deste protótipo)
 
 - Esse raio (RN-05) te traz candidato relevante, ou lixo?
-- Esse score, sozinho, seria suficiente para você vincular sem ler o motivo?
+- Esse percentual de semelhança, sozinho, seria suficiente para você vincular sem ler o motivo?
 - No passo 5 (a armadilha), o que faria você vincular por engano, se fizesse?
 - Falta alguma informação no card do candidato para você decidir com confiança?

@@ -83,7 +83,7 @@ async function transferirComContexto() {
 
   if (!endereco || !tipo) {
     confirmacao.innerHTML =
-      '<div class="confirmacao-cadastro" style="background:var(--alerta-bg);color:var(--alerta)">Selecione endereço e tipo antes de transferir — é esse contexto que viaja com a ligação.</div>';
+      '<div class="confirmacao-cadastro" style="background:var(--alerta-bg);color:var(--alerta)">Selecione endereço e tipo antes de transferir — são esses dados que seguem junto com a ligação.</div>';
     return;
   }
 
@@ -92,7 +92,7 @@ async function transferirComContexto() {
 
   const confirmado = await confirmarAcao({
     titulo: `Transferir ligação ao ${orgaoDestino}`,
-    mensagem: `A chamada será transferida ao ${orgaoDestino} levando junto o pacote de contexto (endereço, tipo, telefone e relato já colhidos). A triagem continua de onde parou — o cidadão não reconta nada (P2).`,
+    mensagem: `A chamada será transferida ao ${orgaoDestino} levando junto tudo o que você já colheu: endereço, tipo, telefone e relato. O atendimento continua de onde parou — o cidadão não precisa contar tudo de novo.`,
     textoConfirmar: 'Transferir com contexto',
   });
   if (!confirmado) return;
@@ -107,7 +107,7 @@ async function transferirComContexto() {
     hora: endereco.abertura,
   });
 
-  confirmacao.innerHTML = `<div class="confirmacao-cadastro">📞 Ligação transferida ao ${orgaoDestino} com contexto às ${formatarHora(endereco.abertura)}. Troque "Ver como" para ${orgaoDestino} no cabeçalho para assumir a triagem na central de destino.</div>`;
+  confirmacao.innerHTML = `<div class="confirmacao-cadastro">📞 Ligação transferida ao ${orgaoDestino} com contexto às ${formatarHora(endereco.abertura)}. Para assumir o atendimento do outro lado, escolha ${orgaoDestino} no cabeçalho.</div>`;
   document.getElementById('formCadastro').reset();
   tentarBuscarCandidatos();
 }
@@ -125,7 +125,7 @@ function renderizarBannerTransferencia() {
       <div class="texto">
         📞 <strong>Ligação transferida do ${escaparHtml(pendente.orgaoOrigem)} com contexto</strong> às
         ${formatarHora(pendente.hora)} — endereço, tipo e relato já colhidos viajaram junto.
-        O cidadão não precisa recontar (P2).
+        O cidadão não precisa contar tudo de novo.
       </div>
       <button type="button" class="btn btn-primary" id="btnAssumirTransferencia">Assumir triagem</button>
     </div>
@@ -166,7 +166,7 @@ function tentarBuscarCandidatos() {
   const destino = document.getElementById('conteudoPainelLateral');
 
   if (!endereco || !tipo) {
-    destino.innerHTML = '<p class="aviso-vazio">Selecione o endereço e o tipo para carregar candidatos.</p>';
+    destino.innerHTML = '<p class="aviso-vazio">Selecione o endereço e o tipo para procurar ocorrências parecidas.</p>';
     return;
   }
 
@@ -261,7 +261,7 @@ function concluirCadastro(evento) {
   ESTADO.adicionarOcorrencia(nova);
 
   const avisoAssincrono = carregandoPainel
-    ? ' O painel ao lado ainda estava carregando — o cadastro foi concluído mesmo assim (princípio P1).'
+    ? ' O painel ao lado ainda estava carregando — o cadastro foi concluído mesmo assim.'
     : '';
 
   confirmacao.innerHTML = `<div class="confirmacao-cadastro">Cadastro ${idNovo} concluído às ${formatarHora(agora)}.${avisoAssincrono}</div>`;

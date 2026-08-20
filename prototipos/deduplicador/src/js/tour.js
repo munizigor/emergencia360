@@ -48,8 +48,8 @@ const TOUR = (() => {
         },
         {
           alvo: '#seletorOrgao',
-          titulo: '"Ver como" — troque de central',
-          texto: 'Este seletor muda a ótica da tela (CBMDF, SAMU ou PMDF) sem autenticação. As integrações têm sempre dois lados — você vai usá-lo para ver a mesma história das duas centrais.',
+          titulo: '"Estou na central" — troque de central',
+          texto: 'Aqui você escolhe de qual central está vendo a tela: CBMDF, SAMU ou PMDF. Não precisa de senha — é só para a demonstração. Toda integração tem dois lados, e você vai usar isso para ver a mesma história pelos olhos das duas centrais.',
         },
         {
           alvo: '#painelCadastro',
@@ -70,26 +70,26 @@ const TOUR = (() => {
         },
         {
           alvo: '#painelLateral',
-          titulo: 'Ocorrências correlatas (P1)',
-          texto: 'O painel carregou em paralelo, sem travar o cadastro, e mostra ocorrências parecidas registradas por outros órgãos — mesmo local, mesma janela de tempo, tipo compatível — com um score de similaridade.',
+          titulo: 'Ocorrências parecidas',
+          texto: 'O painel carregou por conta própria, sem travar o cadastro, e mostra ocorrências parecidas já registradas por outros órgãos — mesmo local, horário próximo e mesmo tipo — com o quanto cada uma se parece com a sua.',
           aoEntrar: async () => {
             await esperar(1100); // o painel simula ~800 ms de latência (NFR-01)
           },
         },
         {
           alvo: '#painelLateral .badge-regulacao',
-          titulo: 'Status da regulação médica (P3)',
-          texto: 'A candidata do SAMU exibe o estado da regulação (em regulação / definida · USB/USA). Só o status viaja pela integração — a decisão clínica permanece no SAU, com o médico regulador.',
+          titulo: 'Situação da ambulância',
+          texto: 'A ocorrência do SAMU mostra em que pé está a regulação médica: ainda em avaliação, ou já definida, com o tipo de ambulância enviada. Só essa situação aparece para as outras centrais — a decisão médica continua com o médico regulador do SAMU.',
         },
         {
           alvo: '#btnTransferir',
-          titulo: 'Transferir com contexto (P2)',
-          texto: 'Transfere a ligação à outra central levando junto tudo que já foi colhido: endereço, tipo, telefone e relato. Experimente depois: transfira e troque "Ver como" para a central de destino — a triagem continua de onde parou.',
+          titulo: 'Transferir a ligação sem perder o que já foi colhido',
+          texto: 'Transfere a chamada para outra central levando junto tudo que você já anotou: endereço, tipo, telefone e relato. Experimente depois: transfira e escolha a central de destino no cabeçalho — o atendimento continua de onde parou.',
         },
         {
           alvo: '.camadas-grupo',
-          titulo: 'Camadas de integração',
-          texto: 'Cada camada corresponde a um processo do plano de trabalho (P2, P3, P4) e pode ser ligada ou desligada. Isso permite avaliar cada processo isolado — e também a carga combinada de informações sobre a sua tela.',
+          titulo: 'O que aparece na sua tela',
+          texto: 'Cada chave liga um recurso diferente na tela e pode ser desligada a qualquer momento. Assim dá para avaliar um recurso de cada vez — e também sentir como fica a tela com todos ligados ao mesmo tempo.',
         },
       ],
     },
@@ -101,12 +101,12 @@ const TOUR = (() => {
         {
           alvo: '#listaOcorrencias',
           titulo: 'Minhas ocorrências',
-          texto: 'A fila do despachante mostra as ocorrências em andamento do órgão selecionado em "Ver como". Ocorrências do SAMU trazem o status da regulação (P3); vínculos já feitos aparecem como badge.',
+          texto: 'A fila mostra as ocorrências em andamento da central escolhida no cabeçalho. As do SAMU trazem a situação da ambulância; as que já foram vinculadas trazem uma marca no cartão.',
         },
         {
           alvo: `#oc-${IDS_DEMO.clusterOrigem} .bloco-duplicidade`,
           titulo: 'Duplicidade já verificada — sem clique',
-          texto: 'Esta é a colisão da EPTG. O motor já buscou candidatas por proximidade geográfica, janela temporal e compatibilidade de tipo — o despachante não precisa pedir a verificação, ela chega junto com a ocorrência. Com o motor desligado (cabeçalho), a lista continua: apenas em ordem cronológica, sem score.',
+          texto: 'Esta é a colisão da EPTG. A busca por ocorrências parecidas já foi feita — por proximidade de local, horário próximo e mesmo tipo. Você não precisa pedir a verificação: ela chega junto com a ocorrência. Se desligar a sugestão automática no cabeçalho, as mesmas ocorrências continuam aparecendo, em ordem de horário.',
           aoEntrar: async () => {
             if (typeof abrirVerificacao === 'function') {
               abrirVerificacao(IDS_DEMO.clusterOrigem);
@@ -116,18 +116,18 @@ const TOUR = (() => {
         },
         {
           alvo: `#oc-${IDS_DEMO.clusterOrigem} .card-candidato`,
-          titulo: 'Candidatas com score',
-          texto: 'Cada cartão mostra o órgão, o status e a força da sugestão (forte/fraca). A sugestão fraca existe de propósito: há um segundo acidente real no sentido oposto da via — nem toda semelhança é duplicidade.',
+          titulo: 'O quanto elas se parecem',
+          texto: 'Cada cartão mostra o órgão, a situação e o quanto aquela ocorrência se parece com a sua. O cartão "pouco parecida" está aí de propósito: há um segundo acidente real no sentido oposto da via — nem toda semelhança é duplicidade.',
         },
         {
           alvo: `#oc-${IDS_DEMO.clusterOrigem} .card-candidato .acoes`,
           titulo: 'A decisão é sempre humana',
-          texto: '"É o mesmo evento" vincula as ocorrências num evento único. "São eventos distintos" descarta a sugestão — e o motivo informado vira rótulo de calibração do motor (RN-17). O sistema sugere; o operador decide.',
+          texto: '"É o mesmo evento" junta as duas ocorrências num evento único. "São eventos distintos" descarta a sugestão — e o motivo que você escrever ajuda a melhorar as próximas sugestões. O sistema sugere; quem decide é você.',
         },
         {
           alvo: '.toast-contrarreg',
-          titulo: 'Contra-regulação (P4)',
-          texto: 'O médico regulador do SAMU mudou o recurso da ocorrência — e o alerta chegou aqui, dentro da própria tela, sem rádio nem telefone. O botão "Ciente" registra sua ciência na trilha de auditoria. Pode clicar depois do tour.',
+          titulo: 'Aviso de troca de recurso',
+          texto: 'O médico regulador do SAMU trocou a ambulância enviada — e o aviso chegou aqui, na própria tela, sem rádio nem telefone. O botão "Ciente" registra que você viu. Pode clicar depois do tour.',
           aoEntrar: async () => {
             const orgao = ESTADO.obterVerComo();
             if (
@@ -140,7 +140,7 @@ const TOUR = (() => {
                 idOcorrencia: IDS_DEMO.clusterSamu,
                 de: 'USB',
                 para: 'USA',
-                motivo: 'Reavaliação do médico regulador: vítima evoluiu com instabilidade (demonstração).',
+                motivo: 'Reavaliação do médico regulador: vítima evoluiu com instabilidade.',
               });
             }
             montarAlertasContrarregulacao();
@@ -169,12 +169,12 @@ const TOUR = (() => {
         {
           alvo: '#detalheEvento',
           titulo: 'Ocorrências lado a lado',
-          texto: 'Cada órgão mantém seu registro íntegro, com identificador, tipo e resumo próprios. A integração correlaciona — não substitui. Conteúdo sigiloso (RN-13) aparece suprimido para quem não é o órgão de origem.',
+          texto: 'Cada órgão mantém seu registro inteiro, com número, tipo e resumo próprios. Vincular apenas relaciona os registros — não substitui nem apaga nenhum. Ocorrência sigilosa aparece com o conteúdo escondido para quem não é o órgão de origem.',
         },
         {
           alvo: '#detalheEvento .btn-vincular',
-          titulo: 'Contra-regular (P4) — visão SAMU',
-          texto: 'Trocamos "Ver como" para SAMU: contra-regular é ato do médico regulador. Este botão altera o recurso regulado e notifica, em tempo real, as centrais com recurso empenhado. Teste depois: contra-regule e volte para a visão CBMDF.',
+          titulo: 'Trocar a ambulância — pelo SAMU',
+          texto: 'Passamos a ver a tela como SAMU: trocar o recurso é ato do médico regulador. Este botão muda a ambulância enviada e avisa na hora as centrais que já mandaram equipe. Teste depois: troque o recurso e volte para a central CBMDF.',
           aoEntrar: async () => {
             if (ESTADO.obterVerComo() !== 'SAMU') {
               ESTADO.definirVerComo('SAMU');
@@ -189,7 +189,7 @@ const TOUR = (() => {
         {
           alvo: '#detalheEvento .btn-desvincular',
           titulo: 'Todo vínculo é reversível',
-          texto: 'Desvincular exige justificativa (RN-03) e fica na trilha de auditoria. Errar ao vincular não é catástrofe — é um clique auditado para desfazer.',
+          texto: 'Desfazer um vínculo exige justificativa, e fica registrado quem fez e por quê. Errar ao vincular não é catástrofe — é um clique para desfazer.',
         },
         {
           alvo: '#fabFeedback',
@@ -393,12 +393,13 @@ const TOUR = (() => {
     dialogo.innerHTML = `
       <h2 id="tourWelcomeTitulo">Bem-vindo à Estação Integrada</h2>
       <ul class="tour-welcome-lista">
-        <li><strong>O que é:</strong> protótipo navegável do Emergência 360°, para validar os cinco
-        processos de integração entre as centrais 193 (CBMDF) e 192 (SAMU) antes do desenvolvimento.</li>
+        <li><strong>O que é:</strong> uma versão de teste do Emergência 360°, feita para você
+        experimentar e criticar as integrações entre as centrais 193, 192 e 190 antes de elas
+        serem construídas de verdade.</li>
         <li><strong>Dados 100% fictícios:</strong> ocorrências, endereços e telefones são sintéticos
         e tudo roda apenas no seu navegador.</li>
-        <li><strong>Três telas, três papéis:</strong> Atendente (cadastro + correlatas),
-        Despachante (verificação de duplicidade) e Regulador/Supervisor (eventos vinculados).</li>
+        <li><strong>Três telas, três papéis:</strong> quem atende a ligação, quem despacha a
+        equipe e quem acompanha as ocorrências já vinculadas.</li>
       </ul>
       <div class="modal-acoes">
         <button type="button" class="btn btn-descartar" id="tourWelcomePular">Explorar por conta própria</button>

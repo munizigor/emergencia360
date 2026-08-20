@@ -145,7 +145,7 @@ const PAR_RESERVADA = [
       tipo_canonico: 'RESERVADO', tipo_origem: 'Ocorrência sob sigilo',
       geo: { lat: -15.9012, lon: -48.0605, precisao_m: 60, fonte: 'GEOCODIFICADO' },
       endereco_normalizado: 'QUADRA 106 CONJUNTO 4 RECANTO DAS EMAS', regiao_administrativa: 'RECANTO DAS EMAS',
-      resumo: 'Ocorrência de natureza sigilosa (violência doméstica) — conteúdo restrito ao órgão de origem, RN-13.',
+      resumo: 'Ocorrência de natureza sigilosa (violência doméstica) — conteúdo restrito ao órgão de origem.',
     }),
     { sigiloso: true }
   ),
