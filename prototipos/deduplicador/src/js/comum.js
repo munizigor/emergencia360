@@ -14,7 +14,7 @@ const ESTADO = (function () {
       verComo: 'CBMDF',
       auditoria: [],
       descartes: [],
-      camadas: { p2: true, p3: true, p4: true },
+      camadas: { p2: true, p3: false, p4: false },
       transferencias: [],
       contrarregulacoes: [],
       simulacaoP4Feita: false,
@@ -347,16 +347,16 @@ function badgeRegulacao(o) {
     ? `Regulação definida${o.recurso_regulado ? ' · ' + o.recurso_regulado : ''}`
     : 'Em regulação médica';
   const classe = definida ? 'badge-reg-definida' : 'badge-reg-andamento';
-  return `<span class="badge-regulacao ${classe}" title="P3 — status da regulação exposto pela plataforma; a decisão clínica permanece no SAU">${rotulo}</span>`;
+  return `<span class="badge-regulacao ${classe}" title="A situação da ambulância aparece aqui para as outras centrais; a decisão médica continua sendo do SAMU">${rotulo}</span>`;
 }
 
 function badgeScore(score, baixaConfianca) {
-  if (baixaConfianca) return '<span class="badge-score badge-score-baixa-confianca">Baixa confiança de localização</span>';
-  if (score === null || score === undefined) return '<span class="badge-score badge-score-nulo">— (motor desligado)</span>';
+  if (baixaConfianca) return '<span class="badge-score badge-score-baixa-confianca">Localização imprecisa</span>';
+  if (score === null || score === undefined) return '<span class="badge-score badge-score-nulo">Semelhança não calculada</span>';
   const banda = MOTOR.bandaScore(score);
   const classe = banda === 'forte' ? 'badge-score-forte' : 'badge-score-fraca';
-  const rotulo = banda === 'forte' ? 'Sugestão forte' : 'Sugestão fraca';
-  return `<span class="badge-score ${classe}">${rotulo} · ${score.toFixed(2)}</span>`;
+  const rotulo = banda === 'forte' ? 'Muito parecida' : 'Pouco parecida';
+  return `<span class="badge-score ${classe}">${rotulo} · ${Math.round(score * 100)}% de semelhança</span>`;
 }
 
 // ---------------------------------------------------------------------
@@ -560,7 +560,7 @@ function agendarSimulacaoContrarregulacao() {
       idOcorrencia: IDS_DEMO.clusterSamu,
       de: 'USB',
       para: 'USA',
-      motivo: 'Reavaliação do médico regulador: vítima evoluiu com instabilidade (demonstração).',
+      motivo: 'Reavaliação do médico regulador: vítima evoluiu com instabilidade.',
     });
     montarAlertasContrarregulacao();
   }, 6000);
@@ -604,7 +604,7 @@ function montarCabecalho(paginaAtual) {
         </nav>
         <div class="controles">
           <label class="controle">
-            Ver como
+            Estou na central
             <select id="seletorOrgao">
               <option value="CBMDF" ${verComo === 'CBMDF' ? 'selected' : ''}>CBMDF</option>
               <option value="SAMU" ${verComo === 'SAMU' ? 'selected' : ''}>SAMU</option>
@@ -613,20 +613,21 @@ function montarCabecalho(paginaAtual) {
           </label>
           <label class="controle controle-toggle">
             <input type="checkbox" id="toggleMotor" ${motorLigado ? 'checked' : ''}>
-            Motor de similaridade
+            Sugerir ocorrências parecidas
           </label>
-          <div class="camadas-grupo" title="Camadas de integração em avaliação — cada uma corresponde a um processo do plano de trabalho">
-            <span class="camadas-rotulo">Camadas</span>
-            <label class="controle-camada"><input type="checkbox" id="camadaP2" ${camadas.p2 ? 'checked' : ''}>P2 Transferência</label>
-            <label class="controle-camada"><input type="checkbox" id="camadaP3" ${camadas.p3 ? 'checked' : ''}>P3 Regulação</label>
-            <label class="controle-camada"><input type="checkbox" id="camadaP4" ${camadas.p4 ? 'checked' : ''}>P4 Contra-reg.</label>
+
+          <div class="camadas-grupo" title="Ligue e desligue cada recurso para avaliar um de cada vez — ou todos juntos">
+            <span class="camadas-rotulo">Mostrar também</span>
+            <label class="controle-camada"><input type="checkbox" id="camadaP2" ${camadas.p2 ? 'checked' : ''}>Transferência de ligação</label>
+            <label class="controle-camada"><input type="checkbox" id="camadaP3" ${camadas.p3 ? 'checked' : ''}>Situação da ambulância</label>
+            <label class="controle-camada"><input type="checkbox" id="camadaP4" ${camadas.p4 ? 'checked' : ''}>Aviso de troca de recurso</label>
           </div>
           <button id="btnTour" class="btn-secundario" type="button" title="Tour guiado desta tela">🎓 Tour</button>
           <button id="btnReiniciar" class="btn-secundario" type="button">Reiniciar demonstração</button>
         </div>
       </div>
       <div class="aviso-degradado" id="avisoDegradado" ${motorLigado ? 'hidden' : ''}>
-        Modo degradado — motor de similaridade desligado, ordenação por horário (§4.3 do documento de visão)
+        Sugestão automática desligada — as ocorrências próximas continuam aparecendo, em ordem de horário
       </div>
     </header>
   `;

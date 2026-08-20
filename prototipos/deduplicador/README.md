@@ -26,9 +26,14 @@ python -m http.server 8000
 | `evento.html` | Regulador / Supervisor | Evento com ocorrências vinculadas lado a lado (P2), desvínculo |
 
 O cabeçalho, presente nas três telas, controla:
-- **Ver como** — troca o órgão sob cuja ótica a tela é exibida (CBMDF/SAMU/PMDF), sem autenticação real.
-- **Motor de similaridade** — liga/desliga o motor para demonstrar o desacoplamento (§4.3 do documento
-  de visão): as telas continuam funcionando, só muda a ordenação e some o score.
+- **Estou na central** — troca o órgão sob cuja ótica a tela é exibida (CBMDF/SAMU/PMDF), sem autenticação real.
+- **Sugerir ocorrências parecidas** — liga/desliga o motor para demonstrar o desacoplamento (§4.3 do
+  documento de visão): as telas continuam funcionando, só muda a ordenação e some o score.
+
+> **Nota de linguagem.** As telas do protótipo são lidas por operadores das centrais, não pela equipe
+> do projeto: nenhum texto de tela cita códigos `HU`/`P1–P4`/`RN` nem linka documentação. Os rótulos
+> em negrito acima são os que aparecem na tela; os códigos permanecem apenas neste README, nos
+> comentários de código e nos documentos de `docs/`.
 - **Reiniciar demonstração** — apaga vínculos, descartes e cadastros feitos durante a sessão e restaura
   os dados originais.
 
@@ -40,10 +45,11 @@ botão "Reiniciar demonstração" limpa essa chave e recarrega a massa de dados 
 ## Camadas de integração (P2/P3/P4)
 
 Além da deduplicação (P1), as telas carregam as demais camadas de integração do plano de
-trabalho, cada uma ligável/desligável no grupo **Camadas** do cabeçalho:
+trabalho, cada uma ligável/desligável no grupo **Mostrar também** do cabeçalho (na tela elas
+aparecem como "Transferência de ligação", "Situação da ambulância" e "Aviso de troca de recurso"):
 
 - **P2 — Transferência com contexto**: na tela do atendente, o botão "Transferir ligação com
-  contexto" envia o cadastro parcial à outra central; trocando "Ver como" para a central de
+  contexto" envia o cadastro parcial à outra central; escolhendo a central de
   destino, um banner permite assumir a triagem com o formulário pré-carregado.
 - **P3 — Status da regulação médica**: ocorrências do SAMU exibem o badge de regulação
   (em regulação / definida · USB/USA) em todas as listas. A decisão clínica permanece no SAU —

@@ -54,7 +54,8 @@ function selecionarEvento(idEvento) {
 
 function renderizarDetalheEvento() {
   const ocorrencias = ESTADO.obterOcorrenciasDoEvento(eventoSelecionado).sort((a, b) => new Date(a.abertura) - new Date(b.abertura));
-  document.getElementById('tituloEvento').textContent = `${eventoSelecionado} — ${ocorrencias.length} ocorrências vinculadas`;
+  const rotuloEvento = ocorrencias.length ? ocorrencias[0].endereco_normalizado : eventoSelecionado;
+  document.getElementById('tituloEvento').textContent = `${rotuloEvento} — ${ocorrencias.length} ocorrências vinculadas`;
 
   const verComo = ESTADO.obterVerComo();
   const destino = document.getElementById('detalheEvento');
@@ -81,7 +82,7 @@ function renderizarDetalheEvento() {
             <dt>Identificador</dt>
             <dd>${o.id_ocorrencia}</dd>
             <dt>Endereço</dt>
-            <dd class="${suprimir ? 'campo-suprimido' : ''}">${suprimir ? '🔒 Reservado (RN-13)' : escaparHtml(o.endereco_normalizado)}</dd>
+            <dd class="${suprimir ? 'campo-suprimido' : ''}">${suprimir ? '🔒 Reservado' : escaparHtml(o.endereco_normalizado)}</dd>
             <dt>Tipo</dt>
             <dd>${suprimir ? '🔒 Reservado' : labelTipo(o.tipo_canonico)}</dd>
             <dt>Abertura</dt>
@@ -91,7 +92,7 @@ function renderizarDetalheEvento() {
             <dd class="${suprimir ? 'campo-suprimido' : ''}">${suprimir ? '🔒 Conteúdo suprimido — acesso restrito ao órgão de origem' : escaparHtml(o.resumo)}</dd>
           </dl>
           <div class="acoes" style="margin-top:12px;">
-            ${podeContrarregular ? `<button class="btn btn-vincular" onclick="contrarregularDemo('${o.id_ocorrencia}')">Contra-regular (demo)</button>` : ''}
+            ${podeContrarregular ? `<button class="btn btn-vincular" onclick="contrarregularDemo('${o.id_ocorrencia}')">Contra-regular</button>` : ''}
             <button class="btn btn-desvincular" onclick="desvincularOcorrencia('${o.id_ocorrencia}')">Desvincular</button>
           </div>
         </article>
@@ -108,8 +109,8 @@ async function contrarregularDemo(idOcorrencia) {
   const de = o.recurso_regulado || 'USB';
   const para = de === 'USA' ? 'USB' : 'USA';
   const confirmado = await confirmarAcao({
-    titulo: 'Contra-regulação (demonstração)',
-    mensagem: `Alterar o recurso regulado de ${de} para ${para}? As demais centrais com recurso empenhado nesta ocorrência serão notificadas em tempo real (P4). Para ver a notificação chegar, troque "Ver como" para CBMDF ou PMDF depois de contra-regular.`,
+    titulo: 'Contra-regulação',
+    mensagem: `Alterar o recurso regulado de ${de} para ${para}? As outras centrais que já enviaram equipe para esta ocorrência serão avisadas na hora. Para ver o aviso chegar, escolha CBMDF ou PMDF no cabeçalho depois de contra-regular.`,
     textoConfirmar: 'Contra-regular',
   });
   if (!confirmado) return;
@@ -117,7 +118,7 @@ async function contrarregularDemo(idOcorrencia) {
     idOcorrencia,
     de,
     para,
-    motivo: 'Reavaliação do médico regulador (demonstração).',
+    motivo: 'Reavaliação do médico regulador.',
   });
   renderizarListaEventos();
   montarAlertasContrarregulacao();
@@ -126,7 +127,7 @@ async function contrarregularDemo(idOcorrencia) {
 async function desvincularOcorrencia(idOcorrencia) {
   const justificativa = await pedirTexto({
     titulo: 'Desvincular ocorrência',
-    mensagem: 'Justificativa para desfazer o vínculo (obrigatória — RN-03):',
+    mensagem: 'Por que estas ocorrências não são o mesmo evento? A justificativa é obrigatória e fica registrada.',
     campo: 'Justificativa',
     obrigatorio: true,
     textoConfirmar: 'Desvincular',

@@ -78,7 +78,7 @@ const MOTOR = (function () {
       return {
         candidata,
         score: null,
-        motivo: 'Mesma região administrativa e tipo compatível — geolocalização de baixa precisão',
+        motivo: 'Mesma região administrativa e mesmo tipo — endereço sem coordenada exata',
         baixaConfianca: true,
         distanciaM: null,
         diffMin,
@@ -96,7 +96,7 @@ const MOTOR = (function () {
     return {
       candidata,
       score,
-      motivo: `${Math.round(distanciaM)} m, ${Math.round(diffMin)} min, tipo compatível`,
+      motivo: `${Math.round(distanciaM)} m, ${Math.round(diffMin)} min, mesmo tipo`,
       baixaConfianca: false,
       distanciaM,
       diffMin,
